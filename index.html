@@ -1317,7 +1317,7 @@ document.querySelectorAll('.notify-btn').forEach(btn => {
 });
 
 // Subscribe Form
-const API_URL = 'YOUR_API_GATEWAY_URL_HERE/subscribe';
+const API_URL = 'https://2xfpwrc72g.execute-api.us-east-1.amazonaws.com/subscribe';
 document.getElementById('sub-btn').addEventListener('click',async function(){
   const name=document.getElementById('sub-name').value.trim();
   const email=document.getElementById('sub-email').value.trim();
@@ -1486,6 +1486,7 @@ function showAddedToast(name) {
 }
 
 // ── Init ──
+document.documentElement.classList.add('js-loaded');
 document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge();
   renderCart();

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Checkout — Browed by Olá</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a0f0f;--blush:#f2ddd8;--rose:#c49090;--deep:#8b4a4a;--warm:#faf5f3;--cream:#fff9f7;--gold:#c9a87c;--smoke:rgba(26,15,15,0.06)}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;cursor:none}
+.cursor{position:fixed;width:12px;height:12px;background:var(--deep);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--rose);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+
+/* CHECKOUT NAV */
+.co-nav{
+  background:var(--cream);border-bottom:1px solid var(--smoke);
+  padding:1.25rem 4rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.co-nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.co-nav-logo img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--rose)}
+.co-nav-logo span{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--ink)}
+.co-nav-steps{display:flex;gap:0;align-items:center}
+.step{display:flex;align-items:center;gap:.5rem;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(26,15,15,.3);font-weight:500}
+.step.active{color:var(--deep)}
+.step.done{color:var(--rose)}
+.step-num{width:22px;height:22px;border-radius:50%;border:1px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.6rem}
+.step-div{width:40px;height:1px;background:var(--smoke);margin:0 .5rem}
+.co-back{font-size:.72rem;color:var(--rose);text-decoration:none;letter-spacing:.1em;}
+
+/* LAYOUT */
+.co-wrap{
+  display:grid;grid-template-columns:1fr 420px;
+  min-height:calc(100vh - 70px);
+}
+.co-left{padding:3.5rem 4rem;border-right:1px solid var(--smoke)}
+.co-right{padding:3rem 3rem;background:var(--warm);}
+
+/* FORM SECTIONS */
+.co-section{margin-bottom:2.5rem}
+.co-section-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.25rem;font-weight:400;margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.co-section-title::before{content:'';width:16px;height:1px;background:var(--deep)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.field-full{margin-bottom:1rem}
+.field-label{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(26,15,15,.45);font-weight:500;display:block;margin-bottom:.4rem}
+.field-input{
+  width:100%;border:none;border-bottom:1px solid rgba(196,144,144,.4);
+  padding:.8rem 0;background:none;
+  font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--ink);
+  outline:none;transition:border-color .25s;font-weight:300;
+}
+.field-input:focus{border-color:var(--deep)}
+.field-input::placeholder{color:rgba(26,15,15,.25)}
+.field-select{
+  width:100%;border:none;border-bottom:1px solid rgba(196,144,144,.4);
+  padding:.8rem 0;background:none;
+  font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--ink);
+  outline:none;transition:border-color .25s;font-weight:300;
+  appearance:none;cursor:pointer;
+}
+.field-select:focus{border-color:var(--deep)}
+
+/* SHIPPING OPTIONS */
+.shipping-opts{display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.5rem}
+.ship-opt{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 1.25rem;border:1px solid rgba(196,144,144,.3);
+  cursor:pointer;transition:border-color .2s,background .2s;
+  position:relative;
+}
+.ship-opt.selected{border-color:var(--deep);background:var(--blush)}
+.ship-opt input[type=radio]{accent-color:var(--deep);width:16px;height:16px;flex-shrink:0}
+.ship-opt-info{flex:1}
+.ship-opt-name{font-size:.85rem;font-weight:500;margin-bottom:.2rem}
+.ship-opt-desc{font-size:.75rem;color:rgba(26,15,15,.45);font-weight:300}
+.ship-opt-price{font-family:'Playfair Display',serif;font-size:1rem;flex-shrink:0}
+
+/* PAYMENT */
+.payment-tabs{display:flex;gap:0;margin-bottom:1.5rem;border:1px solid rgba(196,144,144,.3)}
+.pay-tab{
+  flex:1;padding:.85rem;background:none;border:none;
+  font-family:'DM Sans',sans-serif;font-size:.72rem;
+  letter-spacing:.15em;text-transform:uppercase;font-weight:500;
+  cursor:pointer;color:rgba(26,15,15,.45);
+  transition:all .2s;border-right:1px solid rgba(196,144,144,.3);
+}
+.pay-tab:last-child{border-right:none}
+.pay-tab.active{background:var(--ink);color:white}
+.payment-panel{display:none}
+.payment-panel.active{display:block}
+.card-icons{display:flex;gap:.5rem;margin-bottom:1.25rem}
+.card-icon{
+  padding:.3rem .6rem;border:1px solid rgba(196,144,144,.3);
+  font-size:.65rem;letter-spacing:.05em;color:rgba(26,15,15,.5);font-weight:500;
+}
+.paystack-info{
+  padding:1.5rem;background:var(--blush);
+  text-align:center;
+}
+.paystack-info p{font-size:.85rem;color:rgba(26,15,15,.6);font-weight:300;line-height:1.7;margin-bottom:1rem}
+.paystack-logo{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--deep);font-weight:700}
+
+/* STRIPE NOTICE */
+.stripe-notice{
+  padding:.75rem 1rem;
+  background:rgba(196,144,144,.1);
+  border-left:2px solid var(--rose);
+  font-size:.75rem;color:rgba(26,15,15,.5);
+  margin-bottom:1.25rem;font-weight:300;line-height:1.6;
+}
+#stripe-card-element{
+  padding:1rem;border:1px solid rgba(196,144,144,.4);
+  min-height:50px;background:white;
+  margin-bottom:1rem;
+}
+
+/* PLACE ORDER */
+.place-order-btn{
+  width:100%;background:var(--ink);color:white;border:none;
+  padding:1.1rem;margin-top:1rem;
+  font-family:'DM Sans',sans-serif;
+  font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;
+  font-weight:500;cursor:pointer;transition:background .3s;
+  position:relative;overflow:hidden;
+}
+.place-order-btn::before{
+  content:'';position:absolute;inset:0;background:var(--deep);
+  transform:translateX(-100%);transition:transform .3s;
+}
+.place-order-btn:hover::before{transform:translateX(0)}
+.place-order-btn span{position:relative;z-index:1}
+.secure-badge{
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  margin-top:1rem;font-size:.68rem;color:rgba(26,15,15,.3);letter-spacing:.1em;
+}
+
+/* ORDER SUMMARY */
+.summary-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.25rem;font-weight:400;margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.summary-title::before{content:'';width:16px;height:1px;background:var(--deep)}
+.summary-items{margin-bottom:1.5rem}
+.summary-item{
+  display:flex;gap:1rem;padding:.85rem 0;
+  border-bottom:1px solid var(--smoke);
+}
+.summary-item-img{
+  width:56px;height:56px;flex-shrink:0;
+  background:var(--blush);overflow:hidden;position:relative;
+}
+.summary-item-img img{width:100%;height:100%;object-fit:cover}
+.summary-item-qty{
+  position:absolute;top:-6px;right:-6px;
+  background:var(--ink);color:white;
+  width:18px;height:18px;border-radius:50%;
+  font-size:.6rem;display:flex;align-items:center;justify-content:center;
+  font-weight:700;
+}
+.summary-item-name{font-size:.82rem;font-weight:400;margin-bottom:.2rem}
+.summary-item-shade{font-size:.72rem;color:var(--rose);font-weight:300}
+.summary-item-price{
+  margin-left:auto;font-family:'Playfair Display',serif;
+  font-size:.95rem;flex-shrink:0;
+}
+.summary-empty{
+  text-align:center;padding:2rem;
+  font-size:.85rem;color:rgba(26,15,15,.4);font-weight:300;
+}
+.summary-line{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.6rem 0;font-size:.85rem;
+  border-bottom:1px solid var(--smoke);
+}
+.summary-line:last-child{border-bottom:none}
+.summary-total{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 0;
+  font-family:'Playfair Display',serif;font-size:1.2rem;
+  border-top:1px solid var(--smoke);margin-top:.5rem;
+}
+.promo-row{display:flex;gap:.5rem;margin:1rem 0}
+.promo-input{
+  flex:1;border:1px solid rgba(196,144,144,.4);
+  padding:.65rem 1rem;background:none;
+  font-family:'DM Sans',sans-serif;font-size:.82rem;
+  outline:none;transition:border-color .2s;
+}
+.promo-input:focus{border-color:var(--deep)}
+.promo-btn{
+  background:var(--ink);color:white;border:none;
+  padding:.65rem 1.25rem;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:500;transition:background .2s;
+}
+.promo-btn:hover{background:var(--deep)}
+#promoMsg{font-size:.75rem;margin-top:.4rem;font-weight:300}
+
+/* SUCCESS */
+.order-success{
+  display:none;text-align:center;padding:4rem 2rem;
+}
+.success-icon{
+  font-size:3rem;margin-bottom:1.5rem;
+  animation:pop .5s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.order-success h2{
+  font-family:'Playfair Display',serif;
+  font-size:2rem;font-weight:400;margin-bottom:.75rem;
+}
+.order-success h2 em{font-style:italic;color:var(--deep)}
+.order-success p{font-size:.9rem;color:rgba(26,15,15,.55);font-weight:300;line-height:1.8;margin-bottom:2rem}
+.order-num{
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem;color:var(--deep);
+  padding:1rem;border:1px solid var(--rose);
+  display:inline-block;margin-bottom:2rem;
+  letter-spacing:.1em;
+}
+
+@media(max-width:900px){
+  .co-wrap{grid-template-columns:1fr}
+  .co-right{border-top:1px solid var(--smoke)}
+  .co-left,.co-right{padding:2rem 1.5rem}
+  .co-nav{padding:1rem 1.5rem}
+  .field-row{grid-template-columns:1fr}
+  .co-nav-steps{display:none}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- CHECKOUT NAV -->
+<div class="co-nav">
+  <a href="index.html" class="co-nav-logo">
+    <img src="images/logo.jpeg" alt="Browed by Olá"/>
+    <span>Browed by Olá</span>
+  </a>
+  <div class="co-nav-steps">
+    <div class="step active"><span class="step-num">1</span> Information</div>
+    <div class="step-div"></div>
+    <div class="step" id="step2"><span class="step-num">2</span> Shipping</div>
+    <div class="step-div"></div>
+    <div class="step" id="step3"><span class="step-num">3</span> Payment</div>
+  </div>
+  <a href="javascript:history.back()" class="co-back">← Back</a>
+</div>
+
+<div class="co-wrap" id="checkoutWrap">
+  <!-- LEFT: FORM -->
+  <div class="co-left">
+
+    <!-- CONTACT -->
+    <div class="co-section">
+      <h2 class="co-section-title">Contact Information</h2>
+      <div class="field-full">
+        <label class="field-label">Email Address</label>
+        <input type="email" class="field-input" id="coEmail" placeholder="your@email.com"/>
+      </div>
+      <div class="field-row">
+        <div>
+          <label class="field-label">First Name</label>
+          <input type="text" class="field-input" id="coFirstName" placeholder="First name"/>
+        </div>
+        <div>
+          <label class="field-label">Last Name</label>
+          <input type="text" class="field-input" id="coLastName" placeholder="Last name"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHIPPING ADDRESS -->
+    <div class="co-section">
+      <h2 class="co-section-title">Shipping Address</h2>
+      <div class="field-full">
+        <label class="field-label">Country</label>
+        <select class="field-select" id="coCountry" onchange="updateShipping()">
+          <option value="">Select country...</option>
+          <option value="US">United States</option>
+          <option value="GB">United Kingdom</option>
+          <option value="CA">Canada</option>
+          <option value="AU">Australia</option>
+          <option value="NG">Nigeria</option>
+          <option value="GH">Ghana</option>
+          <option value="ZA">South Africa</option>
+          <option value="KE">Kenya</option>
+          <option value="FR">France</option>
+          <option value="DE">Germany</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="field-full">
+        <label class="field-label">Address Line 1</label>
+        <input type="text" class="field-input" id="coAddr1" placeholder="Street address"/>
+      </div>
+      <div class="field-full">
+        <label class="field-label">Address Line 2 (optional)</label>
+        <input type="text" class="field-input" placeholder="Apartment, suite, etc."/>
+      </div>
+      <div class="field-row">
+        <div>
+          <label class="field-label">City</label>
+          <input type="text" class="field-input" id="coCity" placeholder="City"/>
+        </div>
+        <div>
+          <label class="field-label">Postal / ZIP Code</label>
+          <input type="text" class="field-input" placeholder="Postal code"/>
+        </div>
+      </div>
+      <div class="field-full">
+        <label class="field-label">Phone Number</label>
+        <input type="tel" class="field-input" placeholder="+1 (555) 000-0000"/>
+      </div>
+    </div>
+
+    <!-- SHIPPING METHOD -->
+    <div class="co-section">
+      <h2 class="co-section-title">Shipping Method</h2>
+      <div class="shipping-opts" id="shippingOpts">
+        <label class="ship-opt selected">
+          <input type="radio" name="shipping" value="standard" checked onchange="selectShipping(this)"/>
+          <div class="ship-opt-info">
+            <p class="ship-opt-name">Standard Shipping</p>
+            <p class="ship-opt-desc" id="standardDesc">5–10 business days</p>
+          </div>
+          <span class="ship-opt-price" id="standardPrice">$5.99</span>
+        </label>
+        <label class="ship-opt">
+          <input type="radio" name="shipping" value="express" onchange="selectShipping(this)"/>
+          <div class="ship-opt-info">
+            <p class="ship-opt-name">Express Shipping</p>
+            <p class="ship-opt-desc" id="expressDesc">2–5 business days</p>
+          </div>
+          <span class="ship-opt-price" id="expressPrice">$14.99</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- PAYMENT -->
+    <div class="co-section">
+      <h2 class="co-section-title">Payment</h2>
+
+      <div class="payment-tabs">
+        <button class="pay-tab active" onclick="switchPayment('stripe', this)">💳 Card (Stripe)</button>
+        <button class="pay-tab" onclick="switchPayment('paystack', this)">🏦 Paystack</button>
+        <button class="pay-tab" onclick="switchPayment('bank', this)">🏛 Bank Transfer</button>
+      </div>
+
+      <!-- STRIPE PANEL -->
+      <div class="payment-panel active" id="panel-stripe">
+        <div class="card-icons">
+          <span class="card-icon">VISA</span>
+          <span class="card-icon">MC</span>
+          <span class="card-icon">AMEX</span>
+          <span class="card-icon">DISCOVER</span>
+        </div>
+        <div class="stripe-notice">
+          🔒 Payments are processed securely via Stripe. Your card details are never stored on our servers.
+          <br/><br/>
+          <strong>To activate:</strong> Add your Stripe publishable key in checkout.html where indicated.
+        </div>
+        <div id="stripe-card-element">
+          <!-- Stripe Elements will mount here -->
+          <div style="padding:.5rem;font-size:.8rem;color:rgba(26,15,15,.4);">
+            Card field loads here after adding your Stripe key
+          </div>
+        </div>
+        <div class="field-full">
+          <label class="field-label">Name on Card</label>
+          <input type="text" class="field-input" placeholder="Full name as on card"/>
+        </div>
+      </div>
+
+      <!-- PAYSTACK PANEL -->
+      <div class="payment-panel" id="panel-paystack">
+        <div class="paystack-info">
+          <p>Pay securely with Paystack — supports cards, bank transfers, USSD and mobile money across Africa.</p>
+          <div class="paystack-logo">Powered by Paystack</div>
+        </div>
+        <div class="stripe-notice" style="margin-top:1rem">
+          <strong>To activate:</strong> Add your Paystack public key in checkout.html where indicated.
+        </div>
+      </div>
+
+      <!-- BANK TRANSFER PANEL -->
+      <div class="payment-panel" id="panel-bank">
+        <div style="padding:1.5rem;background:var(--blush);">
+          <p style="font-size:.82rem;font-weight:500;margin-bottom:1rem;">Bank Transfer Instructions</p>
+          <p style="font-size:.78rem;color:rgba(26,15,15,.6);font-weight:300;line-height:1.8;margin-bottom:.5rem;">
+            Please transfer the total amount to the account below. Your order will be processed once payment is confirmed (1–2 business days).
+          </p>
+          <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.5rem;">
+            <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:.4rem 0;border-bottom:1px solid rgba(196,144,144,.3);">
+              <span style="color:rgba(26,15,15,.45);font-weight:300">Bank Name</span>
+              <span style="font-weight:500">Add Your Bank Name</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:.4rem 0;border-bottom:1px solid rgba(196,144,144,.3);">
+              <span style="color:rgba(26,15,15,.45);font-weight:300">Account Name</span>
+              <span style="font-weight:500">Browed by Olá</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:.4rem 0;">
+              <span style="color:rgba(26,15,15,.45);font-weight:300">Account Number</span>
+              <span style="font-weight:500">Add Your Account Number</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="place-order-btn" onclick="placeOrder()"><span>Place Order →</span></button>
+    <div class="secure-badge">🔒 Secure checkout · SSL encrypted · Your data is protected</div>
+
+  </div>
+
+  <!-- RIGHT: ORDER SUMMARY -->
+  <div class="co-right">
+    <h2 class="summary-title">Order Summary</h2>
+    <div class="summary-items" id="summaryItems">
+      <div class="summary-empty">Your cart is empty</div>
+    </div>
+
+    <!-- PROMO CODE -->
+    <div class="promo-row">
+      <input type="text" class="promo-input" id="promoCode" placeholder="Discount code"/>
+      <button class="promo-btn" onclick="applyPromo()">Apply</button>
+    </div>
+    <p id="promoMsg"></p>
+
+    <div class="summary-line">
+      <span>Subtotal</span>
+      <span id="summarySubtotal">$0.00</span>
+    </div>
+    <div class="summary-line">
+      <span>Shipping</span>
+      <span id="summaryShipping">$5.99</span>
+    </div>
+    <div class="summary-line" id="discountRow" style="display:none;color:var(--deep)">
+      <span>Discount</span>
+      <span id="discountAmt"></span>
+    </div>
+    <div class="summary-total">
+      <span>Total</span>
+      <span id="summaryTotal">$0.00</span>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER SUCCESS -->
+<div class="order-success" id="orderSuccess">
+  <div class="success-icon">🌸</div>
+  <h2>Order <em>Confirmed!</em></h2>
+  <p>Thank you so much for your order. You'll receive a confirmation email shortly.<br/>We're so excited to get your Browed by Olá products to you!</p>
+  <div class="order-num" id="orderNum">Order #OLA-00001</div>
+  <a href="index.html" style="display:inline-block;background:var(--ink);color:white;padding:1rem 2.5rem;text-decoration:none;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;">Back to Home</a>
+</div>
+
+<script>
+// ── Cursor ──
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
+animRing();
+document.querySelectorAll('a,button,input,select').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';cur.style.background='var(--rose)';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';cur.style.background='var(--deep)';});
+});
+
+// ── CART DATA ──
+const PRODUCT_IMAGES = {
+  "dark-brown":"images/dark_brown.jpeg",
+  "soft-black":"images/dark_brown.jpeg",
+  "definer-duo":"images/dark_brown.jpeg",
+  "brow-gel":"images/dark_brown.jpeg",
+  "microblade":"images/dark_brown.jpeg",
+  "brow-oil":"images/dark_brown.jpeg"
+};
+
+let cart = JSON.parse(localStorage.getItem('ola_cart') || '[]');
+let shippingCost = 5.99;
+let discount = 0;
+let activePayment = 'stripe';
+
+// ── Render Summary ──
+function renderSummary() {
+  const el = document.getElementById('summaryItems');
+  if (!cart.length) { el.innerHTML='<div class="summary-empty">Your cart is empty</div>'; }
+  else {
+    el.innerHTML = cart.map(item=>`
+      <div class="summary-item">
+        <div class="summary-item-img">
+          <img src="${PRODUCT_IMAGES[item.id]||''}" alt="${item.name}"/>
+          <span class="summary-item-qty">${item.qty}</span>
+        </div>
+        <div style="flex:1">
+          <p class="summary-item-name">${item.name}</p>
+          <p class="summary-item-shade">${item.shade}</p>
+        </div>
+        <p class="summary-item-price">$${(item.price*item.qty).toFixed(2)}</p>
+      </div>`).join('');
+  }
+  updateTotals();
+}
+
+function cartTotal() { return cart.reduce((s,i)=>s+i.price*i.qty,0); }
+
+function updateTotals() {
+  const sub = cartTotal();
+  const total = sub + shippingCost - discount;
+  document.getElementById('summarySubtotal').textContent='$'+sub.toFixed(2);
+  document.getElementById('summaryShipping').textContent='$'+shippingCost.toFixed(2);
+  document.getElementById('summaryTotal').textContent='$'+Math.max(0,total).toFixed(2);
+}
+
+// ── Shipping ──
+const SHIPPING = {
+  US: {standard:{price:5.99,desc:"5–7 business days"},express:{price:12.99,desc:"2–3 business days"}},
+  GB: {standard:{price:8.99,desc:"7–10 business days"},express:{price:18.99,desc:"3–5 business days"}},
+  CA: {standard:{price:7.99,desc:"6–9 business days"},express:{price:15.99,desc:"3–4 business days"}},
+  NG: {standard:{price:6.99,desc:"7–14 business days"},express:{price:19.99,desc:"4–7 business days"}},
+  default:{standard:{price:9.99,desc:"10–15 business days"},express:{price:22.99,desc:"5–8 business days"}}
+};
+
+function updateShipping() {
+  const country = document.getElementById('coCountry').value;
+  const rates = SHIPPING[country] || SHIPPING.default;
+  document.getElementById('standardPrice').textContent='$'+rates.standard.price.toFixed(2);
+  document.getElementById('expressPrice').textContent='$'+rates.express.price.toFixed(2);
+  document.getElementById('standardDesc').textContent=rates.standard.desc;
+  document.getElementById('expressDesc').textContent=rates.express.desc;
+  shippingCost = rates.standard.price;
+  updateTotals();
+}
+
+function selectShipping(radio) {
+  document.querySelectorAll('.ship-opt').forEach(o=>o.classList.remove('selected'));
+  radio.closest('.ship-opt').classList.add('selected');
+  const country = document.getElementById('coCountry').value;
+  const rates = SHIPPING[country] || SHIPPING.default;
+  shippingCost = radio.value==='express' ? rates.express.price : rates.standard.price;
+  updateTotals();
+}
+
+// ── Payment tabs ──
+function switchPayment(type, btn) {
+  activePayment = type;
+  document.querySelectorAll('.pay-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.payment-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+type).classList.add('active');
+  document.getElementById('step2').classList.add('done');
+  document.getElementById('step3').classList.add('active');
+}
+
+// ── Promo code ──
+const PROMO_CODES = { 'OLA15':0.15, 'EARLYACCESS':0.20, 'BROWS10':0.10 };
+function applyPromo() {
+  const code = document.getElementById('promoCode').value.trim().toUpperCase();
+  const msg = document.getElementById('promoMsg');
+  if (PROMO_CODES[code]) {
+    const pct = PROMO_CODES[code];
+    discount = cartTotal() * pct;
+    document.getElementById('discountRow').style.display='flex';
+    document.getElementById('discountAmt').textContent='-$'+discount.toFixed(2);
+    msg.style.color='var(--deep)';
+    msg.textContent='✓ Code applied! '+Math.round(pct*100)+'% off';
+    updateTotals();
+  } else {
+    msg.style.color='#c0392b';
+    msg.textContent='Invalid promo code';
+  }
+}
+
+// ── Place Order ──
+function placeOrder() {
+  const email = document.getElementById('coEmail').value;
+  const first = document.getElementById('coFirstName').value;
+  const country = document.getElementById('coCountry').value;
+  const city = document.getElementById('coCity').value;
+
+  if (!email || !first || !country || !city) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+  if (!cart.length) { alert('Your cart is empty!'); return; }
+
+  if (activePayment === 'stripe') {
+    // ══════════════════════════════════════════════
+    // STRIPE INTEGRATION
+    // 1. Sign up at https://stripe.com
+    // 2. Get your publishable key from Dashboard → Developers → API Keys
+    // 3. Replace 'YOUR_STRIPE_PUBLISHABLE_KEY' below
+    // 4. Set up a backend endpoint to create PaymentIntent
+    // ══════════════════════════════════════════════
+    const STRIPE_KEY = 'YOUR_STRIPE_PUBLISHABLE_KEY';
+    if (STRIPE_KEY === 'YOUR_STRIPE_PUBLISHABLE_KEY') {
+      simulateOrder();
+      return;
+    }
+    // const stripe = Stripe(STRIPE_KEY);
+    // stripe.redirectToCheckout({ ... });
+
+  } else if (activePayment === 'paystack') {
+    // ══════════════════════════════════════════════
+    // PAYSTACK INTEGRATION
+    // 1. Sign up at https://paystack.com
+    // 2. Get your public key from Settings → API Keys
+    // 3. Replace 'YOUR_PAYSTACK_PUBLIC_KEY' below
+    // ══════════════════════════════════════════════
+    const PAYSTACK_KEY = 'YOUR_PAYSTACK_PUBLIC_KEY';
+    if (PAYSTACK_KEY === 'YOUR_PAYSTACK_PUBLIC_KEY') {
+      simulateOrder();
+      return;
+    }
+    const total = Math.round((cartTotal() + shippingCost - discount) * 100);
+    const handler = PaystackPop.setup({
+      key: PAYSTACK_KEY,
+      email: email,
+      amount: total,
+      currency: 'USD',
+      callback: function(response) { handlePaystackSuccess(response); },
+      onClose: function() { alert('Payment cancelled'); }
+    });
+    handler.openIframe();
+
+  } else {
+    // Bank transfer — just confirm order
+    simulateOrder();
+  }
+}
+
+function simulateOrder() {
+  const orderNum = 'OLA-' + Math.floor(10000 + Math.random()*90000);
+  document.getElementById('orderNum').textContent = 'Order #' + orderNum;
+  document.getElementById('checkoutWrap').style.display = 'none';
+  document.getElementById('orderSuccess').style.display = 'block';
+  localStorage.removeItem('ola_cart');
+  window.scrollTo(0, 0);
+}
+
+function handlePaystackSuccess(response) {
+  simulateOrder();
+}
+
+// Init
+renderSummary();
+</script>
+</body>
+</html>

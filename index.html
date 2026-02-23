@@ -657,7 +657,7 @@ footer{
 
 /* SCROLL REVEAL */
 .reveal{
-  opacity:0;transform:translateY(30px);
+  opacity:1;transform:translateY(0);
   transition:opacity 0.7s ease,transform 0.7s ease;
 }
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -1178,7 +1178,7 @@ footer{
 
 <!-- SUBSCRIBE -->
 <section class="subscribe" id="subscribe">
-  <div class="subscribe-text reveal">
+  <div class="subscribe-text">
     <p class="s-label">Early Access</p>
     <h2>Be first to <em>shop</em> the launch</h2>
     <p>Join the Olá Beauty inner circle. Get early access, exclusive discounts, and behind-the-scenes content before the world.</p>
@@ -1189,7 +1189,7 @@ footer{
       <div class="perk"><span class="perk-dot">◈</span>Free shipping on launch orders</div>
     </div>
   </div>
-  <div class="sub-form reveal">
+  <div class="sub-form">
     <h3>Join the <em>List</em></h3>
     <p>No spam, ever. Unsubscribe anytime.</p>
     <div class="field">
@@ -1486,7 +1486,6 @@ function showAddedToast(name) {
 }
 
 // ── Init ──
-document.documentElement.classList.add('js-loaded');
 document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge();
   renderCart();

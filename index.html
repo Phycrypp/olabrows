@@ -1314,11 +1314,9 @@ document.querySelectorAll('.notify-btn').forEach(btn => {
     this.style.borderColor = 'var(--deep)';
   });
 });
-});
 
 // Subscribe Form
 const API_URL = 'https://2xfpwrc72g.execute-api.us-east-1.amazonaws.com/subscribe';
-document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('sub-btn').addEventListener('click',async function(){
   const name=document.getElementById('sub-name').value.trim();
   const email=document.getElementById('sub-email').value.trim();
@@ -1346,7 +1344,6 @@ document.getElementById('sub-btn').addEventListener('click',async function(){
     msg.textContent='Something went wrong. Please try again.';
   }
 });
-}); // end DOMContentLoaded
 </script>
 <script>
 

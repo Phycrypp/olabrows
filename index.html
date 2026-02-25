@@ -1330,6 +1330,7 @@ document.getElementById('sub-btn').addEventListener('click',async function(){
   try{
     const res=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({first_name:name,email})});
     const data=await res.json();
+    console.log('API response:', res.status, data);
     if(res.ok&&data.success){
       btn.querySelector('span').textContent="✓ You're on the list!";
       btn.style.background='var(--deep)';
@@ -1338,10 +1339,11 @@ document.getElementById('sub-btn').addEventListener('click',async function(){
       document.getElementById('sub-name').value='';
       document.getElementById('sub-email').value='';
     }else throw new Error();
-  }catch{
+  }catch(err){
+    console.error('Subscribe error:', err);
     btn.querySelector('span').textContent='Get Early Access';btn.disabled=false;
     msg.style.display='block';msg.style.color='#c0392b';
-    msg.textContent='Something went wrong. Please try again.';
+    msg.textContent='Error: ' + err.message;
   }
 });
 </script>

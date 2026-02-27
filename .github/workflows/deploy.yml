@@ -119,7 +119,7 @@ jobs:
         run: |
           echo "🔍 Checking Green server health..."
           sleep 5
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://${{ secrets.VPS_GREEN_HOST }} || echo "000")
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://olabrows.store || echo "000")
           if [ "$STATUS" = "200" ]; then
             echo "✅ Green server healthy! HTTP $STATUS"
           else

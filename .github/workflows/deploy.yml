@@ -68,3 +68,5 @@ jobs:
           echo "🔵 Blue: https://olabrows.store (Primary)"
           echo "🟢 Green: http://${{ secrets.VPS_GREEN_HOST }} (Standby)"
           echo "🔄 Route 53 auto-switches if Blue fails"
+
+# Updated Fri Feb 27 00:06:07 MST 2026

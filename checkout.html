@@ -654,5 +654,487 @@ function handlePaystackSuccess(response) {
 // Init
 renderSummary();
 </script>
+<!-- ============================================
+     BROWED BY OLÁ — AI Beauty Advisor Widget
+     Add this before </body> on every page
+     ============================================ -->
+
+<!-- Chat Widget Styles -->
+<style>
+#ola-chat-widget {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+}
+
+/* Chat bubble button */
+#ola-chat-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9a96e, #b8860b);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(201, 169, 110, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+#ola-chat-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(201, 169, 110, 0.5);
+}
+#ola-chat-btn svg {
+  width: 26px;
+  height: 26px;
+  fill: white;
+  transition: opacity 0.2s;
+}
+#ola-chat-btn .close-icon { display: none; }
+
+/* Notification dot */
+#ola-notif {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 14px;
+  height: 14px;
+  background: #e8a0a0;
+  border-radius: 50%;
+  border: 2px solid white;
+  animation: notifPulse 2s infinite;
+}
+@keyframes notifPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+/* Chat window */
+#ola-chat-window {
+  position: absolute;
+  bottom: 75px;
+  right: 0;
+  width: 340px;
+  height: 500px;
+  background: #fdf9f5;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+#ola-chat-window.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+/* Header */
+#ola-chat-header {
+  background: linear-gradient(135deg, #c9a96e, #b8860b);
+  padding: 1.2rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.ola-avatar {
+  width: 38px;
+  height: 38px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.ola-header-info h4 {
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+.ola-header-info p {
+  color: rgba(255,255,255,0.75);
+  font-size: 0.72rem;
+  margin: 0;
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 300;
+}
+.ola-status {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.15rem;
+}
+.ola-status-dot {
+  width: 6px;
+  height: 6px;
+  background: #90ee90;
+  border-radius: 50%;
+}
+
+/* Messages area */
+#ola-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  scroll-behavior: smooth;
+}
+#ola-messages::-webkit-scrollbar { width: 3px; }
+#ola-messages::-webkit-scrollbar-thumb { background: #e8d5b7; border-radius: 10px; }
+
+/* Message bubbles */
+.ola-msg {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 85%;
+  animation: msgIn 0.3s ease;
+}
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.ola-msg.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+.ola-msg-bubble {
+  padding: 0.7rem 1rem;
+  border-radius: 16px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  font-family: 'Instrument Sans', sans-serif;
+}
+.ola-msg.bot .ola-msg-bubble {
+  background: white;
+  color: #3a2e2e;
+  border-radius: 4px 16px 16px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.ola-msg.user .ola-msg-bubble {
+  background: linear-gradient(135deg, #c9a96e, #b8860b);
+  color: white;
+  border-radius: 16px 4px 16px 16px;
+}
+.ola-msg-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9a96e, #b8860b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+/* Typing indicator */
+.ola-typing {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.ola-typing-bubble {
+  background: white;
+  padding: 0.7rem 1rem;
+  border-radius: 4px 16px 16px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.ola-typing-dot {
+  width: 6px;
+  height: 6px;
+  background: #c9a96e;
+  border-radius: 50%;
+  animation: typingDot 1.2s infinite;
+}
+.ola-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.ola-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingDot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* Quick replies */
+#ola-quick-replies {
+  padding: 0 1.25rem 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.ola-quick-btn {
+  background: white;
+  border: 1px solid #e8d5b7;
+  color: #b8860b;
+  padding: 0.35rem 0.85rem;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Instrument Sans', sans-serif;
+  white-space: nowrap;
+}
+.ola-quick-btn:hover {
+  background: #c9a96e;
+  color: white;
+  border-color: #c9a96e;
+}
+
+/* Input area */
+#ola-chat-input-area {
+  padding: 0.75rem 1.25rem 1rem;
+  border-top: 1px solid #f0e6d6;
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+  background: white;
+}
+#ola-input {
+  flex: 1;
+  border: 1px solid #e8d5b7;
+  border-radius: 12px;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.82rem;
+  font-family: 'Instrument Sans', sans-serif;
+  resize: none;
+  outline: none;
+  background: #fdf9f5;
+  color: #3a2e2e;
+  max-height: 80px;
+  transition: border-color 0.2s;
+  line-height: 1.5;
+}
+#ola-input:focus { border-color: #c9a96e; }
+#ola-input::placeholder { color: #c4a882; }
+#ola-send-btn {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #c9a96e, #b8860b);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, opacity 0.2s;
+  flex-shrink: 0;
+}
+#ola-send-btn:hover { transform: scale(1.05); }
+#ola-send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+#ola-send-btn svg { width: 16px; height: 16px; fill: white; }
+
+/* Mobile */
+@media(max-width: 480px) {
+  #ola-chat-widget { bottom: 1rem; right: 1rem; }
+  #ola-chat-window { width: calc(100vw - 2rem); right: -1rem; }
+}
+</style>
+
+<!-- Chat Widget HTML -->
+<div id="ola-chat-widget">
+  <div id="ola-chat-window">
+    <!-- Header -->
+    <div id="ola-chat-header">
+      <div class="ola-avatar">🌸</div>
+      <div class="ola-header-info">
+        <h4>Olá Beauty Advisor</h4>
+        <div class="ola-status">
+          <div class="ola-status-dot"></div>
+          <p>AI-powered • Always here for you</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div id="ola-messages">
+      <div class="ola-msg bot">
+        <div class="ola-msg-avatar">🌸</div>
+        <div class="ola-msg-bubble">
+          Hello beautiful! 💕 I'm Olá, your personal brow advisor. I'm here to help you find the perfect brow product for your skin tone and occasion. What brings you in today?
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Replies -->
+    <div id="ola-quick-replies">
+      <button class="ola-quick-btn" onclick="olaSendQuick('Help me find my perfect brow shade')">Find my shade ✨</button>
+      <button class="ola-quick-btn" onclick="olaSendQuick('I need brows for a special event')">Special event 🎉</button>
+      <button class="ola-quick-btn" onclick="olaSendQuick('What products do you have?')">View products</button>
+    </div>
+
+    <!-- Input -->
+    <div id="ola-chat-input-area">
+      <textarea id="ola-input" rows="1" placeholder="Ask me anything about brows..."></textarea>
+      <button id="ola-send-btn" onclick="olaSend()">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Floating Button -->
+  <button id="ola-chat-btn" onclick="olaToggleChat()">
+    <div id="ola-notif"></div>
+    <svg class="chat-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+    <svg class="close-icon" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+  </button>
+</div>
+
+<!-- Chat Widget Script -->
+<script>
+const OLA_API = 'https://ssjdishvml.execute-api.us-east-1.amazonaws.com/chat';
+let olaHistory = [];
+let olaIsOpen = false;
+let olaIsTyping = false;
+
+function olaToggleChat() {
+  olaIsOpen = !olaIsOpen;
+  const win = document.getElementById('ola-chat-window');
+  const btn = document.getElementById('ola-chat-btn');
+  const notif = document.getElementById('ola-notif');
+  const chatIcon = btn.querySelector('.chat-icon');
+  const closeIcon = btn.querySelector('.close-icon');
+
+  if (olaIsOpen) {
+    win.classList.add('open');
+    chatIcon.style.display = 'none';
+    closeIcon.style.display = 'block';
+    notif.style.display = 'none';
+    document.getElementById('ola-input').focus();
+  } else {
+    win.classList.remove('open');
+    chatIcon.style.display = 'block';
+    closeIcon.style.display = 'none';
+  }
+}
+
+function olaAddMessage(text, role) {
+  const messages = document.getElementById('ola-messages');
+  const quickReplies = document.getElementById('ola-quick-replies');
+
+  // Hide quick replies after first user message
+  if (role === 'user') quickReplies.style.display = 'none';
+
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `ola-msg ${role}`;
+
+  if (role === 'bot') {
+    msgDiv.innerHTML = `
+      <div class="ola-msg-avatar">🌸</div>
+      <div class="ola-msg-bubble">${text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>')}</div>
+    `;
+  } else {
+    msgDiv.innerHTML = `<div class="ola-msg-bubble">${text}</div>`;
+  }
+
+  messages.appendChild(msgDiv);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function olaShowTyping() {
+  const messages = document.getElementById('ola-messages');
+  const typing = document.createElement('div');
+  typing.className = 'ola-msg bot';
+  typing.id = 'ola-typing-indicator';
+  typing.innerHTML = `
+    <div class="ola-msg-avatar">🌸</div>
+    <div class="ola-typing-bubble">
+      <div class="ola-typing-dot"></div>
+      <div class="ola-typing-dot"></div>
+      <div class="ola-typing-dot"></div>
+    </div>
+  `;
+  messages.appendChild(typing);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function olaHideTyping() {
+  const typing = document.getElementById('ola-typing-indicator');
+  if (typing) typing.remove();
+}
+
+async function olaSend() {
+  const input = document.getElementById('ola-input');
+  const sendBtn = document.getElementById('ola-send-btn');
+  const message = input.value.trim();
+
+  if (!message || olaIsTyping) return;
+
+  input.value = '';
+  input.style.height = 'auto';
+  olaIsTyping = true;
+  sendBtn.disabled = true;
+
+  // Add user message
+  olaAddMessage(message, 'user');
+  olaHistory.push({ role: 'user', content: message });
+
+  // Show typing
+  olaShowTyping();
+
+  try {
+    const response = await fetch(OLA_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: message,
+        history: olaHistory.slice(-6)
+      })
+    });
+
+    const data = await response.json();
+    olaHideTyping();
+
+    if (data.success && data.message) {
+      olaAddMessage(data.message, 'bot');
+      olaHistory.push({ role: 'assistant', content: data.message });
+    } else {
+      olaAddMessage("I'm sorry, I couldn't process that. Please try again! 🌸", 'bot');
+    }
+  } catch (error) {
+    olaHideTyping();
+    olaAddMessage("Sorry, I'm having trouble connecting. Please try again in a moment! 🌸", 'bot');
+  }
+
+  olaIsTyping = false;
+  sendBtn.disabled = false;
+  input.focus();
+}
+
+function olaSendQuick(text) {
+  document.getElementById('ola-input').value = text;
+  olaSend();
+}
+
+// Send on Enter (Shift+Enter for new line)
+document.getElementById('ola-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    olaSend();
+  }
+});
+
+// Auto-resize textarea
+document.getElementById('ola-input').addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 80) + 'px';
+});
+</script>
+
 </body>
 </html>

@@ -1,2073 +1,662 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Browed by Olá — Precision Brow Collection</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browed by Ola — Precision Brow Pencils</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root{
-  --ink:#1a0f0f;
-  --blush:#f2ddd8;
-  --rose:#c49090;
-  --deep:#8b4a4a;
-  --warm:#faf5f3;
-  --cream:#fff9f7;
-  --gold:#c9a87c;
-  --smoke:rgba(26,15,15,0.06);
-}
+    :root {
+      --blush: #f5e0dc;
+      --rose: #d4a0a0;
+      --deep-rose: #b07070;
+      --cream: #fdf7f5;
+      --warm-white: #fffaf8;
+      --charcoal: #2c2020;
+      --muted: #8a6a6a;
+      --gold: #c9a87c;
+    }
 
-html{scroll-behavior:smooth}
+    html { scroll-behavior: smooth; }
 
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--cream);
-  color:var(--ink);
-  overflow-x:hidden;
-  cursor:auto;
-}
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--warm-white);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
 
-/* CUSTOM CURSOR */
-.cursor{
-  position:fixed;width:12px;height:12px;
-  background:var(--deep);border-radius:50%;
-  pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:transform 0.1s,width 0.3s,height 0.3s,background 0.3s;
-}
-.cursor-ring{
-  position:fixed;width:36px;height:36px;
-  border:1px solid var(--rose);border-radius:50%;
-  pointer-events:none;z-index:9998;
-  transform:translate(-50%,-50%);
-  transition:transform 0.15s ease,width 0.3s,height 0.3s;
-}
-body:hover .cursor{opacity:1}
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(253, 247, 245, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212, 160, 160, 0.2);
+      transition: all 0.3s ease;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.75rem; text-decoration: none;
+    }
+    .nav-logo img {
+      width: 38px; height: 38px; border-radius: 50%; object-fit: cover;
+      border: 1.5px solid var(--rose);
+    }
+    .nav-logo span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 400; letter-spacing: 0.08em;
+      color: var(--charcoal);
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--deep-rose); }
+    .nav-cta {
+      background: var(--deep-rose); color: white;
+      border: none; padding: 0.6rem 1.5rem;
+      font-family: 'Jost', sans-serif; font-size: 0.75rem;
+      letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500;
+      cursor: pointer; transition: background 0.25s;
+      text-decoration: none;
+    }
+    .nav-cta:hover { background: var(--charcoal); }
 
-/* ANNOUNCEMENT BAR */
-.announcement{
-  background:var(--ink);
-  padding:0.6rem;
-  text-align:center;
-  overflow:hidden;
-}
-.announcement-track{
-  display:inline-flex;gap:0;
-  animation:slide 25s linear infinite;
-  white-space:nowrap;
-}
-.announcement span{
-  color:rgba(255,255,255,0.8);
-  font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;
-  padding:0 3rem;font-weight:400;
-}
-.announcement span b{color:var(--gold);font-weight:500}
-@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+      overflow: hidden;
+    }
+    .hero-content {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 4rem 5rem 6rem;
+      position: relative;
+    }
+    .hero-content::before {
+      content: '';
+      position: absolute; top: 10%; left: 5%;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(245,224,220,0.6) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--deep-rose); font-weight: 500;
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-weight: 300; line-height: 1.05;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .hero-title em { font-style: italic; color: var(--deep-rose); }
+    .hero-subtitle {
+      font-size: 1rem; color: var(--muted); font-weight: 300;
+      line-height: 1.7; max-width: 360px;
+      margin-bottom: 2.5rem;
+      opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; align-items: center;
+      opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+    }
+    .btn-primary {
+      background: var(--charcoal); color: white;
+      padding: 0.9rem 2.2rem; text-decoration: none;
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      font-weight: 500; transition: background 0.25s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--deep-rose); }
+    .btn-ghost {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 500; border-bottom: 1px solid var(--rose);
+      padding-bottom: 2px; transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--deep-rose); border-color: var(--deep-rose); }
+    .hero-image-wrap {
+      position: relative; overflow: hidden;
+      opacity: 0; animation: fadeIn 1.2s 0.3s forwards;
+    }
+    .hero-image-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero-image-wrap::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, var(--warm-white) 0%, transparent 15%);
+    }
 
-/* NAV */
-nav{
-  position:sticky;top:0;z-index:100;
-  background:rgba(250,245,243,0.92);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--smoke);
-  padding:0 4rem;
-  height:70px;
-  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
-}
-.nav-left{display:flex;gap:2.5rem;align-items:center}
-.nav-left a,.nav-right a{
-  text-decoration:none;color:var(--ink);
-  font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;
-  font-weight:500;opacity:0.6;
-  transition:opacity 0.2s;
-  position:relative;
-}
-.nav-left a::after,.nav-right a::after{
-  content:'';position:absolute;bottom:-2px;left:0;right:0;
-  height:1px;background:var(--deep);
-  transform:scaleX(0);transform-origin:right;
-  transition:transform 0.3s ease;
-}
-.nav-left a:hover,.nav-right a:hover{opacity:1}
-.nav-left a:hover::after,.nav-right a:hover::after{transform:scaleX(1);transform-origin:left}
-.nav-center img{
-  height:42px;width:42px;border-radius:50%;object-fit:cover;
-  border:2px solid var(--rose);
-}
-.nav-center{text-align:center}
-.nav-right{display:flex;gap:2.5rem;align-items:center;justify-content:flex-end}
-.nav-cart{
-  background:var(--ink);color:white;
-  padding:0.55rem 1.4rem;text-decoration:none;
-  font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;
-  font-weight:500;transition:background 0.25s;
-  opacity:1!important;
-}
-.nav-cart:hover{background:var(--deep)}
-.nav-cart::after{display:none!important}
+    /* ── MARQUEE ── */
+    .marquee-section {
+      background: var(--deep-rose); padding: 0.85rem 0;
+      overflow: hidden;
+    }
+    .marquee-track {
+      display: flex; gap: 0; white-space: nowrap;
+      animation: marquee 20s linear infinite;
+    }
+    .marquee-item {
+      color: rgba(255,255,255,0.9);
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      font-weight: 500; padding: 0 2.5rem;
+    }
+    .marquee-sep { color: rgba(255,255,255,0.4); }
 
-/* HERO */
-.hero{
-  min-height:92vh;
-  display:grid;grid-template-columns:55% 45%;
-  position:relative;overflow:hidden;
-}
-.hero-left{
-  display:flex;flex-direction:column;justify-content:center;
-  padding:6rem 5rem 6rem 6rem;
-  position:relative;z-index:2;
-}
-.hero-left::before{
-  content:'';
-  position:absolute;top:20%;right:0;
-  width:1px;height:60%;
-  background:linear-gradient(to bottom,transparent,var(--rose),transparent);
-}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:0.6rem;
-  font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;
-  color:var(--deep);font-weight:500;
-  margin-bottom:2rem;
-  opacity:0;animation:up 0.9s 0.2s forwards;
-}
-.hero-tag::before{
-  content:'';width:24px;height:1px;background:var(--deep);
-}
-.hero-headline{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(4rem,7vw,7rem);
-  font-weight:400;line-height:0.95;
-  letter-spacing:-0.02em;
-  margin-bottom:0.3rem;
-  opacity:0;animation:up 0.9s 0.35s forwards;
-}
-.hero-headline em{
-  font-style:italic;color:var(--deep);
-  display:block;
-}
-.hero-sub{
-  font-size:1.05rem;color:rgba(26,15,15,0.55);
-  font-weight:300;line-height:1.75;
-  max-width:380px;margin:2rem 0 3rem;
-  opacity:0;animation:up 0.9s 0.5s forwards;
-}
-.hero-actions{
-  display:flex;gap:1.25rem;align-items:center;
-  opacity:0;animation:up 0.9s 0.65s forwards;
-}
-.btn-dark{
-  background:var(--ink);color:white;
-  padding:1rem 2.5rem;text-decoration:none;
-  font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;
-  font-weight:500;display:inline-block;
-  transition:background 0.3s,transform 0.2s;
-  position:relative;overflow:hidden;
-}
-.btn-dark::before{
-  content:'';position:absolute;inset:0;
-  background:var(--deep);
-  transform:translateX(-100%);transition:transform 0.3s ease;
-}
-.btn-dark:hover::before{transform:translateX(0)}
-.btn-dark span{position:relative;z-index:1}
-.btn-outline{
-  color:var(--ink);text-decoration:none;
-  font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;
-  font-weight:500;
-  border-bottom:1px solid var(--rose);padding-bottom:3px;
-  transition:color 0.2s,border-color 0.2s;
-}
-.btn-outline:hover{color:var(--deep);border-color:var(--deep)}
-.hero-stats{
-  display:flex;gap:3rem;margin-top:4rem;
-  padding-top:2.5rem;
-  border-top:1px solid var(--smoke);
-  opacity:0;animation:up 0.9s 0.8s forwards;
-}
-.stat-num{
-  font-family:'Playfair Display',serif;
-  font-size:2rem;font-weight:400;color:var(--deep);
-  display:block;line-height:1;
-}
-.stat-label{
-  font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;
-  color:rgba(26,15,15,0.45);margin-top:0.35rem;display:block;
-  font-weight:500;
-}
-.hero-right{
-  position:relative;overflow:hidden;
-  opacity:0;animation:fadeIn 1.2s 0.3s forwards;
-}
-.hero-right img{
-  width:100%;height:100%;object-fit:cover;
-  object-position:center top;
-}
-.hero-right::before{
-  content:'';position:absolute;
-  inset:0;z-index:1;
-  background:linear-gradient(to right,var(--cream) 0%,transparent 20%);
-}
-.hero-badge{
-  position:absolute;bottom:3rem;left:-1rem;z-index:2;
-  background:white;
-  padding:1.25rem 1.5rem;
-  box-shadow:0 20px 60px rgba(26,15,15,0.12);
-  min-width:200px;
-}
-.hero-badge-label{
-  font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--rose);font-weight:500;margin-bottom:0.4rem;
-}
-.hero-badge-text{
-  font-family:'Playfair Display',serif;
-  font-size:1.1rem;font-weight:400;
-}
+    /* ── BENEFITS ── */
+    .benefits {
+      padding: 7rem 6rem;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .benefits-text .section-label {
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--deep-rose); font-weight: 500; margin-bottom: 1rem;
+    }
+    .benefits-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 3.8rem);
+      font-weight: 300; line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+    .benefits-text h2 em { font-style: italic; color: var(--deep-rose); }
+    .benefits-text p {
+      color: var(--muted); font-weight: 300; line-height: 1.8;
+      max-width: 420px; margin-bottom: 2rem;
+    }
+    .benefit-pills { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .pill {
+      border: 1px solid var(--rose); padding: 0.5rem 1.2rem;
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--deep-rose); font-weight: 500;
+    }
+    .benefits-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    }
+    .benefit-card {
+      background: var(--blush); padding: 2rem 1.5rem;
+      position: relative; overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .benefit-card:hover { transform: translateY(-4px); }
+    .benefit-card::before {
+      content: '';
+      position: absolute; top: -30px; right: -30px;
+      width: 80px; height: 80px;
+      background: rgba(212,160,160,0.3); border-radius: 50%;
+    }
+    .benefit-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .benefit-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 500; margin-bottom: 0.5rem;
+    }
+    .benefit-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; font-weight: 300; }
 
-/* MARQUEE */
-.marquee-wrap{
-  background:var(--deep);
-  padding:1rem 0;overflow:hidden;
-}
-.marquee-inner{
-  display:flex;
-  animation:slide 18s linear infinite;
-  white-space:nowrap;
-}
-.marquee-item{
-  color:rgba(255,255,255,0.85);
-  font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;
-  padding:0 2.5rem;font-weight:400;
-  display:flex;align-items:center;gap:2.5rem;
-}
-.marquee-item::after{
-  content:'◆';color:var(--gold);font-size:0.4rem;
-}
+    /* ── SHOP ── */
+    .shop { padding: 7rem 6rem; background: var(--cream); }
+    .shop-header {
+      text-align: center; margin-bottom: 4rem;
+    }
+    .shop-header .section-label {
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--deep-rose); font-weight: 500; margin-bottom: 0.75rem;
+      display: block;
+    }
+    .shop-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 300;
+    }
+    .shop-header h2 em { font-style: italic; color: var(--deep-rose); }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .product-card {
+      background: white;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(176,112,112,0.15); }
+    .product-image-wrap {
+      position: relative; overflow: hidden;
+      background: var(--blush);
+      aspect-ratio: 3/4;
+    }
+    .product-image-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-image-wrap img { transform: scale(1.05); }
+    .product-badge {
+      position: absolute; top: 1rem; left: 1rem;
+      background: var(--deep-rose); color: white;
+      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.35rem 0.75rem; font-weight: 500;
+    }
+    .product-info { padding: 1.5rem; }
+    .product-info h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 400; margin-bottom: 0.35rem;
+    }
+    .product-info .shade {
+      font-size: 0.75rem; color: var(--muted); letter-spacing: 0.05em;
+      margin-bottom: 1rem; font-weight: 300;
+    }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+    .price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; color: var(--charcoal);
+    }
+    .notify-btn {
+      border: 1px solid var(--rose); background: none;
+      color: var(--deep-rose); padding: 0.45rem 1rem;
+      font-family: 'Jost', sans-serif; font-size: 0.7rem;
+      letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .notify-btn:hover { background: var(--deep-rose); color: white; border-color: var(--deep-rose); }
 
-/* SECTION LABEL */
-.s-label{
-  font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;
-  color:var(--deep);font-weight:500;
-  display:flex;align-items:center;gap:0.75rem;
-  margin-bottom:1.25rem;
-}
-.s-label::before{content:'';width:20px;height:1px;background:var(--deep)}
+    /* ── SUBSCRIBE ── */
+    .subscribe-section {
+      padding: 8rem 6rem;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+      background: var(--charcoal);
+      position: relative; overflow: hidden;
+    }
+    .subscribe-section::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(212,160,160,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .subscribe-text .section-label {
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--rose); font-weight: 500; margin-bottom: 1rem;
+    }
+    .subscribe-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 300; color: var(--cream); line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .subscribe-text h2 em { font-style: italic; color: var(--rose); }
+    .subscribe-text p { color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.8; }
+    .subscribe-perks { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .perk {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.85rem; color: rgba(255,255,255,0.6); font-weight: 300;
+    }
+    .perk-dot { width: 6px; height: 6px; background: var(--rose); border-radius: 50%; flex-shrink: 0; }
+    .subscribe-form-wrap { position: relative; z-index: 1; }
+    .form-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(212,160,160,0.2);
+      padding: 3rem;
+    }
+    .form-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 300; color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+    .form-card p { font-size: 0.82rem; color: rgba(255,255,255,0.4); margin-bottom: 2rem; font-weight: 300; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group input {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(212,160,160,0.2);
+      color: white; padding: 0.9rem 1.2rem;
+      font-family: 'Jost', sans-serif; font-size: 0.85rem; font-weight: 300;
+      outline: none; transition: border-color 0.2s;
+    }
+    .form-group input::placeholder { color: rgba(255,255,255,0.3); }
+    .form-group input:focus { border-color: var(--rose); }
+    .submit-btn {
+      width: 100%; background: var(--deep-rose); color: white;
+      border: none; padding: 1rem;
+      font-family: 'Jost', sans-serif; font-size: 0.78rem;
+      letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500;
+      cursor: pointer; transition: background 0.25s;
+      margin-top: 0.5rem;
+    }
+    .submit-btn:hover { background: var(--rose); }
+    .form-note { font-size: 0.72rem; color: rgba(255,255,255,0.25); text-align: center; margin-top: 0.75rem; font-weight: 300; }
 
-/* STORY STRIP */
-.story{
-  display:grid;grid-template-columns:1fr 1fr;
-  min-height:80vh;
-}
-.story-image{
-  position:relative;overflow:hidden;background:var(--blush);
-}
-.story-image img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform 8s ease;
-}
-.story-image:hover img{transform:scale(1.04)}
-.story-image::after{
-  content:'"Define your look,\Aown your power."';
-  white-space:pre;
-  position:absolute;bottom:3rem;left:3rem;right:3rem;
-  font-family:'Playfair Display',serif;
-  font-size:1.6rem;font-weight:400;font-style:italic;
-  color:white;
-  text-shadow:0 2px 20px rgba(0,0,0,0.4);
-  line-height:1.4;
-  z-index:2;
-}
-.story-image::before{
-  content:'';position:absolute;inset:0;z-index:1;
-  background:linear-gradient(to top,rgba(26,15,15,0.6) 0%,transparent 50%);
-}
-.story-content{
-  padding:6rem 5rem;
-  display:flex;flex-direction:column;justify-content:center;
-  background:var(--blush);
-}
-.story-content h2{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.2rem,3.5vw,3.2rem);
-  font-weight:400;line-height:1.2;
-  margin-bottom:1.5rem;
-}
-.story-content h2 em{font-style:italic;color:var(--deep)}
-.story-content p{
-  font-size:0.95rem;color:rgba(26,15,15,0.6);
-  font-weight:300;line-height:1.85;
-  max-width:420px;margin-bottom:1.5rem;
-}
-.story-pillars{
-  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem;
-}
-.pillar{
-  padding:1.5rem;background:rgba(255,255,255,0.5);
-  border:1px solid rgba(196,144,144,0.2);
-}
-.pillar-icon{font-size:1.2rem;margin-bottom:0.5rem}
-.pillar h4{
-  font-family:'Playfair Display',serif;
-  font-size:0.95rem;font-weight:500;margin-bottom:0.25rem;
-}
-.pillar p{font-size:0.78rem;margin:0;line-height:1.6}
+    /* ── FOOTER ── */
+    footer {
+      padding: 3rem 6rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid rgba(212,160,160,0.2);
+      background: var(--warm-white);
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; color: var(--charcoal);
+      letter-spacing: 0.08em;
+    }
+    .footer-copy { font-size: 0.75rem; color: var(--muted); font-weight: 300; }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a {
+      font-size: 0.75rem; color: var(--muted); text-decoration: none;
+      letter-spacing: 0.1em; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--deep-rose); }
 
-/* PRODUCTS */
-.products-section{
-  padding:7rem 5rem;background:var(--cream);
-}
-.section-header{
-  display:flex;align-items:flex-end;justify-content:space-between;
-  margin-bottom:4rem;
-}
-.section-header h2{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.5rem,4vw,4rem);
-  font-weight:400;line-height:1.1;
-}
-.section-header h2 em{font-style:italic;color:var(--deep)}
-.section-header p{
-  font-size:0.85rem;color:rgba(26,15,15,0.5);
-  max-width:280px;text-align:right;line-height:1.7;font-weight:300;
-}
-.products-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1.5rem;
-}
-.product-card{
-  position:relative;cursor:pointer;
-  group:true;
-}
-.product-img-wrap{
-  position:relative;overflow:hidden;
-  background:var(--blush);
-  aspect-ratio:3/4;margin-bottom:1.25rem;
-}
-.product-img-wrap img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
-}
-.product-card:hover .product-img-wrap img{transform:scale(1.08)}
-.product-overlay{
-  position:absolute;inset:0;
-  background:rgba(26,15,15,0);
-  display:flex;align-items:flex-end;justify-content:center;
-  padding:1.5rem;
-  transition:background 0.3s;
-}
-.product-card:hover .product-overlay{background:rgba(26,15,15,0.25)}
-.overlay-btn{
-  background:white;color:var(--ink);
-  padding:0.75rem 1.75rem;border:none;cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-  font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;
-  font-weight:500;
-  transform:translateY(20px);opacity:0;
-  transition:transform 0.3s,opacity 0.3s;
-}
-.product-card:hover .overlay-btn{transform:translateY(0);opacity:1}
-.product-tag{
-  position:absolute;top:1.25rem;left:1.25rem;
-  background:var(--ink);color:white;
-  font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;
-  padding:0.3rem 0.75rem;font-weight:500;
-}
-.product-tag.new{background:var(--deep)}
-.product-name{
-  font-family:'Playfair Display',serif;
-  font-size:1.1rem;font-weight:400;margin-bottom:0.2rem;
-}
-.product-shade{
-  font-size:0.75rem;color:rgba(26,15,15,0.45);
-  letter-spacing:0.05em;margin-bottom:0.75rem;font-weight:300;
-}
-.product-footer{display:flex;align-items:center;justify-content:space-between}
-.product-price{
-  font-family:'Playfair Display',serif;
-  font-size:1.2rem;color:var(--ink);
-}
-.notify-btn{
-  background:none;border:1px solid var(--rose);
-  color:var(--deep);padding:0.4rem 1rem;cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-  font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;
-  font-weight:500;transition:all 0.25s;
-}
-.notify-btn:hover{background:var(--deep);color:white;border-color:var(--deep)}
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
 
-/* FEATURE STRIP */
-.feature-strip{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  border-top:1px solid var(--smoke);
-  border-bottom:1px solid var(--smoke);
-}
-.feature-item{
-  padding:3rem 2.5rem;
-  border-right:1px solid var(--smoke);
-  transition:background 0.3s;
-}
-.feature-item:last-child{border-right:none}
-.feature-item:hover{background:var(--blush)}
-.feature-num{
-  font-family:'Playfair Display',serif;
-  font-size:2.5rem;color:var(--rose);font-weight:400;
-  margin-bottom:0.5rem;display:block;line-height:1;
-}
-.feature-title{
-  font-size:0.85rem;font-weight:500;
-  margin-bottom:0.4rem;letter-spacing:0.05em;
-}
-.feature-desc{
-  font-size:0.78rem;color:rgba(26,15,15,0.5);
-  line-height:1.65;font-weight:300;
-}
-
-/* FOUNDER SECTION */
-.founder{
-  display:grid;grid-template-columns:1fr 1fr;
-  background:var(--ink);min-height:70vh;
-}
-.founder-content{
-  padding:7rem 5rem;
-  display:flex;flex-direction:column;justify-content:center;
-}
-.founder-content .s-label{color:var(--gold)}
-.founder-content .s-label::before{background:var(--gold)}
-.founder-content h2{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.2rem,3.5vw,3.5rem);
-  font-weight:400;color:white;line-height:1.15;
-  margin-bottom:1.5rem;
-}
-.founder-content h2 em{font-style:italic;color:var(--rose)}
-.founder-content p{
-  font-size:0.92rem;color:rgba(255,255,255,0.5);
-  font-weight:300;line-height:1.85;max-width:420px;
-  margin-bottom:1.25rem;
-}
-.founder-sig{
-  font-family:'Playfair Display',serif;
-  font-size:2rem;font-style:italic;color:var(--rose);
-  margin-top:2rem;
-}
-.founder-visual{
-  position:relative;overflow:hidden;
-  background:var(--deep);
-  display:flex;align-items:center;justify-content:center;
-}
-.founder-visual img{
-  width:100%;height:100%;object-fit:cover;
-  mix-blend-mode:luminosity;opacity:0.6;
-}
-.founder-visual::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(139,74,74,0.4),transparent);
-}
-
-/* SUBSCRIBE */
-.subscribe{
-  padding:8rem 5rem;
-  background:var(--blush);
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:6rem;align-items:center;
-  position:relative;overflow:hidden;
-}
-.subscribe::before{
-  content:'OLABROWS';
-  position:absolute;
-  font-family:'Playfair Display',serif;
-  font-size:18vw;font-weight:700;
-  color:rgba(196,144,144,0.07);
-  bottom:-2rem;right:-2rem;
-  letter-spacing:-0.05em;
-  pointer-events:none;white-space:nowrap;
-  line-height:1;
-}
-.subscribe-text h2{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.5rem,4vw,4rem);
-  font-weight:400;line-height:1.1;
-  margin-bottom:1.25rem;
-}
-.subscribe-text h2 em{font-style:italic;color:var(--deep)}
-.subscribe-text p{
-  font-size:0.92rem;color:rgba(26,15,15,0.55);
-  font-weight:300;line-height:1.8;max-width:380px;
-  margin-bottom:2rem;
-}
-.perks{display:flex;flex-direction:column;gap:0.85rem}
-.perk{
-  display:flex;align-items:center;gap:1rem;
-  font-size:0.85rem;color:rgba(26,15,15,0.65);font-weight:300;
-}
-.perk-dot{
-  width:28px;height:28px;border-radius:50%;
-  background:white;border:1px solid var(--rose);
-  display:flex;align-items:center;justify-content:center;
-  font-size:0.7rem;flex-shrink:0;color:var(--deep);
-}
-.sub-form{
-  background:white;
-  padding:3.5rem;
-  box-shadow:0 30px 80px rgba(26,15,15,0.08);
-  position:relative;z-index:1;
-}
-.sub-form h3{
-  font-family:'Playfair Display',serif;
-  font-size:1.8rem;font-weight:400;margin-bottom:0.35rem;
-}
-.sub-form h3 em{font-style:italic;color:var(--deep)}
-.sub-form > p{
-  font-size:0.8rem;color:rgba(26,15,15,0.45);
-  margin-bottom:2rem;font-weight:300;
-}
-.field{margin-bottom:1rem}
-.field input{
-  width:100%;border:none;
-  border-bottom:1px solid rgba(196,144,144,0.4);
-  padding:0.85rem 0;background:none;
-  font-family:'DM Sans',sans-serif;font-size:0.88rem;
-  color:var(--ink);outline:none;cursor:text;
-  transition:border-color 0.25s;font-weight:300;
-}
-.field input::placeholder{color:rgba(26,15,15,0.3)}
-.field input:focus{border-color:var(--deep)}
-.sub-submit{
-  width:100%;background:var(--ink);color:white;
-  border:none;padding:1.1rem;margin-top:0.5rem;
-  font-family:'DM Sans',sans-serif;
-  font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;
-  font-weight:500;cursor:pointer;
-  transition:background 0.3s;
-  position:relative;overflow:hidden;
-}
-.sub-submit::before{
-  content:'';position:absolute;inset:0;
-  background:var(--deep);
-  transform:translateX(-100%);transition:transform 0.3s ease;
-}
-.sub-submit:hover::before{transform:translateX(0)}
-.sub-submit span{position:relative;z-index:1}
-#sub-msg{
-  display:none;text-align:center;
-  margin-top:0.75rem;font-size:0.8rem;
-}
-.sub-note{
-  font-size:0.68rem;color:rgba(26,15,15,0.3);
-  text-align:center;margin-top:0.75rem;font-weight:300;
-}
-
-/* INSTAGRAM STRIP */
-.insta-strip{
-  padding:5rem;background:var(--cream);
-}
-.insta-header{
-  text-align:center;margin-bottom:3rem;
-}
-.insta-header h2{
-  font-family:'Playfair Display',serif;
-  font-size:2rem;font-weight:400;
-}
-.insta-header h2 em{font-style:italic;color:var(--deep)}
-.insta-handle{
-  font-size:0.72rem;letter-spacing:0.2em;
-  color:var(--rose);text-transform:uppercase;
-  display:block;margin-top:0.4rem;
-}
-.insta-grid{
-  display:grid;grid-template-columns:repeat(5,1fr);gap:0.75rem;
-}
-.insta-item{
-  aspect-ratio:1;overflow:hidden;
-  position:relative;cursor:pointer;
-}
-.insta-item img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform 0.5s ease,filter 0.5s;
-  filter:saturate(0.9);
-}
-.insta-item:hover img{transform:scale(1.08);filter:saturate(1.1)}
-.insta-item::after{
-  content:'♡';
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:2rem;color:white;
-  background:rgba(26,15,15,0);
-  transition:background 0.3s;
-}
-.insta-item:hover::after{background:rgba(26,15,15,0.3)}
-
-/* FOOTER */
-footer{
-  background:var(--ink);
-  padding:5rem 5rem 2rem;
-}
-.footer-top{
-  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
-  gap:4rem;padding-bottom:4rem;
-  border-bottom:1px solid rgba(255,255,255,0.08);
-}
-.footer-brand img{
-  height:48px;width:48px;border-radius:50%;
-  object-fit:cover;border:2px solid var(--deep);margin-bottom:1rem;
-}
-.footer-brand h3{
-  font-family:'Playfair Display',serif;
-  font-size:1.3rem;color:white;font-weight:400;
-  margin-bottom:0.75rem;
-}
-.footer-brand p{
-  font-size:0.8rem;color:rgba(255,255,255,0.35);
-  line-height:1.7;max-width:240px;font-weight:300;
-}
-.footer-col h4{
-  font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--gold);font-weight:500;margin-bottom:1.5rem;
-}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.75rem}
-.footer-col a{
-  text-decoration:none;color:rgba(255,255,255,0.4);
-  font-size:0.82rem;font-weight:300;
-  transition:color 0.2s;
-}
-.footer-col a:hover{color:white}
-.footer-bottom{
-  display:flex;align-items:center;justify-content:space-between;
-  padding-top:2rem;
-}
-.footer-bottom p{
-  font-size:0.72rem;color:rgba(255,255,255,0.2);font-weight:300;
-}
-.social-links{display:flex;gap:1.5rem}
-.social-links a{
-  color:rgba(255,255,255,0.3);font-size:0.7rem;
-  letter-spacing:0.15em;text-transform:uppercase;
-  text-decoration:none;transition:color 0.2s;font-weight:400;
-}
-.social-links a:hover{color:var(--rose)}
-
-/* ANIMATIONS */
-@keyframes up{
-  from{opacity:0;transform:translateY(28px)}
-  to{opacity:1;transform:translateY(0)}
-}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
-/* SCROLL REVEAL */
-.reveal{
-  opacity:1;transform:translateY(0);
-  transition:opacity 0.7s ease,transform 0.7s ease;
-}
-.reveal.visible{opacity:1;transform:translateY(0)}
-
-/* RESPONSIVE */
-@media(max-width:1024px){
-  nav{padding:0 2rem}
-  .hero{grid-template-columns:1fr;min-height:auto}
-  .hero-left{padding:5rem 2rem 3rem}
-  .hero-left::before{display:none}
-  .hero-right{height:60vw}
-  .story{grid-template-columns:1fr}
-  .story-image{height:60vw}
-  .products-grid{grid-template-columns:1fr 1fr}
-  .feature-strip{grid-template-columns:1fr 1fr}
-  .feature-item:nth-child(2){border-right:none}
-  .founder{grid-template-columns:1fr}
-  .founder-visual{height:50vw}
-  .subscribe{grid-template-columns:1fr;padding:4rem 2rem}
-  .insta-grid{grid-template-columns:repeat(3,1fr)}
-  .footer-top{grid-template-columns:1fr 1fr;gap:2rem}
-  nav{grid-template-columns:auto 1fr auto}
-  .nav-left{display:none}
-}
-@media(max-width:600px){
-  .hero-left{padding:4rem 1.5rem 2rem}
-  .hero-headline{font-size:3.5rem}
-  .products-grid{grid-template-columns:1fr}
-  .feature-strip{grid-template-columns:1fr}
-  .feature-item{border-right:none}
-  .insta-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-top{grid-template-columns:1fr}
-  .products-section{padding:4rem 1.5rem}
-  .subscribe{padding:4rem 1.5rem}
-  .insta-strip{padding:3rem 1.5rem}
-  footer{padding:3rem 1.5rem 1.5rem}
-  .story-content{padding:3rem 1.5rem}
-}
-</style>
-<style>
-
-/* CART ICON IN NAV */
-.cart-icon-btn {
-  background: none; border: none; cursor: pointer;
-  position: relative; display: flex; align-items: center;
-  gap: 0.4rem; color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
-  font-weight: 500; opacity: 0.6; transition: opacity 0.2s;
-  padding: 0;
-}
-.cart-icon-btn:hover { opacity: 1; }
-.cart-badge {
-  background: var(--deep); color: white;
-  font-size: 0.6rem; font-weight: 700;
-  width: 18px; height: 18px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  position: absolute; top: -8px; right: -10px;
-}
-
-/* CART OVERLAY */
-.cart-overlay {
-  position: fixed; inset: 0; background: rgba(26,15,15,0);
-  z-index: 200; pointer-events: none;
-  transition: background 0.4s;
-}
-.cart-overlay.open {
-  background: rgba(26,15,15,0.5); pointer-events: all;
-}
-
-/* CART SIDEBAR */
-.cart-sidebar {
-  position: fixed; top: 0; right: -480px; width: 440px; max-width: 100vw;
-  height: 100vh; background: var(--cream);
-  z-index: 201; display: flex; flex-direction: column;
-  transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  box-shadow: -20px 0 60px rgba(26,15,15,0.15);
-}
-.cart-sidebar.open { right: 0; }
-.cart-header {
-  padding: 2rem 1.75rem 1.5rem;
-  display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 1px solid var(--smoke);
-}
-.cart-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem; font-weight: 400;
-  display: flex; align-items: center; gap: 0.75rem;
-}
-#cartBadgeMain {
-  position: static; font-size: 0.7rem;
-  width: 22px; height: 22px;
-}
-.cart-close {
-  background: none; border: none; font-size: 1.5rem;
-  cursor: pointer; color: var(--ink); opacity: 0.4;
-  transition: opacity 0.2s; line-height: 1; padding: 0;
-}
-.cart-close:hover { opacity: 1; }
-
-/* CART BODY */
-.cart-body {
-  flex: 1; overflow-y: auto; padding: 1.25rem 1.75rem;
-}
-.cart-empty {
-  display: flex; flex-direction: column; align-items: center;
-  justify-content: center; height: 300px; text-align: center;
-}
-.cart-empty-icon { font-size: 2rem; color: var(--rose); margin-bottom: 1rem; }
-.cart-empty-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem; font-weight: 400; margin-bottom: 1rem; color: var(--ink);
-}
-.cart-shop-link {
-  font-size: 0.78rem; color: var(--deep); text-decoration: none;
-  letter-spacing: 0.1em; border-bottom: 1px solid var(--rose);
-  padding-bottom: 2px;
-}
-
-/* CART ITEM */
-.cart-item {
-  display: flex; gap: 1rem; padding: 1.25rem 0;
-  border-bottom: 1px solid var(--smoke); position: relative;
-}
-.cart-item-img {
-  width: 80px; height: 80px; flex-shrink: 0;
-  background: var(--blush); overflow: hidden;
-}
-.cart-item-img img { width: 100%; height: 100%; object-fit: cover; }
-.cart-item-info { flex: 1; }
-.cart-item-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.95rem; font-weight: 400; margin-bottom: 0.2rem;
-}
-.cart-item-shade { font-size: 0.75rem; color: var(--rose); margin-bottom: 0.6rem; font-weight: 300; }
-.cart-item-row { display: flex; align-items: center; justify-content: space-between; }
-.cart-qty {
-  display: flex; align-items: center;
-  border: 1px solid rgba(196,144,144,0.4);
-}
-.cart-qty-btn {
-  width: 28px; height: 28px; background: none; border: none;
-  cursor: pointer; font-size: 1rem; color: var(--ink);
-  transition: background 0.2s; display: flex; align-items: center; justify-content: center;
-}
-.cart-qty-btn:hover { background: var(--blush); }
-.cart-qty span {
-  width: 32px; height: 28px; display: flex; align-items: center;
-  justify-content: center; font-size: 0.82rem; font-weight: 500;
-  border-left: 1px solid rgba(196,144,144,0.4);
-  border-right: 1px solid rgba(196,144,144,0.4);
-}
-.cart-item-price {
-  font-family: 'Playfair Display', serif; font-size: 1rem;
-}
-.cart-item-remove {
-  position: absolute; top: 1rem; right: 0;
-  background: none; border: none; font-size: 1.2rem;
-  cursor: pointer; color: var(--rose); opacity: 0.6;
-  transition: opacity 0.2s; line-height: 1; padding: 0;
-}
-.cart-item-remove:hover { opacity: 1; }
-
-/* CART FOOTER */
-.cart-footer { padding: 1.5rem 1.75rem 2rem; border-top: 1px solid var(--smoke); }
-.cart-subtotal-row {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 0.4rem;
-  font-family: 'Playfair Display', serif; font-size: 1.1rem;
-}
-.cart-shipping-note {
-  font-size: 0.72rem; color: rgba(26,15,15,0.4);
-  margin-bottom: 1.25rem; font-weight: 300;
-}
-.cart-checkout-btn {
-  display: block; background: var(--ink); color: white;
-  text-align: center; padding: 1rem; text-decoration: none;
-  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
-  font-weight: 500; margin-bottom: 0.75rem;
-  transition: background 0.3s;
-}
-.cart-checkout-btn:hover { background: var(--deep); }
-.cart-continue {
-  display: block; width: 100%; background: none; border: none;
-  text-align: center; cursor: pointer; font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
-  color: rgba(26,15,15,0.45); transition: color 0.2s; font-weight: 500;
-}
-.cart-continue:hover { color: var(--deep); }
-
-/* CART TOAST */
-.cart-toast {
-  position: fixed; bottom: 2rem; left: 50%;
-  transform: translateX(-50%) translateY(80px);
-  background: var(--ink); color: white;
-  padding: 0.85rem 1.75rem; font-size: 0.78rem;
-  letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
-  z-index: 999; opacity: 0;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  white-space: nowrap; pointer-events: none;
-}
-.cart-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-
-</style>
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links, .nav-cta { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-content { padding: 4rem 2rem 3rem; }
+      .hero-image-wrap { height: 60vw; }
+      .hero-image-wrap::after { display: none; }
+      .benefits { grid-template-columns: 1fr; padding: 4rem 2rem; gap: 3rem; }
+      .shop { padding: 4rem 2rem; }
+      .products-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      .subscribe-section { grid-template-columns: 1fr; padding: 4rem 2rem; }
+      footer { padding: 2rem; flex-direction: column; gap: 1rem; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- CART OVERLAY -->
-<div class="cart-overlay" id="cartOverlay"></div>
-
-<!-- CART SIDEBAR -->
-<div class="cart-sidebar" id="cartSidebar">
-  <div class="cart-header">
-    <h2 class="cart-title">Your Cart <span class="cart-badge" id="cartBadgeMain" style="display:none">0</span></h2>
-    <button class="cart-close" onclick="closeCart()">×</button>
-  </div>
-  <div class="cart-body" id="cartBody">
-    <div class="cart-empty">
-      <p class="cart-empty-icon">✦</p>
-      <p class="cart-empty-text">Your cart is empty</p>
-      <a href="shop.html" class="cart-shop-link" onclick="closeCart()">Browse the collection →</a>
-    </div>
-  </div>
-  <div class="cart-footer" id="cartFooter" style="display:none">
-    <div class="cart-subtotal-row">
-      <span>Subtotal</span>
-      <span id="cartSubtotal">$0.00</span>
-    </div>
-    <p class="cart-shipping-note">Shipping calculated at checkout</p>
-    <a href="checkout.html" class="cart-checkout-btn">Proceed to Checkout →</a>
-    <button class="cart-continue" onclick="closeCart()">Continue Shopping</button>
-  </div>
-</div>
-<div class="cart-toast" id="cartToast"></div>
-
-
-<!-- CURSOR -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
-<!-- ANNOUNCEMENT BAR -->
-<div class="announcement">
-  <div class="announcement-track">
-    <span>✦ <b>Early Access</b> — Join the list for 15% off your first order</span>
-    <span>✦ Free shipping on orders over $50</span>
-    <span>✦ <b>Pre-Order</b> — The Precision Brow Collection</span>
-    <span>✦ Vegan &amp; Cruelty Free</span>
-    <span>✦ <b>Early Access</b> — Join the list for 15% off your first order</span>
-    <span>✦ Free shipping on orders over $50</span>
-    <span>✦ <b>Pre-Order</b> — The Precision Brow Collection</span>
-    <span>✦ Vegan &amp; Cruelty Free</span>
-  </div>
-</div>
-
 <!-- NAV -->
 <nav>
-  <div class="nav-left">
-    <a href="shop.html">Shop</a>
-    <a href="about.html">About</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="#subscribe">Early Access</a>
-  </div>
-  <div class="nav-center">
-    <a href="#">
-      <img src="images/logo.jpeg" alt="Browed by Olá"/>
-    </a>
-  </div>
-  <div class="nav-right">
-    <a href="https://instagram.com/Olaoluwa_0" target="_blank">Instagram</a>
-    <button class="cart-icon-btn" onclick="openCart()">
-    Cart <span class="cart-badge" style="display:none">0</span>
-  </button>
-    <a href="#subscribe" class="nav-cart"><span>Get Early Access</span></a>
-  </div>
+  <a href="#" class="nav-logo">
+    <img src="assets/logo.jpeg" alt="Ola Beauty" />
+    <span>Browed by Ola</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#benefits">About</a></li>
+    <li><a href="#subscribe">Subscribe</a></li>
+  </ul>
+  <a href="#subscribe" class="nav-cta">Early Access</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-left">
-    <p class="hero-tag">Precision Brow Collection</p>
-    <h1 class="hero-headline">
-      Your brows,<br>
-      <em>perfectly</em><br>
-      defined.
+  <div class="hero-content">
+    <p class="hero-eyebrow">Precision Brow Collection</p>
+    <h1 class="hero-title">
+      Your brows,<br><em>perfectly</em><br>defined.
     </h1>
-    <p class="hero-sub">Hair-like strokes. All-day wear. Effortless precision — made for every shade, every face, every moment.</p>
+    <p class="hero-subtitle">
+      Hair-like strokes, all-day wear, effortless precision. 
+      Browed by Ola was made for every shade, every face, every moment.
+    </p>
     <div class="hero-actions">
-      <a href="#shop" class="btn-dark"><span>Shop the Collection</span></a>
-      <a href="https://instagram.com/Olaoluwa_0" target="_blank" class="btn-outline">Follow Us</a>
-    </div>
-    <div class="hero-stats">
-      <div>
-        <span class="stat-num">12hr</span>
-        <span class="stat-label">Wear Time</span>
-      </div>
-      <div>
-        <span class="stat-num">6</span>
-        <span class="stat-label">Products</span>
-      </div>
-      <div>
-        <span class="stat-num">100%</span>
-        <span class="stat-label">Cruelty Free</span>
-      </div>
+      <a href="#shop" class="btn-primary">Shop the Collection</a>
+      <a href="https://instagram.com/Olaoluwa_0" target="_blank" class="btn-ghost">Follow Us</a>
     </div>
   </div>
-  <div class="hero-right">
-    <img src="images/logo.jpeg" alt="Browed by Olá Brow Pencil"/>
-    <div class="hero-badge">
-      <p class="hero-badge-label">Now Available</p>
-      <p class="hero-badge-text">Precision Brow Pencil</p>
-    </div>
+  <div class="hero-image-wrap">
+    <img src="assets/hero.jpg" alt="Browed by Ola — Precision Brow Pencil" />
   </div>
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-inner">
-    <span class="marquee-item">Precision Tip</span>
-    <span class="marquee-item">12-Hour Wear</span>
-    <span class="marquee-item">Smudge Resistant</span>
-    <span class="marquee-item">Natural Finish</span>
-    <span class="marquee-item">All Skin Tones</span>
-    <span class="marquee-item">Vegan Formula</span>
-    <span class="marquee-item">Cruelty Free</span>
-    <span class="marquee-item">Precision Tip</span>
-    <span class="marquee-item">12-Hour Wear</span>
-    <span class="marquee-item">Smudge Resistant</span>
-    <span class="marquee-item">Natural Finish</span>
-    <span class="marquee-item">All Skin Tones</span>
-    <span class="marquee-item">Vegan Formula</span>
-    <span class="marquee-item">Cruelty Free</span>
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Precision Tip ✦</span>
+    <span class="marquee-item">12-Hour Wear ✦</span>
+    <span class="marquee-item">Smudge Resistant ✦</span>
+    <span class="marquee-item">Natural Finish ✦</span>
+    <span class="marquee-item">All Skin Tones ✦</span>
+    <span class="marquee-item">Coming Soon ✦</span>
+    <span class="marquee-item">Precision Tip ✦</span>
+    <span class="marquee-item">12-Hour Wear ✦</span>
+    <span class="marquee-item">Smudge Resistant ✦</span>
+    <span class="marquee-item">Natural Finish ✦</span>
+    <span class="marquee-item">All Skin Tones ✦</span>
+    <span class="marquee-item">Coming Soon ✦</span>
   </div>
 </div>
 
-<!-- STORY -->
-<section class="story" id="story">
-  <div class="story-image">
-    <img src="images/dark_brown.jpeg" alt="Ola Brow Pencil"/>
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+  <div class="benefits-text">
+    <p class="section-label">Why Browed by Ola</p>
+    <h2>Crafted for your <em>natural beauty</em></h2>
+    <p>
+      We believe great brows shouldn't be complicated. Every product in our collection 
+      is formulated to work with your natural texture — giving you effortless definition 
+      that lasts from morning to midnight.
+    </p>
+    <div class="benefit-pills">
+      <span class="pill">Vegan Formula</span>
+      <span class="pill">Cruelty Free</span>
+      <span class="pill">All Skin Tones</span>
+    </div>
   </div>
-  <div class="story-content reveal">
-    <p class="s-label">The Olá Story</p>
-    <h2>A son, a brother, and a <em>believer in beauty</em></h2>
-    <p>Browed by Olá was founded by a man who grew up surrounded by the women he loved most — his mother and three sisters. He watched beauty become a daily act of confidence, and decided the world needed better tools for it.</p>
-    <p>Every product is crafted with that same care — precision for every face, shades for every skin tone, and formulas built to last.</p>
-    <div class="story-pillars">
-      <div class="pillar reveal">
-        <div class="pillar-icon">✦</div>
-        <h4>Vegan Formula</h4>
-        <p>100% cruelty-free. Always.</p>
-      </div>
-      <div class="pillar reveal">
-        <div class="pillar-icon">◆</div>
-        <h4>All Skin Tones</h4>
-        <p>Every shade, every face.</p>
-      </div>
-      <div class="pillar reveal">
-        <div class="pillar-icon">✿</div>
-        <h4>12-Hour Wear</h4>
-        <p>From morning to midnight.</p>
-      </div>
-      <div class="pillar reveal">
-        <div class="pillar-icon">◈</div>
-        <h4>Precision Tip</h4>
-        <p>Hair-stroke perfection.</p>
-      </div>
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <div class="benefit-icon">✏️</div>
+      <h3>Precision Tip</h3>
+      <p>Ultra-fine tip mimics real hair strokes for a natural, defined look.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">⏱️</div>
+      <h3>12-Hour Wear</h3>
+      <p>Long-lasting formula that holds all day without fading or smudging.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🌿</div>
+      <h3>Easy to Blend</h3>
+      <p>Soft, buildable pigment that blends seamlessly for any intensity.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">✨</div>
+      <h3>Natural Finish</h3>
+      <p>Feather-light application for a finish that looks like your real brows.</p>
     </div>
   </div>
 </section>
 
-<!-- PRODUCTS -->
-<section class="products-section" id="shop">
-  <div class="section-header reveal">
-    <div>
-      <p class="s-label">The Collection</p>
-      <h2>Shop <em>All</em></h2>
-    </div>
-    <p>Six precision-crafted brow products launching soon. Join the list for early access and 15% off.</p>
+<!-- SHOP -->
+<section class="shop" id="shop">
+  <div class="shop-header">
+    <span class="section-label">The Collection</span>
+    <h2>Shop <em>All</em></h2>
   </div>
-  <div class="products-grid" id="products-grid">
+  <div class="products-grid">
 
-    <div class="product-card reveal" data-href="product-dark-brown.html">
-      <div class="product-img-wrap">
-        <img src="images/dark_brown.jpeg" alt="Ola Brow Pencil Dark Brown"/>
-        <span class="product-tag new">New</span>
-        <div class="product-overlay">
-          <button class="overlay-btn notify-btn">Add to Cart</button>
+    <div class="product-card">
+      <div class="product-image-wrap">
+        <img src="assets/placeholder.svg" alt="Ola Brow Pencil Dark Brown" />
+        <span class="product-badge">Coming Soon</span>
+      </div>
+      <div class="product-info">
+        <h3>Ola Brow Pencil</h3>
+        <p class="shade">Dark Brown</p>
+        <div class="product-footer">
+          <span class="price">$18</span>
+          <button class="notify-btn">Notify Me</button>
         </div>
       </div>
-      <p class="product-name">Olá Brow Pencil</p>
-      <p class="product-shade">Dark Brown</p>
-      <div class="product-footer">
-        <span class="product-price">$18</span>
-        <button class="notify-btn">Pre-Order</button>
-      </div>
     </div>
 
-    <div class="product-card reveal" data-href="product-soft-black.html">
-      <div class="product-img-wrap">
-        <img src="images/dark_brown.jpeg" alt="Ola Brow Pencil Soft Black"/>
-        <span class="product-tag new">New</span>
-        <div class="product-overlay">
-          <button class="overlay-btn notify-btn">Add to Cart</button>
+    <div class="product-card">
+      <div class="product-image-wrap">
+        <img src="assets/placeholder.svg" alt="Ola Brow Pencil Soft Black" />
+        <span class="product-badge">Coming Soon</span>
+      </div>
+      <div class="product-info">
+        <h3>Ola Brow Pencil</h3>
+        <p class="shade">Soft Black</p>
+        <div class="product-footer">
+          <span class="price">$18</span>
+          <button class="notify-btn">Notify Me</button>
         </div>
       </div>
-      <p class="product-name">Olá Brow Pencil</p>
-      <p class="product-shade">Soft Black</p>
-      <div class="product-footer">
-        <span class="product-price">$18</span>
-        <button class="notify-btn">Pre-Order</button>
-      </div>
     </div>
 
-    <div class="product-card reveal" data-href="product-definer-duo.html">
-      <div class="product-img-wrap">
-        <img src="images/dark_brown.jpeg" alt="Brow Definer Duo"/>
-        <span class="product-tag">Pre-Order</span>
-        <div class="product-overlay">
-          <button class="overlay-btn notify-btn">Add to Cart</button>
+    <div class="product-card">
+      <div class="product-image-wrap">
+        <img src="assets/placeholder.svg" alt="Brow Definer Duo" />
+        <span class="product-badge">Coming Soon</span>
+      </div>
+      <div class="product-info">
+        <h3>Brow Definer Duo</h3>
+        <p class="shade">Pencil + Gel Set</p>
+        <div class="product-footer">
+          <span class="price">$28</span>
+          <button class="notify-btn">Notify Me</button>
         </div>
       </div>
-      <p class="product-name">Brow Definer Duo</p>
-      <p class="product-shade">Pencil + Gel Set</p>
-      <div class="product-footer">
-        <span class="product-price">$28</span>
-        <button class="notify-btn">Pre-Order</button>
-      </div>
     </div>
 
-    <div class="product-card reveal" data-href="product-brow-gel.html">
-      <div class="product-img-wrap">
-        <img src="images/dark_brown.jpeg" alt="Precision Brow Gel Clear"/>
-        <span class="product-tag">Pre-Order</span>
-        <div class="product-overlay">
-          <button class="overlay-btn notify-btn">Add to Cart</button>
+    <div class="product-card">
+      <div class="product-image-wrap">
+        <img src="assets/placeholder.svg" alt="Precision Brow Gel Clear" />
+        <span class="product-badge">Coming Soon</span>
+      </div>
+      <div class="product-info">
+        <h3>Precision Brow Gel</h3>
+        <p class="shade">Clear</p>
+        <div class="product-footer">
+          <span class="price">$16</span>
+          <button class="notify-btn">Notify Me</button>
         </div>
       </div>
-      <p class="product-name">Precision Brow Gel</p>
-      <p class="product-shade">Clear</p>
-      <div class="product-footer">
-        <span class="product-price">$16</span>
-        <button class="notify-btn">Pre-Order</button>
-      </div>
     </div>
 
-    <div class="product-card reveal" data-href="product-microblade.html">
-      <div class="product-img-wrap">
-        <img src="images/dark_brown.jpeg" alt="Microblade Effect Pen"/>
-        <span class="product-tag">Pre-Order</span>
-        <div class="product-overlay">
-          <button class="overlay-btn notify-btn">Add to Cart</button>
+    <div class="product-card">
+      <div class="product-image-wrap">
+        <img src="assets/placeholder.svg" alt="Microblade Effect Pen" />
+        <span class="product-badge">Coming Soon</span>
+      </div>
+      <div class="product-info">
+        <h3>Microblade Effect Pen</h3>
+        <p class="shade">Dark Brown / Soft Black</p>
+        <div class="product-footer">
+          <span class="price">$22</span>
+          <button class="notify-btn">Notify Me</button>
         </div>
       </div>
-      <p class="product-name">Microblade Effect Pen</p>
-      <p class="product-shade">Dark Brown / Soft Black</p>
-      <div class="product-footer">
-        <span class="product-price">$22</span>
-        <button class="notify-btn">Pre-Order</button>
-      </div>
     </div>
 
-    <div class="product-card reveal" data-href="product-brow-oil.html">
-      <div class="product-img-wrap">
-        <img src="images/dark_brown.jpeg" alt="Brow Care Oil"/>
-        <span class="product-tag">Pre-Order</span>
-        <div class="product-overlay">
-          <button class="overlay-btn notify-btn">Add to Cart</button>
+    <div class="product-card">
+      <div class="product-image-wrap">
+        <img src="assets/placeholder.svg" alt="Brow Care Oil" />
+        <span class="product-badge">Coming Soon</span>
+      </div>
+      <div class="product-info">
+        <h3>Brow Care Oil</h3>
+        <p class="shade">Nourishing Treatment</p>
+        <div class="product-footer">
+          <span class="price">$20</span>
+          <button class="notify-btn">Notify Me</button>
         </div>
       </div>
-      <p class="product-name">Brow Care Oil</p>
-      <p class="product-shade">Nourishing Treatment</p>
-      <div class="product-footer">
-        <span class="product-price">$20</span>
-        <button class="notify-btn">Pre-Order</button>
-      </div>
     </div>
 
-  </div>
-</section>
-
-<!-- FEATURE STRIP -->
-<div class="feature-strip">
-  <div class="feature-item reveal">
-    <span class="feature-num">01</span>
-    <p class="feature-title">Precision Tip</p>
-    <p class="feature-desc">Ultra-fine tip for hair-like strokes and natural-looking definition.</p>
-  </div>
-  <div class="feature-item reveal">
-    <span class="feature-num">02</span>
-    <p class="feature-title">12-Hour Wear</p>
-    <p class="feature-desc">Long-lasting smudge-resistant formula that holds from dawn to dusk.</p>
-  </div>
-  <div class="feature-item reveal">
-    <span class="feature-num">03</span>
-    <p class="feature-title">Easy to Blend</p>
-    <p class="feature-desc">Soft, buildable pigment that blends seamlessly for any intensity.</p>
-  </div>
-  <div class="feature-item reveal">
-    <span class="feature-num">04</span>
-    <p class="feature-title">Natural Finish</p>
-    <p class="feature-desc">Feather-light application for brows that look entirely your own.</p>
-  </div>
-</div>
-
-<!-- FOUNDER -->
-<section class="founder">
-  <div class="founder-content reveal">
-    <p class="s-label">A Message from Olá</p>
-    <h2>I grew up in a house full of <em>beautiful women</em></h2>
-    <p>My earliest memories are of watching my mother at her vanity — the ritual of it, the confidence she carried when she was done. She made it look effortless. I was fascinated.</p>
-    <p>Growing up with three sisters, beauty was never just vanity in our home. It was expression. It was power. It was the way the women I loved most showed up for themselves every single day.</p>
-    <p>I built Browed by Olá for them — and for every woman who deserves a product that truly understands her. Every formula, every shade, every detail is a love letter to the women who shaped me.</p>
-    <p class="founder-sig">— Olá</p>
-  </div>
-  <div class="founder-visual">
-    <img src="images/logo.jpeg" alt="Browed by Olá"/>
   </div>
 </section>
 
 <!-- SUBSCRIBE -->
-<section class="subscribe" id="subscribe">
+<section class="subscribe-section" id="subscribe">
   <div class="subscribe-text">
-    <p class="s-label">Early Access</p>
+    <p class="section-label">Early Access</p>
     <h2>Be first to <em>shop</em> the launch</h2>
-    <p>Join the Olá Beauty inner circle. Get early access, exclusive discounts, and behind-the-scenes content before the world.</p>
-    <div class="perks">
-      <div class="perk"><span class="perk-dot">✦</span>15% off your first order</div>
-      <div class="perk"><span class="perk-dot">◆</span>Early access before public launch</div>
-      <div class="perk"><span class="perk-dot">✿</span>Exclusive shade previews</div>
-      <div class="perk"><span class="perk-dot">◈</span>Free shipping on launch orders</div>
+    <p>Join the Ola Beauty inner circle. Get early access, exclusive discounts, and behind-the-scenes content before anyone else.</p>
+    <div class="subscribe-perks">
+      <div class="perk"><span class="perk-dot"></span>15% off your first order</div>
+      <div class="perk"><span class="perk-dot"></span>Early access before public launch</div>
+      <div class="perk"><span class="perk-dot"></span>Exclusive shade previews</div>
+      <div class="perk"><span class="perk-dot"></span>Free shipping on launch orders</div>
     </div>
   </div>
-  <div class="sub-form">
-    <h3>Join the <em>List</em></h3>
-    <p>No spam, ever. Unsubscribe anytime.</p>
-    <div class="field">
-      <input type="text" id="sub-name" placeholder="Your first name"/>
+  <div class="subscribe-form-wrap">
+    <div class="form-card">
+      <h3>Join the List</h3>
+      <p>No spam, ever. Unsubscribe anytime.</p>
+      <div class="form-group">
+        <input type="text" placeholder="Your first name" />
+      </div>
+      <div class="form-group">
+        <input type="email" placeholder="Your email address" />
+      </div>
+      <button class="submit-btn">Get Early Access</button>
+      <p class="form-note">By subscribing, you agree to receive marketing emails from Ola Beauty.</p>
     </div>
-    <div class="field">
-      <input type="email" id="sub-email" placeholder="Your email address"/>
-    </div>
-    <button class="sub-submit" id="sub-btn"><span>Get Early Access</span></button>
-    <p id="sub-msg"></p>
-    <p class="sub-note">By subscribing you agree to receive marketing emails from Olá Beauty.</p>
-  </div>
-</section>
-
-<!-- INSTAGRAM -->
-<section class="insta-strip">
-  <div class="insta-header reveal">
-    <h2>Follow the <em>Journey</em></h2>
-    <span class="insta-handle">@Olaoluwa_0</span>
-  </div>
-  <div class="insta-grid">
-    <a class="insta-item reveal" href="https://instagram.com/Olaoluwa_0" target="_blank">
-      <img src="images/dark_brown.jpeg" alt="Instagram"/>
-    </a>
-    <a class="insta-item reveal" href="https://instagram.com/Olaoluwa_0" target="_blank">
-      <img src="images/dark_brown.jpeg" alt="Instagram"/>
-    </a>
-    <a class="insta-item reveal" href="https://instagram.com/Olaoluwa_0" target="_blank">
-      <img src="images/logo.jpeg" alt="Instagram"/>
-    </a>
-    <a class="insta-item reveal" href="https://instagram.com/Olaoluwa_0" target="_blank">
-      <img src="images/dark_brown.jpeg" alt="Instagram"/>
-    </a>
-    <a class="insta-item reveal" href="https://instagram.com/Olaoluwa_0" target="_blank">
-      <img src="images/dark_brown.jpeg" alt="Instagram"/>
-    </a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <img src="images/logo.jpeg" alt="Browed by Olá"/>
-      <h3>Browed by Olá</h3>
-      <p>Precision brow products crafted for every shade, every face, every moment. Vegan. Cruelty-free. Made for you.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Shop</h4>
-      <ul>
-        <li><a href="#shop">All Products</a></li>
-        <li><a href="#shop">Brow Pencils</a></li>
-        <li><a href="#shop">Brow Gels</a></li>
-        <li><a href="#shop">Brow Oils</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Brand</h4>
-      <ul>
-        <li><a href="#story">Our Story</a></li>
-        <li><a href="#subscribe">Early Access</a></li>
-        <li><a href="https://instagram.com/Olaoluwa_0" target="_blank">Instagram</a>
-    <button class="cart-icon-btn" onclick="openCart()">
-    Cart <span class="cart-badge" style="display:none">0</span>
-  </button></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Help</h4>
-      <ul>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms of Service</a></li>
-        <li><a href="#">Shipping Info</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2025 Browed by Olá. All rights reserved.</p>
-    <div class="social-links">
-      <a href="https://instagram.com/Olaoluwa_0" target="_blank">Instagram</a>
-    <button class="cart-icon-btn" onclick="openCart()">
-    Cart <span class="cart-badge" style="display:none">0</span>
-  </button>
-      <a href="#">TikTok</a>
-      <a href="#">Pinterest</a>
-    </div>
+  <span class="footer-brand">Browed by Ola</span>
+  <span class="footer-copy">© 2025 Ola Beauty. All rights reserved.</span>
+  <div class="footer-links">
+    <a href="https://instagram.com/Olaoluwa_0" target="_blank">Instagram</a>
+    <a href="#">Privacy</a>
+    <a href="#">Contact</a>
   </div>
 </footer>
 
 <script>
-// Custom Cursor
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cursor.style.width='20px';cursor.style.height='20px';cursor.style.background='var(--rose)';ring.style.width='50px';ring.style.height='50px';});
-  el.addEventListener('mouseleave',()=>{cursor.style.width='12px';cursor.style.height='12px';cursor.style.background='var(--deep)';ring.style.width='36px';ring.style.height='36px';});
-});
-
-// Scroll Reveal
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}}); 
-},{threshold:0.12});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-// Notify buttons
-document.querySelectorAll('.notify-btn').forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    const card = this.closest('[data-href]');
-    const href = card ? card.dataset.href : '';
-    const pid = href.replace('product-','').replace('.html','');
-    if(pid && typeof addToCart === 'function') {
-      addToCart(pid, '', 1);
-    }
-    this.textContent = '✓ Added';
-    this.style.background = 'var(--deep)';
-    this.style.color = 'white';
-    this.style.borderColor = 'var(--deep)';
-  });
-});
-
-// Subscribe Form
-const API_URL = 'https://api.olabrows.store/api/subscribers';
-document.getElementById('sub-btn').addEventListener('click',async function(){
-  const name=document.getElementById('sub-name').value.trim();
-  const email=document.getElementById('sub-email').value.trim();
-  const msg=document.getElementById('sub-msg');
-  const btn=this;
-  if(!email||!email.includes('@')){
-    msg.style.display='block';msg.style.color='#c0392b';
-    msg.textContent='Please enter a valid email address.';return;
-  }
-  btn.querySelector('span').textContent='Submitting...';btn.disabled=true;
-  try{
-    const res=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,active:true})});
-    const data=await res.json();
-    console.log('API response:', res.status, data);
-    if(res.ok&&data.success){
-      btn.querySelector('span').textContent="✓ You're on the list!";
-      btn.style.background='var(--deep)';
-      msg.style.display='block';msg.style.color='var(--deep)';
-      msg.textContent="Welcome to the Olá family 🌸 We'll be in touch soon!";
-      document.getElementById('sub-name').value='';
-      document.getElementById('sub-email').value='';
-    }else throw new Error();
-  }catch(err){
-    console.error('Subscribe error:', err);
-    btn.querySelector('span').textContent='Get Early Access';btn.disabled=false;
-    msg.style.display='block';msg.style.color='#c0392b';
-    msg.textContent='Error: ' + err.message;
-  }
-});
-</script>
-<script>
-
-// ═══════════════════════════════════════
-//  BROWED BY OLÁ — CART SYSTEM v1.0
-// ═══════════════════════════════════════
-
-const PRODUCT_IMAGES = {
-  "dark-brown": "images/dark_brown.jpeg",
-  "soft-black": "images/dark_brown.jpeg",
-  "definer-duo": "images/dark_brown.jpeg",
-  "brow-gel": "images/dark_brown.jpeg",
-  "microblade": "images/dark_brown.jpeg",
-  "brow-oil": "images/dark_brown.jpeg"
-};
-
-const PRODUCT_DATA = {
-  "dark-brown":  {name:"Olá Brow Pencil",shade:"Dark Brown",price:18,id:"dark-brown"},
-  "soft-black":  {name:"Olá Brow Pencil",shade:"Soft Black",price:18,id:"soft-black"},
-  "definer-duo": {name:"Brow Definer Duo",shade:"Pencil + Gel",price:28,id:"definer-duo"},
-  "brow-gel":    {name:"Precision Brow Gel",shade:"Clear",price:16,id:"brow-gel"},
-  "microblade":  {name:"Microblade Effect Pen",shade:"Dark Brown",price:22,id:"microblade"},
-  "brow-oil":    {name:"Brow Care Oil",shade:"Nourishing",price:20,id:"brow-oil"},
-};
-
-// ── Cart State ──
-let cart = JSON.parse(localStorage.getItem('ola_cart') || '[]');
-
-function saveCart() {
-  localStorage.setItem('ola_cart', JSON.stringify(cart));
-  updateCartBadge();
-  renderCart();
-}
-
-function addToCart(productId, shade, qty=1) {
-  shade = shade || PRODUCT_DATA[productId]?.shade || '';
-  const existing = cart.find(i => i.id === productId && i.shade === shade);
-  if (existing) {
-    existing.qty += qty;
-  } else {
-    const p = PRODUCT_DATA[productId];
-    if (!p) return;
-    cart.push({...p, shade, qty});
-  }
-  saveCart();
-  openCart();
-  showAddedToast(PRODUCT_DATA[productId]?.name || 'Item');
-}
-
-function removeFromCart(productId, shade) {
-  cart = cart.filter(i => !(i.id === productId && i.shade === shade));
-  saveCart();
-}
-
-function updateQty(productId, shade, delta) {
-  const item = cart.find(i => i.id === productId && i.shade === shade);
-  if (!item) return;
-  item.qty = Math.max(1, item.qty + delta);
-  saveCart();
-}
-
-function cartTotal() {
-  return cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-}
-
-function cartCount() {
-  return cart.reduce((sum, i) => sum + i.qty, 0);
-}
-
-function updateCartBadge() {
-  const badges = document.querySelectorAll('.cart-badge');
-  const count = cartCount();
-  badges.forEach(b => {
-    b.textContent = count;
-    b.style.display = count > 0 ? 'flex' : 'none';
-  });
-}
-
-function renderCart() {
-  const body = document.getElementById('cartBody');
-  const footer = document.getElementById('cartFooter');
-  if (!body) return;
-
-  if (cart.length === 0) {
-    body.innerHTML = `
-      <div class="cart-empty">
-        <p class="cart-empty-icon">✦</p>
-        <p class="cart-empty-text">Your cart is empty</p>
-        <a href="shop.html" class="cart-shop-link" onclick="closeCart()">Browse the collection →</a>
-      </div>`;
-    footer.style.display = 'none';
-    return;
-  }
-
-  footer.style.display = 'block';
-  body.innerHTML = cart.map(item => `
-    <div class="cart-item" data-id="${item.id}" data-shade="${item.shade}">
-      <div class="cart-item-img">
-        <img src="${PRODUCT_IMAGES[item.id] || ''}" alt="${item.name}"/>
-      </div>
-      <div class="cart-item-info">
-        <p class="cart-item-name">${item.name}</p>
-        <p class="cart-item-shade">${item.shade}</p>
-        <div class="cart-item-row">
-          <div class="cart-qty">
-            <button class="cart-qty-btn" onclick="updateQty('${item.id}','${item.shade}',-1)">−</button>
-            <span>${item.qty}</span>
-            <button class="cart-qty-btn" onclick="updateQty('${item.id}','${item.shade}',1)">+</button>
-          </div>
-          <p class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</p>
-        </div>
-      </div>
-      <button class="cart-item-remove" onclick="removeFromCart('${item.id}','${item.shade}')">×</button>
-    </div>
-  `).join('');
-
-  document.getElementById('cartSubtotal').textContent = '$${cartTotal().toFixed(2)}';
-}
-
-function openCart() {
-  document.getElementById('cartSidebar').classList.add('open');
-  document.getElementById('cartOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  renderCart();
-}
-
-function closeCart() {
-  document.getElementById('cartSidebar').classList.remove('open');
-  document.getElementById('cartOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function showAddedToast(name) {
-  const t = document.getElementById('cartToast');
-  if (!t) return;
-  t.textContent = `✓ ${name} added to cart`;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
-}
-
-// ── Init ──
-document.addEventListener('DOMContentLoaded', () => {
-  updateCartBadge();
-  renderCart();
-
-  // Close on overlay click
-  const overlay = document.getElementById('cartOverlay');
-  if (overlay) overlay.addEventListener('click', closeCart);
-});
-
-</script>
-<script>
-// ── CURSOR FIX ──
-(function() {
-  var cur = document.getElementById('cursor');
-  var ring = document.getElementById('cursorRing');
-  if (!cur || !ring) return;
-  var mx=0,my=0,rx=0,ry=0,running=false;
-  document.addEventListener('mousemove',function(e){
-    mx=e.clientX; my=e.clientY;
-    cur.style.left=mx+'px'; cur.style.top=my+'px';
-    cur.style.opacity='1';
-  });
-  function animRingOnce(){
-    rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
-    ring.style.left=rx+'px'; ring.style.top=ry+'px';
-    requestAnimationFrame(animRingOnce);
-  }
-  if(!running){ running=true; animRingOnce(); }
-  document.querySelectorAll('a,button').forEach(function(el){
-    el.addEventListener('mouseenter',function(){
-      cur.style.width='20px'; cur.style.height='20px'; cur.style.background='var(--rose)';
-      ring.style.width='50px'; ring.style.height='50px';
-    });
-    el.addEventListener('mouseleave',function(){
-      cur.style.width='12px'; cur.style.height='12px'; cur.style.background='var(--deep)';
-      ring.style.width='36px'; ring.style.height='36px';
+  // Notify Me button interaction
+  document.querySelectorAll('.notify-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.textContent = '✓ Added';
+      this.style.background = 'var(--deep-rose)';
+      this.style.color = 'white';
+      this.style.borderColor = 'var(--deep-rose)';
     });
   });
-})();
-</script>
-<!-- ============================================
-     BROWED BY OLÁ — AI Beauty Advisor Widget
-     Add this before 
-<script>
-async function loadProducts() {
-  try {
-    const res = await fetch('https://api.olabrows.store/api/products');
-    const products = await res.json();
-    const grid = document.getElementById('products-grid');
-    if (!products || !products.length) return;
-    grid.innerHTML = products.map(p => {
-      const isNew = p.badge === 'New';
-      const img = p.imageUrl && p.imageUrl.trim() !== '' ? p.imageUrl : 'images/dark_brown.jpeg';
-      const price = p.price ? '$' + p.price : 'Coming Soon';
-      return `<div class="product-card reveal">
-        <div class="product-img-wrap">
-          <img src="${img}" alt="${p.name} ${p.variant||''}"/>
-          <span class="product-tag ${isNew?'new':''}">${p.badge||'Pre-Order'}</span>
-          <div class="product-overlay"><button class="overlay-btn notify-btn">Pre-Order</button></div>
-        </div>
-        <p class="product-name">${p.name}</p>
-        <p class="product-shade">${p.variant||''}</p>
-        <div class="product-footer">
-          <span class="product-price">${price}</span>
-          <button class="notify-btn">Pre-Order</button>
-        </div>
-      </div>`;
-    }).join('');
-  } catch(e) { console.error('Failed to load products:', e); }
-}
-loadProducts();
-</script>
-</body> on every page
-     ============================================ -->
 
-<!-- Chat Widget Styles -->
-<style>
-#ola-chat-widget {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 9999;
-  font-family: 'Cormorant Garamond', 'Georgia', serif;
-}
-
-/* Chat bubble button */
-#ola-chat-btn {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #c9a96e, #b8860b);
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(201, 169, 110, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-  position: relative;
-}
-#ola-chat-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 6px 28px rgba(201, 169, 110, 0.5);
-}
-#ola-chat-btn svg {
-  width: 26px;
-  height: 26px;
-  fill: white;
-  transition: opacity 0.2s;
-}
-#ola-chat-btn .close-icon { display: none; }
-
-/* Notification dot */
-#ola-notif {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  width: 14px;
-  height: 14px;
-  background: #e8a0a0;
-  border-radius: 50%;
-  border: 2px solid white;
-  animation: notifPulse 2s infinite;
-}
-@keyframes notifPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.8; }
-}
-
-/* Chat window */
-#ola-chat-window {
-  position: absolute;
-  bottom: 75px;
-  right: 0;
-  width: 340px;
-  height: 500px;
-  background: #fdf9f5;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(20px) scale(0.95);
-  pointer-events: none;
-  transition: opacity 0.3s, transform 0.3s;
-}
-#ola-chat-window.open {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  pointer-events: all;
-}
-
-/* Header */
-#ola-chat-header {
-  background: linear-gradient(135deg, #c9a96e, #b8860b);
-  padding: 1.2rem 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-.ola-avatar {
-  width: 38px;
-  height: 38px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-.ola-header-info h4 {
-  color: white;
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin: 0;
-  letter-spacing: 0.02em;
-}
-.ola-header-info p {
-  color: rgba(255,255,255,0.75);
-  font-size: 0.72rem;
-  margin: 0;
-  font-family: 'Instrument Sans', sans-serif;
-  font-weight: 300;
-}
-.ola-status {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-top: 0.15rem;
-}
-.ola-status-dot {
-  width: 6px;
-  height: 6px;
-  background: #90ee90;
-  border-radius: 50%;
-}
-
-/* Messages area */
-#ola-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  scroll-behavior: smooth;
-}
-#ola-messages::-webkit-scrollbar { width: 3px; }
-#ola-messages::-webkit-scrollbar-thumb { background: #e8d5b7; border-radius: 10px; }
-
-/* Message bubbles */
-.ola-msg {
-  display: flex;
-  gap: 0.5rem;
-  max-width: 85%;
-  animation: msgIn 0.3s ease;
-}
-@keyframes msgIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.ola-msg.user {
-  align-self: flex-end;
-  flex-direction: row-reverse;
-}
-.ola-msg-bubble {
-  padding: 0.7rem 1rem;
-  border-radius: 16px;
-  font-size: 0.82rem;
-  line-height: 1.6;
-  font-family: 'Instrument Sans', sans-serif;
-}
-.ola-msg.bot .ola-msg-bubble {
-  background: white;
-  color: #3a2e2e;
-  border-radius: 4px 16px 16px 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-.ola-msg.user .ola-msg-bubble {
-  background: linear-gradient(135deg, #c9a96e, #b8860b);
-  color: white;
-  border-radius: 16px 4px 16px 16px;
-}
-.ola-msg-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #c9a96e, #b8860b);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  flex-shrink: 0;
-  margin-top: auto;
-}
-
-/* Typing indicator */
-.ola-typing {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-.ola-typing-bubble {
-  background: white;
-  padding: 0.7rem 1rem;
-  border-radius: 4px 16px 16px 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-.ola-typing-dot {
-  width: 6px;
-  height: 6px;
-  background: #c9a96e;
-  border-radius: 50%;
-  animation: typingDot 1.2s infinite;
-}
-.ola-typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.ola-typing-dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes typingDot {
-  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-  30% { transform: translateY(-6px); opacity: 1; }
-}
-
-/* Quick replies */
-#ola-quick-replies {
-  padding: 0 1.25rem 0.75rem;
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-.ola-quick-btn {
-  background: white;
-  border: 1px solid #e8d5b7;
-  color: #b8860b;
-  padding: 0.35rem 0.85rem;
-  border-radius: 100px;
-  font-size: 0.72rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: 'Instrument Sans', sans-serif;
-  white-space: nowrap;
-}
-.ola-quick-btn:hover {
-  background: #c9a96e;
-  color: white;
-  border-color: #c9a96e;
-}
-
-/* Input area */
-#ola-chat-input-area {
-  padding: 0.75rem 1.25rem 1rem;
-  border-top: 1px solid #f0e6d6;
-  display: flex;
-  gap: 0.5rem;
-  align-items: flex-end;
-  background: white;
-}
-#ola-input {
-  flex: 1;
-  border: 1px solid #e8d5b7;
-  border-radius: 12px;
-  padding: 0.6rem 0.9rem;
-  font-size: 0.82rem;
-  font-family: 'Instrument Sans', sans-serif;
-  resize: none;
-  outline: none;
-  background: #fdf9f5;
-  color: #3a2e2e;
-  max-height: 80px;
-  transition: border-color 0.2s;
-  line-height: 1.5;
-}
-#ola-input:focus { border-color: #c9a96e; }
-#ola-input::placeholder { color: #c4a882; }
-#ola-send-btn {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg, #c9a96e, #b8860b);
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s, opacity 0.2s;
-  flex-shrink: 0;
-}
-#ola-send-btn:hover { transform: scale(1.05); }
-#ola-send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-#ola-send-btn svg { width: 16px; height: 16px; fill: white; }
-
-/* Mobile */
-@media(max-width: 480px) {
-  #ola-chat-widget { bottom: 1rem; right: 1rem; }
-  #ola-chat-window { width: calc(100vw - 2rem); right: -1rem; }
-}
-</style>
-
-<!-- Chat Widget HTML -->
-<div id="ola-chat-widget">
-  <div id="ola-chat-window">
-    <!-- Header -->
-    <div id="ola-chat-header">
-      <div class="ola-avatar">🌸</div>
-      <div class="ola-header-info">
-        <h4>Olá Beauty Advisor</h4>
-        <div class="ola-status">
-          <div class="ola-status-dot"></div>
-          <p>AI-powered • Always here for you</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Messages -->
-    <div id="ola-messages">
-      <div class="ola-msg bot">
-        <div class="ola-msg-avatar">🌸</div>
-        <div class="ola-msg-bubble">
-          Hello beautiful! 💕 I'm Olá, your personal brow advisor. I'm here to help you find the perfect brow product for your skin tone and occasion. What brings you in today?
-        </div>
-      </div>
-    </div>
-
-    <!-- Quick Replies -->
-    <div id="ola-quick-replies">
-      <button class="ola-quick-btn" onclick="olaSendQuick('Help me find my perfect brow shade')">Find my shade ✨</button>
-      <button class="ola-quick-btn" onclick="olaSendQuick('I need brows for a special event')">Special event 🎉</button>
-      <button class="ola-quick-btn" onclick="olaSendQuick('What products do you have?')">View products</button>
-    </div>
-
-    <!-- Input -->
-    <div id="ola-chat-input-area">
-      <textarea id="ola-input" rows="1" placeholder="Ask me anything about brows..."></textarea>
-      <button id="ola-send-btn" onclick="olaSend()">
-        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- Floating Button -->
-  <button id="ola-chat-btn" onclick="olaToggleChat()">
-    <div id="ola-notif"></div>
-    <svg class="chat-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
-    <svg class="close-icon" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-  </button>
-</div>
-
-<!-- Chat Widget Script -->
-<script>
-const OLA_API = 'https://api.olabrows.store/api/ai/chat';
-let olaHistory = [];
-let olaIsOpen = false;
-let olaIsTyping = false;
-
-function olaToggleChat() {
-  olaIsOpen = !olaIsOpen;
-  const win = document.getElementById('ola-chat-window');
-  const btn = document.getElementById('ola-chat-btn');
-  const notif = document.getElementById('ola-notif');
-  const chatIcon = btn.querySelector('.chat-icon');
-  const closeIcon = btn.querySelector('.close-icon');
-
-  if (olaIsOpen) {
-    win.classList.add('open');
-    chatIcon.style.display = 'none';
-    closeIcon.style.display = 'block';
-    notif.style.display = 'none';
-    document.getElementById('ola-input').focus();
-  } else {
-    win.classList.remove('open');
-    chatIcon.style.display = 'block';
-    closeIcon.style.display = 'none';
-  }
-}
-
-function olaAddMessage(text, role) {
-  const messages = document.getElementById('ola-messages');
-  const quickReplies = document.getElementById('ola-quick-replies');
-
-  // Hide quick replies after first user message
-  if (role === 'user') quickReplies.style.display = 'none';
-
-  const msgDiv = document.createElement('div');
-  msgDiv.className = `ola-msg ${role}`;
-
-  if (role === 'bot') {
-    msgDiv.innerHTML = `
-      <div class="ola-msg-avatar">🌸</div>
-      <div class="ola-msg-bubble">${text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>')}</div>
-    `;
-  } else {
-    msgDiv.innerHTML = `<div class="ola-msg-bubble">${text}</div>`;
-  }
-
-  messages.appendChild(msgDiv);
-  messages.scrollTop = messages.scrollHeight;
-}
-
-function olaShowTyping() {
-  const messages = document.getElementById('ola-messages');
-  const typing = document.createElement('div');
-  typing.className = 'ola-msg bot';
-  typing.id = 'ola-typing-indicator';
-  typing.innerHTML = `
-    <div class="ola-msg-avatar">🌸</div>
-    <div class="ola-typing-bubble">
-      <div class="ola-typing-dot"></div>
-      <div class="ola-typing-dot"></div>
-      <div class="ola-typing-dot"></div>
-    </div>
-  `;
-  messages.appendChild(typing);
-  messages.scrollTop = messages.scrollHeight;
-}
-
-function olaHideTyping() {
-  const typing = document.getElementById('ola-typing-indicator');
-  if (typing) typing.remove();
-}
-
-async function olaSend() {
-  const input = document.getElementById('ola-input');
-  const sendBtn = document.getElementById('ola-send-btn');
-  const message = input.value.trim();
-
-  if (!message || olaIsTyping) return;
-
-  input.value = '';
-  input.style.height = 'auto';
-  olaIsTyping = true;
-  sendBtn.disabled = true;
-
-  // Add user message
-  olaAddMessage(message, 'user');
-  olaHistory.push({ role: 'user', content: message });
-
-  // Show typing
-  olaShowTyping();
-
-  try {
-    const response = await fetch(OLA_API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: message,
-        history: olaHistory.slice(-6)
-      })
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
     });
+  }, { threshold: 0.1 });
 
-    const data = await response.json();
-    olaHideTyping();
-
-    if (data.success && data.message) {
-      olaAddMessage(data.message, 'bot');
-      olaHistory.push({ role: 'assistant', content: data.message });
-    } else {
-      olaAddMessage("I'm sorry, I couldn't process that. Please try again! 🌸", 'bot');
-    }
-  } catch (error) {
-    olaHideTyping();
-    olaAddMessage("Sorry, I'm having trouble connecting. Please try again in a moment! 🌸", 'bot');
-  }
-
-  olaIsTyping = false;
-  sendBtn.disabled = false;
-  input.focus();
-}
-
-function olaSendQuick(text) {
-  document.getElementById('ola-input').value = text;
-  olaSend();
-}
-
-// Send on Enter (Shift+Enter for new line)
-document.getElementById('ola-input').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    olaSend();
-  }
-});
-
-// Auto-resize textarea
-document.getElementById('ola-input').addEventListener('input', function() {
-  this.style.height = 'auto';
-  this.style.height = Math.min(this.scrollHeight, 80) + 'px';
-});
-</script>
-
-
-<script>
-async function loadProducts() {
-  try {
-    const res = await fetch('https://api.olabrows.store/api/products');
-    const products = await res.json();
-    const grid = document.getElementById('products-grid');
-    if (!products || !products.length) return;
-    grid.innerHTML = products.map(p => {
-      const isNew = p.badge === 'New';
-      const img = p.imageUrl && p.imageUrl.trim() !== '' ? p.imageUrl : 'images/dark_brown.jpeg';
-      const price = p.price ? '$' + p.price : 'Coming Soon';
-      return `<div class="product-card reveal">
-        <div class="product-img-wrap">
-          <img src="${img}" alt="${p.name} ${p.variant||''}"/>
-          <span class="product-tag ${isNew?'new':''}">${p.badge||'Pre-Order'}</span>
-          <div class="product-overlay"><button class="overlay-btn notify-btn">Pre-Order</button></div>
-        </div>
-        <p class="product-name">${p.name}</p>
-        <p class="product-shade">${p.variant||''}</p>
-        <div class="product-footer">
-          <span class="product-price">${price}</span>
-          <button class="notify-btn">Pre-Order</button>
-        </div>
-      </div>`;
-    }).join('');
-  } catch(e) { console.error('Failed to load products:', e); }
-}
-loadProducts();
+  document.querySelectorAll('.benefit-card, .product-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
 </script>
 </body>
 </html>

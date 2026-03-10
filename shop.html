@@ -1,316 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Shop All — Browed by Olá</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Shop — Browed by Olá</title>
+<link rel="icon" href="images/logo.jpeg"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://js.stripe.com/v3/"></script>
 <style>
-
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#1a0f0f;--blush:#f2ddd8;--rose:#c49090;--deep:#8b4a4a;--warm:#faf5f3;--cream:#fff9f7;--gold:#c9a87c;--smoke:rgba(26,15,15,0.06)}
+:root{
+  --ink:#1a0f0f;
+  --blush:#f2ddd8;
+  --rose:#c49090;
+  --deep:#8b4a4a;
+  --warm:#faf5f3;
+  --cream:#fff9f7;
+  --gold:#c9a87c;
+  --smoke:rgba(26,15,15,0.06);
+}
+*{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;cursor:none}
-.cursor{position:fixed;width:12px;height:12px;background:var(--deep);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s}
-.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--rose);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
-.announcement{background:var(--ink);padding:.6rem;text-align:center;overflow:hidden}
-.ann-track{display:inline-flex;animation:slide 25s linear infinite;white-space:nowrap}
-.ann-track span{color:rgba(255,255,255,.8);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;padding:0 3rem;font-weight:400}
-.ann-track span b{color:var(--gold);font-weight:500}
-@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-nav{position:sticky;top:0;z-index:100;background:rgba(250,245,243,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--smoke);padding:0 4rem;height:70px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
-.nav-left{display:flex;gap:2.5rem;align-items:center}
-.nav-left a,.nav-right a{text-decoration:none;color:var(--ink);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;opacity:.6;transition:opacity .2s}
-.nav-left a:hover,.nav-right a:hover{opacity:1}
-.nav-center img{height:42px;width:42px;border-radius:50%;object-fit:cover;border:2px solid var(--rose)}
-.nav-right{display:flex;gap:2.5rem;align-items:center;justify-content:flex-end}
-.nav-cta{background:var(--ink)!important;color:white!important;padding:.55rem 1.4rem;text-decoration:none;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;opacity:1!important;transition:background .25s!important}
-.nav-cta:hover{background:var(--deep)!important}
-footer{background:var(--ink);padding:4rem 5rem 2rem}
-.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.08)}
-.footer-brand img{height:44px;width:44px;border-radius:50%;object-fit:cover;border:2px solid var(--deep);margin-bottom:1rem}
-.footer-brand h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:white;font-weight:400;margin-bottom:.6rem}
-.footer-brand p{font-size:.78rem;color:rgba(255,255,255,.35);line-height:1.7;max-width:220px;font-weight:300}
-.footer-col h4{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:1.25rem}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.65rem}
-.footer-col a{text-decoration:none;color:rgba(255,255,255,.4);font-size:.8rem;font-weight:300;transition:color .2s}
-.footer-col a:hover{color:white}
-.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:1.5rem}
-.footer-bottom p{font-size:.7rem;color:rgba(255,255,255,.2);font-weight:300}
-.social-links{display:flex;gap:1.5rem}
-.social-links a{color:rgba(255,255,255,.3);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;transition:color .2s}
-.social-links a:hover{color:var(--rose)}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;}
+a{text-decoration:none;color:inherit}
+img{display:block;width:100%;height:100%;object-fit:cover}
 
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:grid;grid-template-columns:auto 1fr auto;
+  align-items:center;height:70px;
+  padding:0 3rem;border-bottom:1px solid var(--smoke);
+  background:var(--cream);
+}
+.nav-left{display:flex;gap:2.5rem}
+.nav-left a{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;opacity:0.5;transition:opacity 0.2s}
+.nav-left a:hover,.nav-left a.active{opacity:1}
+.nav-center{display:flex;justify-content:center}
+.nav-center img{height:42px;width:42px;object-fit:cover;border-radius:50%}
+.nav-right{display:flex;align-items:center;gap:2rem;justify-content:flex-end}
+.nav-right a{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;opacity:0.5;transition:opacity 0.2s}
+.nav-right a:hover{opacity:1}
+.cart-icon-btn{background:none;border:none;cursor:pointer;position:relative;display:flex;align-items:center;gap:0.4rem;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;opacity:0.6;transition:opacity 0.2s;padding:0}
+.cart-icon-btn:hover{opacity:1}
+.cart-badge{background:var(--deep);color:white;font-size:0.6rem;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:absolute;top:-8px;right:-10px}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:var(--ink);transition:all 0.3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
-/* SHOP HERO */
-.shop-hero{
-  padding:5rem 5rem 3rem;
-  display:grid;grid-template-columns:1fr 1fr;
-  align-items:end;gap:3rem;
+/* MOBILE MENU */
+.mobile-menu{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--cream);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;transform:translateX(-100%);transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);pointer-events:none}
+.mobile-menu.open{transform:translateX(0);pointer-events:all}
+.mobile-menu a{font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;opacity:0.7;transition:opacity 0.2s}
+.mobile-menu a:hover{opacity:1;color:var(--deep)}
+.mobile-menu-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;font-size:1.75rem;cursor:pointer;color:var(--ink);opacity:0.5;width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+
+/* PAGE HEADER */
+.shop-header{
+  padding:4rem 3rem 2.5rem;
   border-bottom:1px solid var(--smoke);
 }
-.shop-hero h1{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(3rem,6vw,5.5rem);
-  font-weight:400;line-height:1;
-}
-.shop-hero h1 em{font-style:italic;color:var(--deep);display:block}
-.shop-hero p{font-size:.92rem;color:rgba(26,15,15,.55);font-weight:300;line-height:1.8;max-width:400px}
+.shop-header h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,3.5rem);font-weight:400;margin-bottom:0.5rem}
+.shop-header p{font-size:0.9rem;color:rgba(26,15,15,0.5);max-width:400px;line-height:1.7}
 
-/* FILTER BAR */
-.filter-bar{
-  padding:1.5rem 5rem;
+/* FILTERS */
+.shop-filters-bar{
+  padding:1.25rem 3rem;
+  border-bottom:1px solid var(--smoke);
+  display:flex;gap:0.5rem;
+  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  background:var(--cream);position:sticky;top:70px;z-index:50;
+}
+.shop-filters-bar::-webkit-scrollbar{display:none}
+.filter-btn{
+  flex-shrink:0;background:none;border:1px solid var(--smoke);
+  padding:0.55rem 1.25rem;font-family:'DM Sans',sans-serif;
+  font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;
+  font-weight:500;cursor:pointer;color:rgba(26,15,15,0.45);
+  transition:all 0.2s;white-space:nowrap;min-height:38px;
+}
+.filter-btn.active{background:var(--ink);color:white;border-color:var(--ink)}
+.filter-btn:active{opacity:0.7}
+
+/* PRODUCT COUNT */
+.shop-meta{
+  padding:1.25rem 3rem;
   display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid var(--smoke);
+  font-size:0.75rem;letter-spacing:0.1em;color:rgba(26,15,15,0.4);text-transform:uppercase;
 }
-.filter-tabs{display:flex;gap:0}
-.filter-tab{
-  background:none;border:1px solid transparent;
-  padding:.5rem 1.25rem;cursor:none;
-  font-family:'DM Sans',sans-serif;
-  font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;font-weight:500;
-  color:rgba(26,15,15,.45);transition:all .2s;
-}
-.filter-tab.active,.filter-tab:hover{
-  border-color:var(--rose);color:var(--deep);
-  background:var(--blush);
-}
-.sort-label{font-size:.72rem;color:rgba(26,15,15,.4);letter-spacing:.1em}
 
 /* PRODUCTS GRID */
 .shop-grid{
-  padding:3rem 5rem 6rem;
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:2rem;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  border-top:1px solid var(--smoke);
 }
-.product-card{text-decoration:none;color:var(--ink);display:block}
-.card-img{
-  position:relative;overflow:hidden;
-  background:var(--blush);aspect-ratio:3/4;
-  margin-bottom:1.1rem;
+.product-card{
+  border-right:1px solid var(--smoke);
+  border-bottom:1px solid var(--smoke);
+  cursor:pointer;position:relative;overflow:hidden;
 }
-.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
-.product-card:hover .card-img img{transform:scale(1.07)}
-.card-tag{
-  position:absolute;top:1rem;left:1rem;
-  background:var(--ink);color:white;
-  font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;
-  padding:.28rem .7rem;font-weight:500;
-}
-.card-tag.new{background:var(--deep)}
-.card-overlay{
-  position:absolute;inset:0;
-  background:rgba(26,15,15,0);
-  display:flex;align-items:flex-end;justify-content:center;
-  padding:1.5rem;transition:background .3s;
-}
-.card-overlay span{
-  background:white;color:var(--ink);
-  padding:.65rem 1.5rem;
-  font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;font-weight:500;
-  transform:translateY(20px);opacity:0;transition:all .3s;
-}
-.product-card:hover .card-overlay{background:rgba(26,15,15,.2)}
-.product-card:hover .card-overlay span{transform:translateY(0);opacity:1}
-.card-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:400;margin-bottom:.2rem}
-.card-shade{font-size:.75rem;color:var(--rose);font-weight:300;margin-bottom:.4rem}
-.card-price{font-family:'Playfair Display',serif;font-size:1.1rem}
-
-/* BOTTOM CTA */
-.shop-cta{
-  text-align:center;padding:5rem;
+.product-card:nth-child(3n){border-right:none}
+.product-img-wrap{
+  position:relative;overflow:hidden;aspect-ratio:3/4;
   background:var(--blush);
 }
-.shop-cta h2{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:400;margin-bottom:.75rem}
-.shop-cta h2 em{font-style:italic;color:var(--deep)}
-.shop-cta p{font-size:.9rem;color:rgba(26,15,15,.55);font-weight:300;margin-bottom:2rem}
-.btn-dark{
-  background:var(--ink);color:white;padding:1rem 2.5rem;
-  text-decoration:none;font-size:.72rem;letter-spacing:.2em;
-  text-transform:uppercase;font-weight:500;display:inline-block;
-  transition:background .3s;
+.product-img-wrap img{transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94)}
+.product-card:hover .product-img-wrap img{transform:scale(1.04)}
+.product-tag{
+  position:absolute;top:1rem;left:1rem;
+  background:var(--ink);color:white;
+  font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;
+  font-weight:500;padding:0.3rem 0.6rem;
 }
-.btn-dark:hover{background:var(--deep)}
+.product-overlay{
+  position:absolute;inset:0;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:1.5rem;
+  background:rgba(26,15,15,0);
+  transition:background 0.3s;
+}
+.product-card:hover .product-overlay{background:rgba(26,15,15,0.12)}
+.overlay-btn{
+  background:var(--cream);color:var(--ink);border:none;
+  padding:0.75rem 1.75rem;font-family:'DM Sans',sans-serif;
+  font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;
+  font-weight:500;cursor:pointer;
+  transform:translateY(12px);opacity:0;
+  transition:all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.product-card:hover .overlay-btn{transform:translateY(0);opacity:1}
+.product-info{padding:1.25rem 1.5rem 1.5rem}
+.product-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;margin-bottom:0.2rem}
+.product-shade{font-size:0.75rem;color:var(--rose);font-weight:300;margin-bottom:0.75rem}
+.product-footer{display:flex;align-items:center;justify-content:space-between}
+.product-price{font-family:'Playfair Display',serif;font-size:1rem}
+.add-btn{
+  background:none;border:1px solid rgba(196,144,144,0.4);
+  padding:0.45rem 0.9rem;font-family:'DM Sans',sans-serif;
+  font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;
+  font-weight:500;cursor:pointer;color:var(--ink);transition:all 0.2s;
+  min-height:36px;
+}
+.add-btn:hover{background:var(--ink);color:white;border-color:var(--ink)}
+.add-btn:active{opacity:0.7;transform:scale(0.97)}
+.product-card.hidden{display:none!important}
 
-@media(max-width:900px){
-  .shop-hero,.filter-bar,.shop-grid{padding-left:1.5rem;padding-right:1.5rem}
-  .shop-hero{grid-template-columns:1fr}
-  .shop-grid{grid-template-columns:1fr 1fr}
-  nav{padding:0 1.5rem}
-  .footer-top{grid-template-columns:1fr 1fr;gap:2rem}
+/* EMPTY STATE */
+.shop-empty{
+  grid-column:1/-1;padding:5rem;text-align:center;
+  font-family:'Playfair Display',serif;font-size:1.2rem;color:rgba(26,15,15,0.3);
+}
+
+/* CART */
+.cart-overlay{position:fixed;inset:0;background:rgba(26,15,15,0);z-index:200;pointer-events:none;transition:background 0.4s}
+.cart-overlay.open{background:rgba(26,15,15,0.5);pointer-events:all}
+.cart-sidebar{position:fixed;top:0;right:-480px;width:440px;max-width:100vw;height:100vh;background:var(--cream);z-index:201;display:flex;flex-direction:column;transition:right 0.4s cubic-bezier(0.25,0.46,0.45,0.94);box-shadow:-20px 0 60px rgba(26,15,15,0.15)}
+.cart-sidebar.open{right:0}
+.cart-header{padding:2rem 1.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--smoke)}
+.cart-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;display:flex;align-items:center;gap:0.75rem}
+.cart-close{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--ink);opacity:0.4;transition:opacity 0.2s;line-height:1;padding:0;width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+.cart-close:hover{opacity:1}
+.cart-body{flex:1;overflow-y:auto;padding:1.25rem 1.75rem}
+.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:300px;text-align:center}
+.cart-empty-icon{font-size:2rem;color:var(--rose);margin-bottom:1rem}
+.cart-empty-text{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;margin-bottom:1rem}
+.cart-item{display:flex;gap:1rem;padding:1.25rem 0;border-bottom:1px solid var(--smoke);position:relative}
+.cart-item-img{width:80px;height:80px;flex-shrink:0;background:var(--blush);overflow:hidden}
+.cart-item-img img{width:100%;height:100%;object-fit:cover}
+.cart-item-info{flex:1}
+.cart-item-name{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:400;margin-bottom:0.2rem}
+.cart-item-shade{font-size:0.75rem;color:var(--rose);margin-bottom:0.6rem;font-weight:300}
+.cart-item-row{display:flex;align-items:center;justify-content:space-between}
+.cart-qty{display:flex;align-items:center;border:1px solid rgba(196,144,144,0.4)}
+.cart-qty-btn{width:36px;height:36px;background:none;border:none;cursor:pointer;font-size:1rem;color:var(--ink);transition:background 0.2s;display:flex;align-items:center;justify-content:center}
+.cart-qty-btn:hover{background:var(--blush)}
+.cart-qty span{width:32px;height:36px;display:flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:500;border-left:1px solid rgba(196,144,144,0.4);border-right:1px solid rgba(196,144,144,0.4)}
+.cart-item-price{font-family:'Playfair Display',serif;font-size:1rem}
+.cart-item-remove{position:absolute;top:1rem;right:0;background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--rose);opacity:0.6;transition:opacity 0.2s;line-height:1;padding:0}
+.cart-item-remove:hover{opacity:1}
+.cart-footer{padding:1.5rem 1.75rem 2rem;border-top:1px solid var(--smoke)}
+.cart-subtotal-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;font-family:'Playfair Display',serif;font-size:1.1rem}
+.cart-shipping-note{font-size:0.72rem;color:rgba(26,15,15,0.4);margin-bottom:1.25rem;font-weight:300}
+.cart-checkout-btn{display:block;width:100%;background:var(--ink);color:white;text-align:center;padding:1rem;text-decoration:none;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;margin-bottom:0.75rem;transition:background 0.3s;border:none;cursor:pointer;min-height:50px;font-family:'DM Sans',sans-serif}
+.cart-checkout-btn:hover{background:var(--deep)}
+.cart-continue{display:block;width:100%;background:none;border:none;text-align:center;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(26,15,15,0.45);transition:color 0.2s;font-weight:500}
+.cart-continue:hover{color:var(--deep)}
+.cart-toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:white;padding:0.85rem 1.75rem;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;z-index:999;opacity:0;transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);white-space:nowrap;pointer-events:none}
+.cart-toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* FOOTER */
+footer{padding:4rem 3rem 2rem;border-top:1px solid var(--smoke)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;border-top:1px solid var(--smoke);font-size:0.72rem;letter-spacing:0.1em;color:rgba(26,15,15,0.4)}
+.social-links{display:flex;gap:1.5rem}
+.social-links a{opacity:0.5;transition:opacity 0.2s;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase}
+.social-links a:hover{opacity:1}
+
+/* MOBILE BOTTOM BAR */
+.mobile-bottom-bar{display:none}
+
+/* CHECKOUT MODAL */
+#checkoutOverlay{display:none;position:fixed;inset:0;background:rgba(26,15,15,0.6);z-index:500;align-items:center;justify-content:center}
+.ck-panel{background:var(--cream);width:100%;max-width:480px;max-height:calc(100vh - 2rem);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:2rem;position:relative;margin:1rem;box-sizing:border-box}
+.ck-label{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;display:block;margin-bottom:0.5rem;color:var(--ink)}
+.ck-input{width:100%;border:none;border-bottom:1px solid var(--smoke);padding:0.9rem 0;font-family:'DM Sans',sans-serif;font-size:16px;background:transparent;outline:none;color:var(--ink);box-sizing:border-box}
+.ck-input:focus{border-bottom-color:var(--deep)}
+.ck-stripe-field{border:none;border-bottom:1px solid var(--smoke);padding:0.9rem 0;background:transparent;transition:border-color 0.2s}
+.ck-stripe-field.focused{border-bottom-color:var(--deep)}
+.ck-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.ck-pay-btn{width:100%;background:var(--ink);color:white;border:none;padding:1.1rem;font-family:'DM Sans',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;cursor:pointer;min-height:52px;transition:background 0.2s}
+.ck-pay-btn:active{background:var(--deep)}
+.ck-pay-btn:disabled{opacity:0.6}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  nav{padding:0 2rem}
+  .nav-left{display:none}
+  .nav-hamburger{display:flex}
+  .shop-header{padding:3rem 2rem 2rem}
+  .shop-filters-bar{padding:1rem 2rem}
+  .shop-meta{padding:1rem 2rem}
+  .shop-grid{grid-template-columns:repeat(2,1fr)}
+  .product-card:nth-child(3n){border-right:1px solid var(--smoke)}
+  .product-card:nth-child(2n){border-right:none}
+  footer{padding:3rem 2rem 1.5rem}
 }
 @media(max-width:600px){
-  .shop-grid{grid-template-columns:1fr}
+  nav{padding:0 1.25rem;height:60px}
+  .nav-center img{height:36px;width:36px}
+  .shop-header{padding:2rem 1.25rem 1.5rem}
+  .shop-header h1{font-size:2rem}
+  .shop-filters-bar{padding:0.75rem 1.25rem;top:60px}
+  .shop-meta{padding:0.75rem 1.25rem}
+  .shop-grid{grid-template-columns:repeat(2,1fr)}
+  .product-card:nth-child(2n){border-right:none}
+  .product-card:nth-child(3n){border-right:1px solid var(--smoke)}
+  .product-info{padding:0.9rem 1rem 1.1rem}
+  .product-name{font-size:0.9rem}
+  .product-price{font-size:0.9rem}
+  .overlay-btn{transform:translateY(0)!important;opacity:1!important;font-size:0.62rem;padding:0.6rem 1rem}
+  .product-overlay{background:rgba(26,15,15,0.08)!important}
+  footer{padding:2.5rem 1.25rem 1.25rem}
+  .footer-bottom{flex-direction:column;gap:0.75rem;text-align:center}
+  .social-links{justify-content:center}
+  .mobile-bottom-bar{
+    display:flex;position:fixed;bottom:0;left:0;right:0;
+    background:var(--cream);border-top:1px solid var(--smoke);
+    z-index:150;padding:0.75rem 1rem;
+    padding-bottom:calc(0.75rem + env(safe-area-inset-bottom));
+    gap:0.75rem;box-shadow:0 -4px 20px rgba(26,15,15,0.08);
+  }
+  .mob-bar-home{flex:1;background:var(--ink);color:white;border:none;padding:0.9rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center}
+  .mob-bar-cart{width:50px;height:50px;border-radius:50%;background:var(--blush);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
+  .mob-bar-cart svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:1.5}
+  .mob-bar-cart-count{position:absolute;top:-2px;right:-2px;background:var(--deep);color:white;width:16px;height:16px;border-radius:50%;font-size:0.55rem;font-weight:700;display:none;align-items:center;justify-content:center;border:2px solid var(--cream)}
+  footer{padding-bottom:calc(2.5rem + 80px)}
+  .cart-sidebar{width:100vw;right:-100vw}
+  .cart-sidebar.open{right:0}
+  #checkoutOverlay{align-items:flex-end}
+  .ck-panel{max-width:100%;margin:0;border-radius:20px 20px 0 0;max-height:92vh;padding:1.5rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom))}
 }
-</style>
-<style>
-
-/* CART ICON IN NAV */
-.cart-icon-btn {
-  background: none; border: none; cursor: pointer;
-  position: relative; display: flex; align-items: center;
-  gap: 0.4rem; color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
-  font-weight: 500; opacity: 0.6; transition: opacity 0.2s;
-  padding: 0;
-}
-.cart-icon-btn:hover { opacity: 1; }
-.cart-badge {
-  background: var(--deep); color: white;
-  font-size: 0.6rem; font-weight: 700;
-  width: 18px; height: 18px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  position: absolute; top: -8px; right: -10px;
-}
-
-/* CART OVERLAY */
-.cart-overlay {
-  position: fixed; inset: 0; background: rgba(26,15,15,0);
-  z-index: 200; pointer-events: none;
-  transition: background 0.4s;
-}
-.cart-overlay.open {
-  background: rgba(26,15,15,0.5); pointer-events: all;
-}
-
-/* CART SIDEBAR */
-.cart-sidebar {
-  position: fixed; top: 0; right: -480px; width: 440px; max-width: 100vw;
-  height: 100vh; background: var(--cream);
-  z-index: 201; display: flex; flex-direction: column;
-  transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  box-shadow: -20px 0 60px rgba(26,15,15,0.15);
-}
-.cart-sidebar.open { right: 0; }
-.cart-header {
-  padding: 2rem 1.75rem 1.5rem;
-  display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 1px solid var(--smoke);
-}
-.cart-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem; font-weight: 400;
-  display: flex; align-items: center; gap: 0.75rem;
-}
-#cartBadgeMain {
-  position: static; font-size: 0.7rem;
-  width: 22px; height: 22px;
-}
-.cart-close {
-  background: none; border: none; font-size: 1.5rem;
-  cursor: pointer; color: var(--ink); opacity: 0.4;
-  transition: opacity 0.2s; line-height: 1; padding: 0;
-}
-.cart-close:hover { opacity: 1; }
-
-/* CART BODY */
-.cart-body {
-  flex: 1; overflow-y: auto; padding: 1.25rem 1.75rem;
-}
-.cart-empty {
-  display: flex; flex-direction: column; align-items: center;
-  justify-content: center; height: 300px; text-align: center;
-}
-.cart-empty-icon { font-size: 2rem; color: var(--rose); margin-bottom: 1rem; }
-.cart-empty-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem; font-weight: 400; margin-bottom: 1rem; color: var(--ink);
-}
-.cart-shop-link {
-  font-size: 0.78rem; color: var(--deep); text-decoration: none;
-  letter-spacing: 0.1em; border-bottom: 1px solid var(--rose);
-  padding-bottom: 2px;
-}
-
-/* CART ITEM */
-.cart-item {
-  display: flex; gap: 1rem; padding: 1.25rem 0;
-  border-bottom: 1px solid var(--smoke); position: relative;
-}
-.cart-item-img {
-  width: 80px; height: 80px; flex-shrink: 0;
-  background: var(--blush); overflow: hidden;
-}
-.cart-item-img img { width: 100%; height: 100%; object-fit: cover; }
-.cart-item-info { flex: 1; }
-.cart-item-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.95rem; font-weight: 400; margin-bottom: 0.2rem;
-}
-.cart-item-shade { font-size: 0.75rem; color: var(--rose); margin-bottom: 0.6rem; font-weight: 300; }
-.cart-item-row { display: flex; align-items: center; justify-content: space-between; }
-.cart-qty {
-  display: flex; align-items: center;
-  border: 1px solid rgba(196,144,144,0.4);
-}
-.cart-qty-btn {
-  width: 28px; height: 28px; background: none; border: none;
-  cursor: pointer; font-size: 1rem; color: var(--ink);
-  transition: background 0.2s; display: flex; align-items: center; justify-content: center;
-}
-.cart-qty-btn:hover { background: var(--blush); }
-.cart-qty span {
-  width: 32px; height: 28px; display: flex; align-items: center;
-  justify-content: center; font-size: 0.82rem; font-weight: 500;
-  border-left: 1px solid rgba(196,144,144,0.4);
-  border-right: 1px solid rgba(196,144,144,0.4);
-}
-.cart-item-price {
-  font-family: 'Playfair Display', serif; font-size: 1rem;
-}
-.cart-item-remove {
-  position: absolute; top: 1rem; right: 0;
-  background: none; border: none; font-size: 1.2rem;
-  cursor: pointer; color: var(--rose); opacity: 0.6;
-  transition: opacity 0.2s; line-height: 1; padding: 0;
-}
-.cart-item-remove:hover { opacity: 1; }
-
-/* CART FOOTER */
-.cart-footer { padding: 1.5rem 1.75rem 2rem; border-top: 1px solid var(--smoke); }
-.cart-subtotal-row {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 0.4rem;
-  font-family: 'Playfair Display', serif; font-size: 1.1rem;
-}
-.cart-shipping-note {
-  font-size: 0.72rem; color: rgba(26,15,15,0.4);
-  margin-bottom: 1.25rem; font-weight: 300;
-}
-.cart-checkout-btn {
-  display: block; background: var(--ink); color: white;
-  text-align: center; padding: 1rem; text-decoration: none;
-  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
-  font-weight: 500; margin-bottom: 0.75rem;
-  transition: background 0.3s;
-}
-.cart-checkout-btn:hover { background: var(--deep); }
-.cart-continue {
-  display: block; width: 100%; background: none; border: none;
-  text-align: center; cursor: pointer; font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
-  color: rgba(26,15,15,0.45); transition: color 0.2s; font-weight: 500;
-}
-.cart-continue:hover { color: var(--deep); }
-
-/* CART TOAST */
-.cart-toast {
-  position: fixed; bottom: 2rem; left: 50%;
-  transform: translateX(-50%) translateY(80px);
-  background: var(--ink); color: white;
-  padding: 0.85rem 1.75rem; font-size: 0.78rem;
-  letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
-  z-index: 999; opacity: 0;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  white-space: nowrap; pointer-events: none;
-}
-.cart-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-
+*{-webkit-tap-highlight-color:transparent}
+input,textarea,select{font-size:16px!important}
 </style>
 </head>
 <body>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="closeMobileMenu()">×</button>
+  <a href="index.html" onclick="closeMobileMenu()">Home</a>
+  <a href="shop.html" onclick="closeMobileMenu()" style="color:var(--deep);opacity:1">Shop</a>
+  <a href="index.html#story" onclick="closeMobileMenu()">About</a>
+  <a href="https://instagram.com/Olaoluwa_0" target="_blank" onclick="closeMobileMenu()">Instagram</a>
+  <a href="index.html#subscribe" onclick="closeMobileMenu()">Early Access</a>
+</div>
 
 <!-- CART OVERLAY -->
 <div class="cart-overlay" id="cartOverlay"></div>
@@ -325,7 +291,6 @@ footer{background:var(--ink);padding:4rem 5rem 2rem}
     <div class="cart-empty">
       <p class="cart-empty-icon">✦</p>
       <p class="cart-empty-text">Your cart is empty</p>
-      <a href="shop.html" class="cart-shop-link" onclick="closeCart()">Browse the collection →</a>
     </div>
   </div>
   <div class="cart-footer" id="cartFooter" style="display:none">
@@ -334,299 +299,279 @@ footer{background:var(--ink);padding:4rem 5rem 2rem}
       <span id="cartSubtotal">$0.00</span>
     </div>
     <p class="cart-shipping-note">Shipping calculated at checkout</p>
-    <a href="checkout.html" class="cart-checkout-btn">Proceed to Checkout →</a>
+    <button onclick="startCheckout()" class="cart-checkout-btn" id="checkoutBtn">Proceed to Checkout →</button>
     <button class="cart-continue" onclick="closeCart()">Continue Shopping</button>
   </div>
 </div>
 <div class="cart-toast" id="cartToast"></div>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-<div class="announcement">
-  <div class="ann-track">
-    <span>✦ <b>Early Access</b> — Join the list for 15% off</span>
-    <span>✦ Free shipping on orders over $50</span>
-    <span>✦ <b>Pre-Order</b> — Precision Brow Collection</span>
-    <span>✦ Vegan &amp; Cruelty Free</span>
-    <span>✦ <b>Early Access</b> — Join the list for 15% off</span>
-    <span>✦ Free shipping on orders over $50</span>
-    <span>✦ <b>Pre-Order</b> — Precision Brow Collection</span>
-    <span>✦ Vegan &amp; Cruelty Free</span>
-  </div>
-</div>
+<!-- NAV -->
 <nav>
   <div class="nav-left">
-    <a href="shop.html" style="opacity:1;border-bottom:1px solid var(--deep);padding-bottom:2px;">Shop</a>
-    <a href="about.html">About</a>
-    <a href="gallery.html">Gallery</a>
+    <a href="index.html">Home</a>
+    <a href="shop.html" class="active">Shop</a>
+    <a href="index.html#story">About</a>
     <a href="index.html#subscribe">Early Access</a>
   </div>
+  <button class="nav-hamburger" id="navHamburger" onclick="openMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
   <div class="nav-center">
-    <a href="index.html"><img src="images/logo.jpeg" alt="Browed by Olá"/></a>
+    <a href="index.html">
+      <img src="images/logo.jpeg" alt="Browed by Olá"/>
+    </a>
   </div>
   <div class="nav-right">
     <a href="https://instagram.com/Olaoluwa_0" target="_blank">Instagram</a>
     <button class="cart-icon-btn" onclick="openCart()">
-    Cart <span class="cart-badge" style="display:none">0</span>
-  </button>
-    <a href="index.html#subscribe" class="nav-cta">Get Early Access</a>
+      Cart <span class="cart-badge" style="display:none">0</span>
+    </button>
   </div>
 </nav>
 
-<!-- SHOP HERO -->
-<div class="shop-hero reveal">
-  <h1>The<br><em>Collection</em></h1>
-  <p>Six precision-crafted brow products designed for every face, every shade, every moment. Launching soon — join the early access list for 15% off your first order.</p>
+<!-- PAGE HEADER -->
+<div class="shop-header">
+  <h1>Shop <em style="font-style:italic;color:var(--deep)">All</em></h1>
+  <p>Six precision-crafted brow products. Vegan. Cruelty-free. Made for every shade.</p>
 </div>
 
-<!-- FILTER BAR -->
-<div class="filter-bar">
-  <div class="filter-tabs">
-    <button class="filter-tab active">All</button>
-    <button class="filter-tab">Pencils</button>
-    <button class="filter-tab">Gels</button>
-    <button class="filter-tab">Treatment</button>
-  </div>
-  <span class="sort-label">6 Products</span>
+<!-- FILTERS -->
+<div class="shop-filters-bar">
+  <button class="filter-btn active" onclick="filterProducts(this,'all')">All <span id="countAll"></span></button>
+  <button class="filter-btn" onclick="filterProducts(this,'pencil')">Brow Pencils</button>
+  <button class="filter-btn" onclick="filterProducts(this,'gel')">Brow Gels</button>
+  <button class="filter-btn" onclick="filterProducts(this,'oil')">Brow Oils</button>
+  <button class="filter-btn" onclick="filterProducts(this,'duo')">Sets & Duos</button>
 </div>
 
-<!-- GRID -->
-<div class="shop-grid">
-    <a href="product-dark-brown.html" class="product-card reveal">
-      <div class="card-img">
-        <img src="images/dark_brown.jpeg" alt="Olá Brow Pencil"/>
-        <span class="card-tag new">New</span>
-        <div class="card-overlay"><span>View Product →</span></div>
-      </div>
-      <div class="card-info">
-        <p class="card-name">Olá Brow Pencil</p>
-        <p class="card-shade">Dark Brown</p>
-        <p class="card-price">$18</p>
-      </div>
-    </a>
-    <a href="product-soft-black.html" class="product-card reveal">
-      <div class="card-img">
-        <img src="images/dark_brown.jpeg" alt="Olá Brow Pencil"/>
-        <span class="card-tag new">New</span>
-        <div class="card-overlay"><span>View Product →</span></div>
-      </div>
-      <div class="card-info">
-        <p class="card-name">Olá Brow Pencil</p>
-        <p class="card-shade">Soft Black</p>
-        <p class="card-price">$18</p>
-      </div>
-    </a>
-    <a href="product-definer-duo.html" class="product-card reveal">
-      <div class="card-img">
-        <img src="images/dark_brown.jpeg" alt="Brow Definer Duo"/>
-        <span class="card-tag ">Pre-Order</span>
-        <div class="card-overlay"><span>View Product →</span></div>
-      </div>
-      <div class="card-info">
-        <p class="card-name">Brow Definer Duo</p>
-        <p class="card-shade">Pencil + Gel Set</p>
-        <p class="card-price">$28</p>
-      </div>
-    </a>
-    <a href="product-brow-gel.html" class="product-card reveal">
-      <div class="card-img">
-        <img src="images/dark_brown.jpeg" alt="Precision Brow Gel"/>
-        <span class="card-tag ">Pre-Order</span>
-        <div class="card-overlay"><span>View Product →</span></div>
-      </div>
-      <div class="card-info">
-        <p class="card-name">Precision Brow Gel</p>
-        <p class="card-shade">Clear</p>
-        <p class="card-price">$16</p>
-      </div>
-    </a>
-    <a href="product-microblade.html" class="product-card reveal">
-      <div class="card-img">
-        <img src="images/dark_brown.jpeg" alt="Microblade Effect Pen"/>
-        <span class="card-tag ">Pre-Order</span>
-        <div class="card-overlay"><span>View Product →</span></div>
-      </div>
-      <div class="card-info">
-        <p class="card-name">Microblade Effect Pen</p>
-        <p class="card-shade">Dark Brown / Soft Black</p>
-        <p class="card-price">$22</p>
-      </div>
-    </a>
-    <a href="product-brow-oil.html" class="product-card reveal">
-      <div class="card-img">
-        <img src="images/dark_brown.jpeg" alt="Brow Care Oil"/>
-        <span class="card-tag ">Pre-Order</span>
-        <div class="card-overlay"><span>View Product →</span></div>
-      </div>
-      <div class="card-info">
-        <p class="card-name">Brow Care Oil</p>
-        <p class="card-shade">Nourishing Treatment</p>
-        <p class="card-price">$20</p>
-      </div>
-    </a></div>
-
-<!-- CTA -->
-<div class="shop-cta reveal">
-  <h2>Don't miss the <em>launch</em></h2>
-  <p>Be first to shop + get 15% off your first order when you join the early access list.</p>
-  <a href="index.html#subscribe" class="btn-dark">Join Early Access</a>
+<!-- META -->
+<div class="shop-meta">
+  <span id="productCount">6 products</span>
 </div>
 
-<footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <img src="images/logo.jpeg" alt="Browed by Olá"/>
-      <h3>Browed by Olá</h3>
-      <p>Precision brow products crafted for every shade, every face, every moment.</p>
+<!-- PRODUCTS GRID -->
+<div class="shop-grid" id="shopGrid">
+
+  <div class="product-card" data-category="pencil" data-id="dark-brown" data-price="18" data-name="Olá Brow Pencil" data-shade="Dark Brown">
+    <div class="product-img-wrap">
+      <img src="images/dark_brown.jpeg" alt="Olá Brow Pencil Dark Brown"/>
+      <span class="product-tag">New</span>
+      <div class="product-overlay">
+        <button class="overlay-btn" onclick="quickAdd('dark-brown','Dark Brown',18,'Olá Brow Pencil')">Add to Cart</button>
+      </div>
     </div>
-    <div class="footer-col"><h4>Shop</h4><ul>
-      <li><a href="shop.html">All Products</a></li>
-      <li><a href="product-dark-brown.html">Brow Pencil — Dark Brown</a></li>
-      <li><a href="product-soft-black.html">Brow Pencil — Soft Black</a></li>
-      <li><a href="product-brow-gel.html">Precision Brow Gel</a></li>
-    </ul></div>
-    <div class="footer-col"><h4>Brand</h4><ul>
-      <li><a href="index.html#story">Our Story</a></li>
-      <li><a href="index.html#subscribe">Early Access</a></li>
-      <li><a href="https://instagram.com/Olaoluwa_0" target="_blank">Instagram</a>
-    <button class="cart-icon-btn" onclick="openCart()">
-    Cart <span class="cart-badge" style="display:none">0</span>
-  </button></li>
-    </ul></div>
-    <div class="footer-col"><h4>Help</h4><ul>
-      <li><a href="#">Contact Us</a></li>
-      <li><a href="#">Privacy Policy</a></li>
-      <li><a href="#">Shipping Info</a></li>
-    </ul></div>
+    <div class="product-info">
+      <p class="product-name">Olá Brow Pencil</p>
+      <p class="product-shade">Dark Brown</p>
+      <div class="product-footer">
+        <span class="product-price">$18</span>
+        <button class="add-btn" onclick="quickAdd('dark-brown','Dark Brown',18,'Olá Brow Pencil')">Add to Cart</button>
+      </div>
+    </div>
   </div>
+
+  <div class="product-card" data-category="pencil" data-id="soft-black" data-price="18" data-name="Olá Brow Pencil" data-shade="Soft Black">
+    <div class="product-img-wrap">
+      <img src="images/dark_brown.jpeg" alt="Olá Brow Pencil Soft Black"/>
+      <span class="product-tag">New</span>
+      <div class="product-overlay">
+        <button class="overlay-btn" onclick="quickAdd('soft-black','Soft Black',18,'Olá Brow Pencil')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-info">
+      <p class="product-name">Olá Brow Pencil</p>
+      <p class="product-shade">Soft Black</p>
+      <div class="product-footer">
+        <span class="product-price">$18</span>
+        <button class="add-btn" onclick="quickAdd('soft-black','Soft Black',18,'Olá Brow Pencil')">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-card" data-category="duo" data-id="definer-duo" data-price="28" data-name="Brow Definer Duo" data-shade="Pencil + Gel Set">
+    <div class="product-img-wrap">
+      <img src="images/dark_brown.jpeg" alt="Brow Definer Duo"/>
+      <span class="product-tag">Best Value</span>
+      <div class="product-overlay">
+        <button class="overlay-btn" onclick="quickAdd('definer-duo','Pencil + Gel Set',28,'Brow Definer Duo')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-info">
+      <p class="product-name">Brow Definer Duo</p>
+      <p class="product-shade">Pencil + Gel Set</p>
+      <div class="product-footer">
+        <span class="product-price">$28</span>
+        <button class="add-btn" onclick="quickAdd('definer-duo','Pencil + Gel Set',28,'Brow Definer Duo')">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-card" data-category="gel" data-id="brow-gel" data-price="16" data-name="Precision Brow Gel" data-shade="Clear">
+    <div class="product-img-wrap">
+      <img src="images/dark_brown.jpeg" alt="Precision Brow Gel"/>
+      <span class="product-tag">New</span>
+      <div class="product-overlay">
+        <button class="overlay-btn" onclick="quickAdd('brow-gel','Clear',16,'Precision Brow Gel')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-info">
+      <p class="product-name">Precision Brow Gel</p>
+      <p class="product-shade">Clear</p>
+      <div class="product-footer">
+        <span class="product-price">$16</span>
+        <button class="add-btn" onclick="quickAdd('brow-gel','Clear',16,'Precision Brow Gel')">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-card" data-category="pencil" data-id="microblade" data-price="22" data-name="Microblade Effect Pen" data-shade="Soft Black">
+    <div class="product-img-wrap">
+      <img src="images/dark_brown.jpeg" alt="Microblade Effect Pen"/>
+      <span class="product-tag">New</span>
+      <div class="product-overlay">
+        <button class="overlay-btn" onclick="quickAdd('microblade','Soft Black',22,'Microblade Effect Pen')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-info">
+      <p class="product-name">Microblade Effect Pen</p>
+      <p class="product-shade">Soft Black</p>
+      <div class="product-footer">
+        <span class="product-price">$22</span>
+        <button class="add-btn" onclick="quickAdd('microblade','Soft Black',22,'Microblade Effect Pen')">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-card" data-category="oil" data-id="brow-oil" data-price="20" data-name="Brow Care Oil" data-shade="Nourishing">
+    <div class="product-img-wrap">
+      <img src="images/dark_brown.jpeg" alt="Brow Care Oil"/>
+      <span class="product-tag">New</span>
+      <div class="product-overlay">
+        <button class="overlay-btn" onclick="quickAdd('brow-oil','Nourishing',20,'Brow Care Oil')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-info">
+      <p class="product-name">Brow Care Oil</p>
+      <p class="product-shade">Nourishing Treatment</p>
+      <div class="product-footer">
+        <span class="product-price">$20</span>
+        <button class="add-btn" onclick="quickAdd('brow-oil','Nourishing',20,'Brow Care Oil')">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
   <div class="footer-bottom">
     <p>© 2025 Browed by Olá. All rights reserved.</p>
     <div class="social-links">
       <a href="https://instagram.com/Olaoluwa_0" target="_blank">Instagram</a>
-    <button class="cart-icon-btn" onclick="openCart()">
-    Cart <span class="cart-badge" style="display:none">0</span>
-  </button>
-      <a href="#">TikTok</a><a href="#">Pinterest</a>
+      <a href="#">TikTok</a>
+      <a href="#">Pinterest</a>
     </div>
   </div>
 </footer>
 
+<!-- MOBILE BOTTOM BAR -->
+<div class="mobile-bottom-bar">
+  <a href="index.html" class="mob-bar-home">← Back to Home</a>
+  <button class="mob-bar-cart" onclick="openCart()">
+    <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    <span class="mob-bar-cart-count" id="mobCartCount">0</span>
+  </button>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div id="checkoutOverlay">
+  <div class="ck-panel">
+    <button onclick="closeCheckout()" style="position:absolute;top:1.25rem;right:1.25rem;background:none;border:none;font-size:1.75rem;cursor:pointer;color:var(--ink);opacity:0.4;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">×</button>
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:400;margin-bottom:0.2rem;">Checkout</h2>
+    <p style="font-size:0.7rem;color:rgba(26,15,15,0.4);letter-spacing:0.12em;margin-bottom:1.5rem;">🔒 SECURE PAYMENT</p>
+    <div id="checkoutSummary" style="border:1px solid var(--smoke);padding:1rem;margin-bottom:1.5rem;font-size:0.88rem;"></div>
+    <div style="margin-bottom:1rem;">
+      <label class="ck-label">Full Name</label>
+      <input id="ck-name" type="text" placeholder="Your full name" class="ck-input" autocomplete="name">
+    </div>
+    <div style="margin-bottom:1.5rem;">
+      <label class="ck-label">Email</label>
+      <input id="ck-email" type="email" placeholder="your@email.com" class="ck-input" autocomplete="email">
+    </div>
+    <div style="margin-bottom:1.25rem;">
+      <label class="ck-label">Card Number</label>
+      <div id="card-number-element" class="ck-stripe-field"></div>
+    </div>
+    <div class="ck-row" style="margin-bottom:1.5rem;">
+      <div>
+        <label class="ck-label">Expiry Date</label>
+        <div id="card-expiry-element" class="ck-stripe-field"></div>
+      </div>
+      <div>
+        <label class="ck-label">CVV</label>
+        <div id="card-cvc-element" class="ck-stripe-field"></div>
+      </div>
+    </div>
+    <p id="card-errors" style="color:#c0392b;font-size:0.78rem;margin-bottom:1rem;display:none;"></p>
+    <button id="pay-btn" onclick="submitPayment()" class="ck-pay-btn" style="margin-bottom:0.75rem;">
+      <span id="pay-btn-text">Pay Now</span>
+    </button>
+    <p style="text-align:center;font-size:0.68rem;color:rgba(26,15,15,0.3);letter-spacing:0.08em;">Powered by Stripe · Your card is never stored</p>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div id="successOverlay" style="display:none;position:fixed;inset:0;background:rgba(26,15,15,0.6);z-index:600;align-items:center;justify-content:center;">
+  <div style="background:var(--cream);width:100%;max-width:420px;padding:3rem 2.5rem;text-align:center;margin:1rem;box-sizing:border-box;">
+    <p style="font-size:2.5rem;margin-bottom:1rem;">🌸</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:400;margin-bottom:0.75rem;">Order Confirmed!</h2>
+    <p style="font-size:0.9rem;line-height:1.7;color:rgba(26,15,15,0.6);margin-bottom:2rem;">Thank you for your order. A confirmation has been sent to your email.</p>
+    <button onclick="closeSuccess()" style="background:var(--ink);color:white;border:none;padding:1rem 2.5rem;font-family:'DM Sans',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;min-height:52px;">Continue Shopping</button>
+  </div>
+</div>
+
 <script>
-
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';cur.style.background='var(--rose)';ring.style.width='50px';ring.style.height='50px';});
-  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';cur.style.background='var(--deep)';ring.style.width='36px';ring.style.height='36px';});
-});
-const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});},{threshold:.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-// Filter tabs (visual only for now)
-document.querySelectorAll('.filter-tab').forEach(tab=>{
-  tab.addEventListener('click',function(){
-    document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
-    this.classList.add('active');
-  });
-});
-</script>
-<script>
-
-// ═══════════════════════════════════════
-//  BROWED BY OLÁ — CART SYSTEM v1.0
-// ═══════════════════════════════════════
-
+// ── CART ──
 const PRODUCT_IMAGES = {
-  "dark-brown": "images/dark_brown.jpeg",
-  "soft-black": "images/dark_brown.jpeg",
-  "definer-duo": "images/dark_brown.jpeg",
-  "brow-gel": "images/dark_brown.jpeg",
-  "microblade": "images/dark_brown.jpeg",
-  "brow-oil": "images/dark_brown.jpeg"
+  "dark-brown":"images/dark_brown.jpeg","soft-black":"images/dark_brown.jpeg",
+  "definer-duo":"images/dark_brown.jpeg","brow-gel":"images/dark_brown.jpeg",
+  "microblade":"images/dark_brown.jpeg","brow-oil":"images/dark_brown.jpeg"
 };
-
-const PRODUCT_DATA = {
-  "dark-brown":  {name:"Olá Brow Pencil",shade:"Dark Brown",price:18,id:"dark-brown"},
-  "soft-black":  {name:"Olá Brow Pencil",shade:"Soft Black",price:18,id:"soft-black"},
-  "definer-duo": {name:"Brow Definer Duo",shade:"Pencil + Gel",price:28,id:"definer-duo"},
-  "brow-gel":    {name:"Precision Brow Gel",shade:"Clear",price:16,id:"brow-gel"},
-  "microblade":  {name:"Microblade Effect Pen",shade:"Dark Brown",price:22,id:"microblade"},
-  "brow-oil":    {name:"Brow Care Oil",shade:"Nourishing",price:20,id:"brow-oil"},
-};
-
-// ── Cart State ──
 let cart = JSON.parse(localStorage.getItem('ola_cart') || '[]');
+function saveCart(){ localStorage.setItem('ola_cart', JSON.stringify(cart)); }
+function cartTotal(){ return cart.reduce((s,i) => s + i.price * i.qty, 0); }
+function cartCount(){ return cart.reduce((s,i) => s + i.qty, 0); }
 
-function saveCart() {
-  localStorage.setItem('ola_cart', JSON.stringify(cart));
-  updateCartBadge();
+function updateCartBadge(){
+  const count = cartCount();
+  document.querySelectorAll('.cart-badge').forEach(b => {
+    b.textContent = count; b.style.display = count > 0 ? 'flex' : 'none';
+  });
+  const mob = document.getElementById('mobCartCount');
+  if(mob){ mob.textContent = count; mob.style.display = count > 0 ? 'flex' : 'none'; }
+}
+
+function quickAdd(id, shade, price, name){
+  event.stopPropagation();
+  const existing = cart.find(i => i.id === id && i.shade === shade);
+  if(existing){ existing.qty++; } else { cart.push({id, shade, price, name, qty:1}); }
+  saveCart(); updateCartBadge();
+  showToast(name + ' added 🌸');
   renderCart();
 }
 
-function addToCart(productId, shade, qty=1) {
-  shade = shade || PRODUCT_DATA[productId]?.shade || '';
-  const existing = cart.find(i => i.id === productId && i.shade === shade);
-  if (existing) {
-    existing.qty += qty;
-  } else {
-    const p = PRODUCT_DATA[productId];
-    if (!p) return;
-    cart.push({...p, shade, qty});
-  }
-  saveCart();
-  openCart();
-  showAddedToast(PRODUCT_DATA[productId]?.name || 'Item');
-}
-
-function removeFromCart(productId, shade) {
-  cart = cart.filter(i => !(i.id === productId && i.shade === shade));
-  saveCart();
-}
-
-function updateQty(productId, shade, delta) {
-  const item = cart.find(i => i.id === productId && i.shade === shade);
-  if (!item) return;
-  item.qty = Math.max(1, item.qty + delta);
-  saveCart();
-}
-
-function cartTotal() {
-  return cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-}
-
-function cartCount() {
-  return cart.reduce((sum, i) => sum + i.qty, 0);
-}
-
-function updateCartBadge() {
-  const badges = document.querySelectorAll('.cart-badge');
-  const count = cartCount();
-  badges.forEach(b => {
-    b.textContent = count;
-    b.style.display = count > 0 ? 'flex' : 'none';
-  });
-}
-
-function renderCart() {
+function renderCart(){
   const body = document.getElementById('cartBody');
   const footer = document.getElementById('cartFooter');
-  if (!body) return;
-
-  if (cart.length === 0) {
-    body.innerHTML = `
-      <div class="cart-empty">
-        <p class="cart-empty-icon">✦</p>
-        <p class="cart-empty-text">Your cart is empty</p>
-        <a href="shop.html" class="cart-shop-link" onclick="closeCart()">Browse the collection →</a>
-      </div>`;
-    footer.style.display = 'none';
-    return;
+  if(!body) return;
+  if(cart.length === 0){
+    body.innerHTML = `<div class="cart-empty"><p class="cart-empty-icon">✦</p><p class="cart-empty-text">Your cart is empty</p></div>`;
+    footer.style.display = 'none'; return;
   }
-
   footer.style.display = 'block';
   body.innerHTML = cart.map(item => `
-    <div class="cart-item" data-id="${item.id}" data-shade="${item.shade}">
-      <div class="cart-item-img">
-        <img src="${PRODUCT_IMAGES[item.id] || ''}" alt="${item.name}"/>
-      </div>
+    <div class="cart-item">
+      <div class="cart-item-img"><img src="${PRODUCT_IMAGES[item.id]||''}" alt="${item.name}"/></div>
       <div class="cart-item-info">
         <p class="cart-item-name">${item.name}</p>
         <p class="cart-item-shade">${item.shade}</p>
@@ -642,553 +587,118 @@ function renderCart() {
       <button class="cart-item-remove" onclick="removeFromCart('${item.id}','${item.shade}')">×</button>
     </div>
   `).join('');
-
-  document.getElementById('cartSubtotal').textContent = '$${cartTotal().toFixed(2)}';
+  document.getElementById('cartSubtotal').textContent = '$' + cartTotal().toFixed(2);
 }
 
-function openCart() {
+function updateQty(id, shade, delta){
+  const item = cart.find(i => i.id===id && i.shade===shade);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0) cart = cart.filter(i => !(i.id===id && i.shade===shade));
+  saveCart(); updateCartBadge(); renderCart();
+}
+
+function removeFromCart(id, shade){
+  cart = cart.filter(i => !(i.id===id && i.shade===shade));
+  saveCart(); updateCartBadge(); renderCart();
+}
+
+function openCart(){
   document.getElementById('cartSidebar').classList.add('open');
   document.getElementById('cartOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
   renderCart();
 }
-
-function closeCart() {
+function closeCart(){
   document.getElementById('cartSidebar').classList.remove('open');
   document.getElementById('cartOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
 
-function showAddedToast(name) {
+function showToast(msg){
   const t = document.getElementById('cartToast');
-  if (!t) return;
-  t.textContent = `✓ ${name} added to cart`;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+  if(!t) return;
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-// ── Init ──
-document.addEventListener('DOMContentLoaded', () => {
-  updateCartBadge();
-  renderCart();
+document.getElementById('cartOverlay').addEventListener('click', closeCart);
+updateCartBadge();
 
-  // Close on overlay click
-  const overlay = document.getElementById('cartOverlay');
-  if (overlay) overlay.addEventListener('click', closeCart);
-});
-
-</script>
-<script>
-// ── CURSOR FIX ──
-(function() {
-  var cur = document.getElementById('cursor');
-  var ring = document.getElementById('cursorRing');
-  if (!cur || !ring) return;
-  var mx=0,my=0,rx=0,ry=0,running=false;
-  document.addEventListener('mousemove',function(e){
-    mx=e.clientX; my=e.clientY;
-    cur.style.left=mx+'px'; cur.style.top=my+'px';
-    cur.style.opacity='1';
-  });
-  function animRingOnce(){
-    rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
-    ring.style.left=rx+'px'; ring.style.top=ry+'px';
-    requestAnimationFrame(animRingOnce);
-  }
-  if(!running){ running=true; animRingOnce(); }
-  document.querySelectorAll('a,button').forEach(function(el){
-    el.addEventListener('mouseenter',function(){
-      cur.style.width='20px'; cur.style.height='20px'; cur.style.background='var(--rose)';
-      ring.style.width='50px'; ring.style.height='50px';
-    });
-    el.addEventListener('mouseleave',function(){
-      cur.style.width='12px'; cur.style.height='12px'; cur.style.background='var(--deep)';
-      ring.style.width='36px'; ring.style.height='36px';
-    });
-  });
-})();
-</script>
-<!-- ============================================
-     BROWED BY OLÁ — AI Beauty Advisor Widget
-     Add this before </body> on every page
-     ============================================ -->
-
-<!-- Chat Widget Styles -->
-<style>
-#ola-chat-widget {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 9999;
-  font-family: 'Cormorant Garamond', 'Georgia', serif;
-}
-
-/* Chat bubble button */
-#ola-chat-btn {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #c9a96e, #b8860b);
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(201, 169, 110, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-  position: relative;
-}
-#ola-chat-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 6px 28px rgba(201, 169, 110, 0.5);
-}
-#ola-chat-btn svg {
-  width: 26px;
-  height: 26px;
-  fill: white;
-  transition: opacity 0.2s;
-}
-#ola-chat-btn .close-icon { display: none; }
-
-/* Notification dot */
-#ola-notif {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  width: 14px;
-  height: 14px;
-  background: #e8a0a0;
-  border-radius: 50%;
-  border: 2px solid white;
-  animation: notifPulse 2s infinite;
-}
-@keyframes notifPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.8; }
-}
-
-/* Chat window */
-#ola-chat-window {
-  position: absolute;
-  bottom: 75px;
-  right: 0;
-  width: 340px;
-  height: 500px;
-  background: #fdf9f5;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(20px) scale(0.95);
-  pointer-events: none;
-  transition: opacity 0.3s, transform 0.3s;
-}
-#ola-chat-window.open {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  pointer-events: all;
-}
-
-/* Header */
-#ola-chat-header {
-  background: linear-gradient(135deg, #c9a96e, #b8860b);
-  padding: 1.2rem 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-.ola-avatar {
-  width: 38px;
-  height: 38px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-.ola-header-info h4 {
-  color: white;
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin: 0;
-  letter-spacing: 0.02em;
-}
-.ola-header-info p {
-  color: rgba(255,255,255,0.75);
-  font-size: 0.72rem;
-  margin: 0;
-  font-family: 'Instrument Sans', sans-serif;
-  font-weight: 300;
-}
-.ola-status {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-top: 0.15rem;
-}
-.ola-status-dot {
-  width: 6px;
-  height: 6px;
-  background: #90ee90;
-  border-radius: 50%;
-}
-
-/* Messages area */
-#ola-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  scroll-behavior: smooth;
-}
-#ola-messages::-webkit-scrollbar { width: 3px; }
-#ola-messages::-webkit-scrollbar-thumb { background: #e8d5b7; border-radius: 10px; }
-
-/* Message bubbles */
-.ola-msg {
-  display: flex;
-  gap: 0.5rem;
-  max-width: 85%;
-  animation: msgIn 0.3s ease;
-}
-@keyframes msgIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.ola-msg.user {
-  align-self: flex-end;
-  flex-direction: row-reverse;
-}
-.ola-msg-bubble {
-  padding: 0.7rem 1rem;
-  border-radius: 16px;
-  font-size: 0.82rem;
-  line-height: 1.6;
-  font-family: 'Instrument Sans', sans-serif;
-}
-.ola-msg.bot .ola-msg-bubble {
-  background: white;
-  color: #3a2e2e;
-  border-radius: 4px 16px 16px 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-.ola-msg.user .ola-msg-bubble {
-  background: linear-gradient(135deg, #c9a96e, #b8860b);
-  color: white;
-  border-radius: 16px 4px 16px 16px;
-}
-.ola-msg-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #c9a96e, #b8860b);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  flex-shrink: 0;
-  margin-top: auto;
-}
-
-/* Typing indicator */
-.ola-typing {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-.ola-typing-bubble {
-  background: white;
-  padding: 0.7rem 1rem;
-  border-radius: 4px 16px 16px 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-.ola-typing-dot {
-  width: 6px;
-  height: 6px;
-  background: #c9a96e;
-  border-radius: 50%;
-  animation: typingDot 1.2s infinite;
-}
-.ola-typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.ola-typing-dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes typingDot {
-  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-  30% { transform: translateY(-6px); opacity: 1; }
-}
-
-/* Quick replies */
-#ola-quick-replies {
-  padding: 0 1.25rem 0.75rem;
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-.ola-quick-btn {
-  background: white;
-  border: 1px solid #e8d5b7;
-  color: #b8860b;
-  padding: 0.35rem 0.85rem;
-  border-radius: 100px;
-  font-size: 0.72rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: 'Instrument Sans', sans-serif;
-  white-space: nowrap;
-}
-.ola-quick-btn:hover {
-  background: #c9a96e;
-  color: white;
-  border-color: #c9a96e;
-}
-
-/* Input area */
-#ola-chat-input-area {
-  padding: 0.75rem 1.25rem 1rem;
-  border-top: 1px solid #f0e6d6;
-  display: flex;
-  gap: 0.5rem;
-  align-items: flex-end;
-  background: white;
-}
-#ola-input {
-  flex: 1;
-  border: 1px solid #e8d5b7;
-  border-radius: 12px;
-  padding: 0.6rem 0.9rem;
-  font-size: 0.82rem;
-  font-family: 'Instrument Sans', sans-serif;
-  resize: none;
-  outline: none;
-  background: #fdf9f5;
-  color: #3a2e2e;
-  max-height: 80px;
-  transition: border-color 0.2s;
-  line-height: 1.5;
-}
-#ola-input:focus { border-color: #c9a96e; }
-#ola-input::placeholder { color: #c4a882; }
-#ola-send-btn {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg, #c9a96e, #b8860b);
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s, opacity 0.2s;
-  flex-shrink: 0;
-}
-#ola-send-btn:hover { transform: scale(1.05); }
-#ola-send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-#ola-send-btn svg { width: 16px; height: 16px; fill: white; }
-
-/* Mobile */
-@media(max-width: 480px) {
-  #ola-chat-widget { bottom: 1rem; right: 1rem; }
-  #ola-chat-window { width: calc(100vw - 2rem); right: -1rem; }
-}
-</style>
-
-<!-- Chat Widget HTML -->
-<div id="ola-chat-widget">
-  <div id="ola-chat-window">
-    <!-- Header -->
-    <div id="ola-chat-header">
-      <div class="ola-avatar">🌸</div>
-      <div class="ola-header-info">
-        <h4>Olá Beauty Advisor</h4>
-        <div class="ola-status">
-          <div class="ola-status-dot"></div>
-          <p>AI-powered • Always here for you</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Messages -->
-    <div id="ola-messages">
-      <div class="ola-msg bot">
-        <div class="ola-msg-avatar">🌸</div>
-        <div class="ola-msg-bubble">
-          Hello beautiful! 💕 I'm Olá, your personal brow advisor. I'm here to help you find the perfect brow product for your skin tone and occasion. What brings you in today?
-        </div>
-      </div>
-    </div>
-
-    <!-- Quick Replies -->
-    <div id="ola-quick-replies">
-      <button class="ola-quick-btn" onclick="olaSendQuick('Help me find my perfect brow shade')">Find my shade ✨</button>
-      <button class="ola-quick-btn" onclick="olaSendQuick('I need brows for a special event')">Special event 🎉</button>
-      <button class="ola-quick-btn" onclick="olaSendQuick('What products do you have?')">View products</button>
-    </div>
-
-    <!-- Input -->
-    <div id="ola-chat-input-area">
-      <textarea id="ola-input" rows="1" placeholder="Ask me anything about brows..."></textarea>
-      <button id="ola-send-btn" onclick="olaSend()">
-        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- Floating Button -->
-  <button id="ola-chat-btn" onclick="olaToggleChat()">
-    <div id="ola-notif"></div>
-    <svg class="chat-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
-    <svg class="close-icon" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-  </button>
-</div>
-
-<!-- Chat Widget Script -->
-<script>
-const OLA_API = 'https://ssjdishvml.execute-api.us-east-1.amazonaws.com/chat';
-let olaHistory = [];
-let olaIsOpen = false;
-let olaIsTyping = false;
-
-function olaToggleChat() {
-  olaIsOpen = !olaIsOpen;
-  const win = document.getElementById('ola-chat-window');
-  const btn = document.getElementById('ola-chat-btn');
-  const notif = document.getElementById('ola-notif');
-  const chatIcon = btn.querySelector('.chat-icon');
-  const closeIcon = btn.querySelector('.close-icon');
-
-  if (olaIsOpen) {
-    win.classList.add('open');
-    chatIcon.style.display = 'none';
-    closeIcon.style.display = 'block';
-    notif.style.display = 'none';
-    document.getElementById('ola-input').focus();
-  } else {
-    win.classList.remove('open');
-    chatIcon.style.display = 'block';
-    closeIcon.style.display = 'none';
-  }
-}
-
-function olaAddMessage(text, role) {
-  const messages = document.getElementById('ola-messages');
-  const quickReplies = document.getElementById('ola-quick-replies');
-
-  // Hide quick replies after first user message
-  if (role === 'user') quickReplies.style.display = 'none';
-
-  const msgDiv = document.createElement('div');
-  msgDiv.className = `ola-msg ${role}`;
-
-  if (role === 'bot') {
-    msgDiv.innerHTML = `
-      <div class="ola-msg-avatar">🌸</div>
-      <div class="ola-msg-bubble">${text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>')}</div>
-    `;
-  } else {
-    msgDiv.innerHTML = `<div class="ola-msg-bubble">${text}</div>`;
-  }
-
-  messages.appendChild(msgDiv);
-  messages.scrollTop = messages.scrollHeight;
-}
-
-function olaShowTyping() {
-  const messages = document.getElementById('ola-messages');
-  const typing = document.createElement('div');
-  typing.className = 'ola-msg bot';
-  typing.id = 'ola-typing-indicator';
-  typing.innerHTML = `
-    <div class="ola-msg-avatar">🌸</div>
-    <div class="ola-typing-bubble">
-      <div class="ola-typing-dot"></div>
-      <div class="ola-typing-dot"></div>
-      <div class="ola-typing-dot"></div>
-    </div>
-  `;
-  messages.appendChild(typing);
-  messages.scrollTop = messages.scrollHeight;
-}
-
-function olaHideTyping() {
-  const typing = document.getElementById('ola-typing-indicator');
-  if (typing) typing.remove();
-}
-
-async function olaSend() {
-  const input = document.getElementById('ola-input');
-  const sendBtn = document.getElementById('ola-send-btn');
-  const message = input.value.trim();
-
-  if (!message || olaIsTyping) return;
-
-  input.value = '';
-  input.style.height = 'auto';
-  olaIsTyping = true;
-  sendBtn.disabled = true;
-
-  // Add user message
-  olaAddMessage(message, 'user');
-  olaHistory.push({ role: 'user', content: message });
-
-  // Show typing
-  olaShowTyping();
-
-  try {
-    const response = await fetch(OLA_API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: message,
-        history: olaHistory.slice(-6)
-      })
-    });
-
-    const data = await response.json();
-    olaHideTyping();
-
-    if (data.success && data.message) {
-      olaAddMessage(data.message, 'bot');
-      olaHistory.push({ role: 'assistant', content: data.message });
+// ── FILTERS ──
+function filterProducts(btn, cat){
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const cards = document.querySelectorAll('.product-card');
+  let count = 0;
+  cards.forEach(card => {
+    if(cat === 'all' || card.dataset.category === cat){
+      card.classList.remove('hidden'); count++;
     } else {
-      olaAddMessage("I'm sorry, I couldn't process that. Please try again! 🌸", 'bot');
+      card.classList.add('hidden');
     }
-  } catch (error) {
-    olaHideTyping();
-    olaAddMessage("Sorry, I'm having trouble connecting. Please try again in a moment! 🌸", 'bot');
-  }
-
-  olaIsTyping = false;
-  sendBtn.disabled = false;
-  input.focus();
+  });
+  document.getElementById('productCount').textContent = count + ' product' + (count !== 1 ? 's' : '');
 }
 
-function olaSendQuick(text) {
-  document.getElementById('ola-input').value = text;
-  olaSend();
+// ── MOBILE MENU ──
+function openMobileMenu(){ document.getElementById('mobileMenu').classList.add('open'); document.getElementById('navHamburger').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMobileMenu(){ document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('navHamburger').classList.remove('open'); document.body.style.overflow=''; }
+
+// ── STRIPE ──
+const STRIPE_PK = 'pk_test_51T9Pf5H89fmrRLoRysTJiavln953rVB55V3B6qd1d6GFYtgXK3MYadNHC2td5RSITPN1tZCLz4ZB9LHJ2TrxRchu00Y4GHL64J';
+const stripe = Stripe(STRIPE_PK);
+const elements = stripe.elements();
+let cardNumberEl = null, cardExpiryEl = null, cardCvcEl = null;
+const fieldStyle = { style:{ base:{ fontFamily:"'DM Sans',sans-serif", fontSize:'16px', color:'#1a0f0f', '::placeholder':{color:'rgba(26,15,15,0.35)'} }, invalid:{color:'#c0392b'} } };
+
+function startCheckout(){
+  const items = JSON.parse(localStorage.getItem('ola_cart') || '[]');
+  if(!items.length) return;
+  let html = '<div style="margin-bottom:0.75rem;">'; let total = 0;
+  items.forEach(item => {
+    const sub = item.price * item.qty; total += sub;
+    html += `<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span>${item.name} × ${item.qty}</span><span>$${sub.toFixed(2)}</span></div>`;
+  });
+  html += `</div><div style="border-top:1px solid var(--smoke);padding-top:0.75rem;display:flex;justify-content:space-between;font-weight:500;"><span>Total</span><span>$${total.toFixed(2)}</span></div>`;
+  document.getElementById('checkoutSummary').innerHTML = html;
+  document.getElementById('checkoutOverlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    if(!cardNumberEl){
+      const onErr = (e) => { const el = document.getElementById('card-errors'); if(e.error){el.textContent=e.error.message;el.style.display='block';}else{el.style.display='none';} };
+      const mount = (type, id) => { const el = elements.create(type, fieldStyle); el.mount(id); el.on('change',onErr); el.on('focus',()=>document.querySelector(id).classList.add('focused')); el.on('blur',()=>document.querySelector(id).classList.remove('focused')); return el; };
+      cardNumberEl = mount('cardNumber','#card-number-element');
+      cardExpiryEl = mount('cardExpiry','#card-expiry-element');
+      cardCvcEl    = mount('cardCvc','#card-cvc-element');
+    }
+  }, 50);
 }
 
-// Send on Enter (Shift+Enter for new line)
-document.getElementById('ola-input').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    olaSend();
-  }
-});
+function closeCheckout(){ document.getElementById('checkoutOverlay').style.display='none'; document.body.style.overflow=''; }
+function closeSuccess(){ document.getElementById('successOverlay').style.display='none'; document.body.style.overflow=''; cart=[]; saveCart(); updateCartBadge(); closeCart(); }
 
-// Auto-resize textarea
-document.getElementById('ola-input').addEventListener('input', function() {
-  this.style.height = 'auto';
-  this.style.height = Math.min(this.scrollHeight, 80) + 'px';
-});
+async function submitPayment(){
+  const name = document.getElementById('ck-name').value.trim();
+  const email = document.getElementById('ck-email').value.trim();
+  const errEl = document.getElementById('card-errors');
+  if(!name){errEl.textContent='Please enter your name.';errEl.style.display='block';return;}
+  if(!email||!email.includes('@')){errEl.textContent='Please enter a valid email.';errEl.style.display='block';return;}
+  const btn = document.getElementById('pay-btn');
+  const btnText = document.getElementById('pay-btn-text');
+  btn.disabled=true; btnText.textContent='Processing...'; errEl.style.display='none';
+  try{
+    const items = JSON.parse(localStorage.getItem('ola_cart')||'[]');
+    const total = items.reduce((s,i)=>s+(i.price*i.qty),0);
+    const amountCents = Math.round(total*100);
+    const res = await fetch('https://api.olabrows.store/api/payment/create-intent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount:amountCents,email,name})});
+    const {clientSecret, error:intentErr} = await res.json();
+    if(intentErr) throw new Error(intentErr);
+    const {error, paymentIntent} = await stripe.confirmCardPayment(clientSecret,{payment_method:{card:cardNumberEl,billing_details:{name,email}}});
+    if(error){errEl.textContent=error.message;errEl.style.display='block';btn.disabled=false;btnText.textContent='Pay Now';}
+    else if(paymentIntent.status==='succeeded'){closeCheckout();document.getElementById('successOverlay').style.display='flex';}
+  }catch(err){errEl.textContent='Payment failed. Please try again.';errEl.style.display='block';btn.disabled=false;btnText.textContent='Pay Now';}
+}
 </script>
-
 </body>
 </html>

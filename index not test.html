@@ -662,265 +662,42 @@ footer{
 }
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* HAMBURGER */
-.nav-hamburger{
-  display:none;flex-direction:column;gap:5px;
-  background:none;border:none;cursor:pointer;padding:4px;
-}
-.nav-hamburger span{
-  display:block;width:22px;height:1.5px;
-  background:var(--ink);transition:all 0.3s ease;
-}
-.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-.nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
-.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-
-/* MOBILE MENU DRAWER */
-.mobile-menu{
-  position:fixed;top:0;left:0;right:0;bottom:0;
-  background:var(--cream);z-index:99;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:2.5rem;
-  transform:translateX(-100%);transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
-  pointer-events:none;
-}
-.mobile-menu.open{transform:translateX(0);pointer-events:all}
-.mobile-menu a{
-  text-decoration:none;color:var(--ink);
-  font-family:'Playfair Display',serif;
-  font-size:2rem;font-weight:400;
-  opacity:0.7;transition:opacity 0.2s,color 0.2s;
-}
-.mobile-menu a:hover{opacity:1;color:var(--deep)}
-.mobile-menu-close{
-  position:absolute;top:1.5rem;right:1.5rem;
-  background:none;border:none;font-size:1.75rem;
-  cursor:pointer;color:var(--ink);opacity:0.5;
-  transition:opacity 0.2s;
-}
-.mobile-menu-close:hover{opacity:1}
-.mobile-menu-sub{
-  font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--rose);font-weight:500;margin-top:-1.5rem;
-}
-
 /* RESPONSIVE */
 @media(max-width:1024px){
-  nav{padding:0 2rem;grid-template-columns:auto 1fr auto}
-  .nav-left{display:none}
-  .nav-hamburger{display:flex}
+  nav{padding:0 2rem}
   .hero{grid-template-columns:1fr;min-height:auto}
-  .hero-left{padding:5rem 2.5rem 3rem}
+  .hero-left{padding:5rem 2rem 3rem}
   .hero-left::before{display:none}
-  .hero-right{height:55vw;min-height:280px}
+  .hero-right{height:60vw}
   .story{grid-template-columns:1fr}
-  .story-image{height:55vw;min-height:260px}
-  .story-content{padding:4rem 2.5rem}
-  .section-header{flex-direction:column;align-items:flex-start;gap:1rem}
-  .section-header p{text-align:left;max-width:100%}
-  .products-section{padding:5rem 2.5rem}
+  .story-image{height:60vw}
   .products-grid{grid-template-columns:1fr 1fr}
   .feature-strip{grid-template-columns:1fr 1fr}
   .feature-item:nth-child(2){border-right:none}
-  .feature-item:nth-child(3){border-bottom:none}
-  .feature-item:nth-child(4){border-bottom:none}
   .founder{grid-template-columns:1fr}
-  .founder-content{padding:5rem 2.5rem}
-  .founder-visual{height:45vw;min-height:240px}
-  .subscribe{grid-template-columns:1fr;padding:5rem 2.5rem;gap:3rem}
-  .insta-strip{padding:4rem 2.5rem}
+  .founder-visual{height:50vw}
+  .subscribe{grid-template-columns:1fr;padding:4rem 2rem}
   .insta-grid{grid-template-columns:repeat(3,1fr)}
-  .footer-top{grid-template-columns:1fr 1fr;gap:2.5rem}
-  footer{padding:4rem 2.5rem 2rem}
+  .footer-top{grid-template-columns:1fr 1fr;gap:2rem}
+  nav{grid-template-columns:auto 1fr auto}
+  .nav-left{display:none}
 }
-
 @media(max-width:600px){
-  /* NAV */
-  nav{padding:0 1.25rem;height:60px}
-  .nav-center img{height:36px;width:36px}
-
-  /* HERO */
-  .hero-left{padding:3.5rem 1.25rem 2.5rem}
-  .hero-tag{font-size:0.6rem;margin-bottom:1.25rem}
-  .hero-headline{font-size:clamp(2.8rem,10vw,3.8rem);line-height:0.95}
-  .hero-sub{font-size:0.92rem;margin:1.5rem 0 2rem}
-  .hero-actions{flex-direction:column;align-items:flex-start;gap:1rem}
-  .btn-dark{width:100%;text-align:center;padding:1rem 2rem}
-  .hero-stats{gap:2rem;margin-top:2.5rem;padding-top:2rem}
-  .stat-num{font-size:1.6rem}
-  .hero-right{height:70vw}
-  .hero-badge{bottom:1.5rem;left:1rem;min-width:160px;padding:1rem 1.25rem}
-  .hero-badge-text{font-size:0.95rem}
-
-  /* MARQUEE */
-  .marquee-item{font-size:0.6rem;padding:0 1.5rem}
-
-  /* STORY */
-  .story-image{height:65vw}
-  .story-content{padding:3rem 1.25rem}
-  .story-content h2{font-size:1.8rem}
-  .story-pillars{grid-template-columns:1fr;gap:1rem;margin-top:1.5rem}
-
-  /* PRODUCTS */
-  .products-section{padding:3.5rem 1.25rem}
-  .section-header{margin-bottom:2.5rem}
-  .section-header h2{font-size:2rem}
-  .products-grid{grid-template-columns:1fr;gap:2rem}
-  .product-img-wrap{aspect-ratio:4/3}
-  /* Always show overlay btn on mobile (no hover) */
-  .product-overlay{background:rgba(26,15,15,0.15)}
-  .overlay-btn{transform:translateY(0);opacity:1}
-
-  /* FEATURES */
+  .hero-left{padding:4rem 1.5rem 2rem}
+  .hero-headline{font-size:3.5rem}
+  .products-grid{grid-template-columns:1fr}
   .feature-strip{grid-template-columns:1fr}
-  .feature-item{border-right:none;border-bottom:1px solid var(--smoke);padding:2rem 1.25rem}
-  .feature-item:last-child{border-bottom:none}
-  .feature-num{font-size:1.8rem}
-
-  /* FOUNDER */
-  .founder-content{padding:3.5rem 1.25rem}
-  .founder-content h2{font-size:1.9rem}
-  .founder-visual{height:60vw}
-
-  /* SUBSCRIBE */
-  .subscribe{padding:3.5rem 1.25rem;gap:2.5rem}
-  .subscribe::before{font-size:30vw}
-  .subscribe-text h2{font-size:2rem}
-  .sub-form{padding:2rem 1.5rem}
-  .sub-form h3{font-size:1.5rem}
-
-  /* INSTAGRAM */
-  .insta-strip{padding:3rem 1.25rem}
-  .insta-grid{grid-template-columns:repeat(2,1fr);gap:0.5rem}
-  .insta-item:last-child{display:none}
-
-  /* FOOTER */
-  .footer-top{grid-template-columns:1fr;gap:2rem;padding-bottom:2.5rem}
-  footer{padding:3rem 1.25rem 1.5rem}
-  .footer-bottom{flex-direction:column;gap:0.75rem;text-align:center}
-  .social-links{justify-content:center}
-
-  /* ANNOUNCEMENT */
-  .announcement span{font-size:0.62rem;padding:0 1.5rem}
+  .feature-item{border-right:none}
+  .insta-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-top{grid-template-columns:1fr}
+  .products-section{padding:4rem 1.5rem}
+  .subscribe{padding:4rem 1.5rem}
+  .insta-strip{padding:3rem 1.5rem}
+  footer{padding:3rem 1.5rem 1.5rem}
+  .story-content{padding:3rem 1.5rem}
 }
-
-/* Hide cursor on touch devices */
-@media(hover:none){
-  .cursor,.cursor-ring{display:none}
-  body{cursor:auto}
-}
-
-/* ─── MOBILE GLOBAL ─── */
-@media(max-width:600px){
-  input,textarea,select{font-size:16px!important}
-  *{-webkit-tap-highlight-color:transparent}
-  .btn-dark:active,.notify-btn:active,.sub-submit:active{opacity:0.75;transform:scale(0.98)}
-  body{padding-bottom:env(safe-area-inset-bottom)}
-}
-
-/* ─── STICKY BOTTOM BAR ─── */
-.mobile-bottom-bar{display:none}
-@media(max-width:768px){
-  .mobile-bottom-bar{
-    display:flex;position:fixed;bottom:0;left:0;right:0;
-    background:var(--cream);border-top:1px solid var(--smoke);
-    z-index:150;padding:0.75rem 1rem;
-    padding-bottom:calc(0.75rem + env(safe-area-inset-bottom));
-    gap:0.75rem;box-shadow:0 -4px 20px rgba(26,15,15,0.08);
-  }
-  .mob-bar-shop{
-    flex:1;background:var(--ink);color:white;border:none;
-    padding:0.9rem 1rem;font-family:'DM Sans',sans-serif;
-    font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;
-    font-weight:500;cursor:pointer;transition:background 0.2s;
-    text-decoration:none;display:flex;align-items:center;justify-content:center;
-  }
-  .mob-bar-shop:active{background:var(--deep)}
-  .mob-bar-chat{
-    width:50px;height:50px;border-radius:50%;background:var(--deep);
-    border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
-    flex-shrink:0;transition:background 0.2s;
-  }
-  .mob-bar-chat:active{background:var(--rose)}
-  .mob-bar-chat svg{width:20px;height:20px;fill:white}
-  .mob-bar-cart{
-    width:50px;height:50px;border-radius:50%;background:var(--blush);
-    border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
-    flex-shrink:0;position:relative;transition:background 0.2s;
-  }
-  .mob-bar-cart:active{opacity:0.7}
-  .mob-bar-cart svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:1.5}
-  .mob-bar-cart-count{
-    position:absolute;top:-2px;right:-2px;background:var(--deep);color:white;
-    width:16px;height:16px;border-radius:50%;font-size:0.55rem;font-weight:700;
-    display:none;align-items:center;justify-content:center;border:2px solid var(--cream);
-  }
-  footer{padding-bottom:calc(3rem + 80px)}
-  #ola-chat-widget{bottom:calc(5rem + env(safe-area-inset-bottom))}
-}
-
-/* ─── PRODUCT SWIPE CAROUSEL ─── */
-@media(max-width:600px){
-  .products-grid{
-    display:flex!important;flex-wrap:nowrap;
-    overflow-x:auto;scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-    gap:1rem;padding:0 1.25rem 1.5rem;margin:0 -1.25rem;
-    scrollbar-width:none;
-  }
-  .products-grid::-webkit-scrollbar{display:none}
-  .product-card{flex:0 0 75vw;max-width:280px;scroll-snap-align:start}
-  .product-img-wrap{aspect-ratio:3/4!important}
-  .product-overlay{background:rgba(26,15,15,0.12)!important}
-  .overlay-btn{transform:translateY(0)!important;opacity:1!important;font-size:0.65rem;padding:0.65rem 1.25rem}
-  .products-section::after{
-    content:'← Swipe to explore →';display:block;text-align:center;
-    font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;
-    color:rgba(26,15,15,0.3);margin-top:1rem;font-weight:500;
-  }
-}
-
-/* ─── TOUCH-FRIENDLY TAP TARGETS ─── */
-@media(max-width:768px){
-  .notify-btn,.overlay-btn,.sub-submit,.nav-cart{min-height:44px}
-  .cart-qty-btn{width:44px;height:44px}
-  .cart-close{width:44px;height:44px;display:flex;align-items:center;justify-content:center}
-  .mobile-menu a{min-height:56px;display:flex;align-items:center;justify-content:center}
-  .field input{padding:1rem 0;font-size:16px!important}
-  #sub-btn{min-height:52px}
-}
-
-/* ─── CART FULL WIDTH ON MOBILE ─── */
-@media(max-width:600px){
-  .cart-sidebar{width:100vw;right:-100vw}
-  .cart-sidebar.open{right:0}
-  .cart-header{padding:1.5rem 1.25rem}
-  .cart-body{padding:1rem 1.25rem}
-  .cart-footer{padding:1rem 1.25rem calc(1rem + env(safe-area-inset-bottom))}
-}
-
 </style>
 <style>
-
-/* SHOP CATEGORY FILTERS */
-.shop-filters {
-  display:flex; gap:0.5rem; margin-bottom:2.5rem;
-  overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
-  padding-bottom:0.25rem;
-}
-.shop-filters::-webkit-scrollbar{display:none}
-.filter-btn {
-  flex-shrink:0; background:none; border:1px solid var(--smoke);
-  padding:0.6rem 1.25rem; font-family:'DM Sans',sans-serif;
-  font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase;
-  font-weight:500; cursor:pointer; color:rgba(26,15,15,0.5);
-  transition:all 0.2s; white-space:nowrap;
-}
-.filter-btn.active {
-  background:var(--ink); color:white; border-color:var(--ink);
-}
-.filter-btn:active{opacity:0.7}
-.product-card.hidden{display:none!important}
 
 /* CART ICON IN NAV */
 .cart-icon-btn {
@@ -1085,21 +862,8 @@ footer{
 .cart-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
 </style>
-<script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
-
-<!-- MOBILE BOTTOM BAR -->
-<div class="mobile-bottom-bar">
-  <a href="shop.html" class="mob-bar-shop">Shop the Collection</a>
-  <button class="mob-bar-cart" onclick="openCart()">
-    <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-    <span class="mob-bar-cart-count" id="mobCartCount">0</span>
-  </button>
-  <button class="mob-bar-chat" onclick="olaToggleChat()">
-    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-  </button>
-</div>
 
 <!-- CART OVERLAY -->
 <div class="cart-overlay" id="cartOverlay"></div>
@@ -1123,7 +887,7 @@ footer{
       <span id="cartSubtotal">$0.00</span>
     </div>
     <p class="cart-shipping-note">Shipping calculated at checkout</p>
-    <button onclick="startCheckout()" class="cart-checkout-btn" id="checkoutBtn">Proceed to Checkout →</button>
+    <a href="checkout.html" class="cart-checkout-btn">Proceed to Checkout →</a>
     <button class="cart-continue" onclick="closeCart()">Continue Shopping</button>
   </div>
 </div>
@@ -1134,26 +898,16 @@ footer{
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-menu-close" onclick="closeMobileMenu()">×</button>
-  <a href="shop.html" onclick="closeMobileMenu()">Shop</a>
-  <a href="#story" onclick="closeMobileMenu()">About</a>
-  <a href="https://instagram.com/Olaoluwa_0" target="_blank" onclick="closeMobileMenu()">Instagram</a>
-  <a href="early-access.html" onclick="closeMobileMenu()">Early Access</a>
-  <span class="mobile-menu-sub">Precision Brow Collection</span>
-</div>
-
 <!-- ANNOUNCEMENT BAR -->
 <div class="announcement">
   <div class="announcement-track">
     <span>✦ <b>Early Access</b> — Join the list for 15% off your first order</span>
     <span>✦ Free shipping on orders over $50</span>
-    <span>✦ <b>Now Available</b> — The Precision Brow Collection</span>
+    <span>✦ <b>Pre-Order</b> — The Precision Brow Collection</span>
     <span>✦ Vegan &amp; Cruelty Free</span>
     <span>✦ <b>Early Access</b> — Join the list for 15% off your first order</span>
     <span>✦ Free shipping on orders over $50</span>
-    <span>✦ <b>Now Available</b> — The Precision Brow Collection</span>
+    <span>✦ <b>Pre-Order</b> — The Precision Brow Collection</span>
     <span>✦ Vegan &amp; Cruelty Free</span>
   </div>
 </div>
@@ -1164,11 +918,8 @@ footer{
     <a href="shop.html">Shop</a>
     <a href="about.html">About</a>
     <a href="gallery.html">Gallery</a>
-    <a href="early-access.html">Early Access</a>
+    <a href="#subscribe">Early Access</a>
   </div>
-  <button class="nav-hamburger" id="navHamburger" onclick="openMobileMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
   <div class="nav-center">
     <a href="#">
       <img src="images/logo.jpeg" alt="Browed by Olá"/>
@@ -1179,7 +930,7 @@ footer{
     <button class="cart-icon-btn" onclick="openCart()">
     Cart <span class="cart-badge" style="display:none">0</span>
   </button>
-    <a href="early-access.html" class="nav-cart"><span>Get Early Access</span></a>
+    <a href="#subscribe" class="nav-cart"><span>Get Early Access</span></a>
   </div>
 </nav>
 
@@ -1194,7 +945,7 @@ footer{
     </h1>
     <p class="hero-sub">Hair-like strokes. All-day wear. Effortless precision — made for every shade, every face, every moment.</p>
     <div class="hero-actions">
-      <a href="shop.html" class="btn-dark"><span>Shop the Collection</span></a>
+      <a href="#shop" class="btn-dark"><span>Shop the Collection</span></a>
       <a href="https://instagram.com/Olaoluwa_0" target="_blank" class="btn-outline">Follow Us</a>
     </div>
     <div class="hero-stats">
@@ -1285,18 +1036,9 @@ footer{
     </div>
     <p>Six precision-crafted brow products launching soon. Join the list for early access and 15% off.</p>
   </div>
-  <!-- Category Filters -->
-  <div class="shop-filters">
-    <button class="filter-btn active" onclick="filterProducts('all')">All</button>
-    <button class="filter-btn" onclick="filterProducts('pencil')">Brow Pencils</button>
-    <button class="filter-btn" onclick="filterProducts('gel')">Brow Gels</button>
-    <button class="filter-btn" onclick="filterProducts('oil')">Brow Oils</button>
-    <button class="filter-btn" onclick="filterProducts('duo')">Sets & Duos</button>
-  </div>
+  <div class="products-grid" id="products-grid">
 
-  <div class="products-grid">
-
-    <div class="product-card reveal" data-href="product-dark-brown.html" data-category="pencil">
+    <div class="product-card reveal" data-href="product-dark-brown.html">
       <div class="product-img-wrap">
         <img src="images/dark_brown.jpeg" alt="Ola Brow Pencil Dark Brown"/>
         <span class="product-tag new">New</span>
@@ -1308,11 +1050,11 @@ footer{
       <p class="product-shade">Dark Brown</p>
       <div class="product-footer">
         <span class="product-price">$18</span>
-        <button class="notify-btn">Add to Cart</button>
+        <button class="notify-btn">Pre-Order</button>
       </div>
     </div>
 
-    <div class="product-card reveal" data-href="product-soft-black.html" data-category="pencil">
+    <div class="product-card reveal" data-href="product-soft-black.html">
       <div class="product-img-wrap">
         <img src="images/dark_brown.jpeg" alt="Ola Brow Pencil Soft Black"/>
         <span class="product-tag new">New</span>
@@ -1324,14 +1066,14 @@ footer{
       <p class="product-shade">Soft Black</p>
       <div class="product-footer">
         <span class="product-price">$18</span>
-        <button class="notify-btn">Add to Cart</button>
+        <button class="notify-btn">Pre-Order</button>
       </div>
     </div>
 
-    <div class="product-card reveal" data-href="product-definer-duo.html" data-category="duo">
+    <div class="product-card reveal" data-href="product-definer-duo.html">
       <div class="product-img-wrap">
         <img src="images/dark_brown.jpeg" alt="Brow Definer Duo"/>
-        <span class="product-tag">New</span>
+        <span class="product-tag">Pre-Order</span>
         <div class="product-overlay">
           <button class="overlay-btn notify-btn">Add to Cart</button>
         </div>
@@ -1340,14 +1082,14 @@ footer{
       <p class="product-shade">Pencil + Gel Set</p>
       <div class="product-footer">
         <span class="product-price">$28</span>
-        <button class="notify-btn">Add to Cart</button>
+        <button class="notify-btn">Pre-Order</button>
       </div>
     </div>
 
-    <div class="product-card reveal" data-href="product-brow-gel.html" data-category="gel">
+    <div class="product-card reveal" data-href="product-brow-gel.html">
       <div class="product-img-wrap">
         <img src="images/dark_brown.jpeg" alt="Precision Brow Gel Clear"/>
-        <span class="product-tag">New</span>
+        <span class="product-tag">Pre-Order</span>
         <div class="product-overlay">
           <button class="overlay-btn notify-btn">Add to Cart</button>
         </div>
@@ -1356,14 +1098,14 @@ footer{
       <p class="product-shade">Clear</p>
       <div class="product-footer">
         <span class="product-price">$16</span>
-        <button class="notify-btn">Add to Cart</button>
+        <button class="notify-btn">Pre-Order</button>
       </div>
     </div>
 
-    <div class="product-card reveal" data-href="product-microblade.html" data-category="pencil">
+    <div class="product-card reveal" data-href="product-microblade.html">
       <div class="product-img-wrap">
         <img src="images/dark_brown.jpeg" alt="Microblade Effect Pen"/>
-        <span class="product-tag">New</span>
+        <span class="product-tag">Pre-Order</span>
         <div class="product-overlay">
           <button class="overlay-btn notify-btn">Add to Cart</button>
         </div>
@@ -1372,14 +1114,14 @@ footer{
       <p class="product-shade">Dark Brown / Soft Black</p>
       <div class="product-footer">
         <span class="product-price">$22</span>
-        <button class="notify-btn">Add to Cart</button>
+        <button class="notify-btn">Pre-Order</button>
       </div>
     </div>
 
-    <div class="product-card reveal" data-href="product-brow-oil.html" data-category="oil">
+    <div class="product-card reveal" data-href="product-brow-oil.html">
       <div class="product-img-wrap">
         <img src="images/dark_brown.jpeg" alt="Brow Care Oil"/>
-        <span class="product-tag">New</span>
+        <span class="product-tag">Pre-Order</span>
         <div class="product-overlay">
           <button class="overlay-btn notify-btn">Add to Cart</button>
         </div>
@@ -1388,7 +1130,7 @@ footer{
       <p class="product-shade">Nourishing Treatment</p>
       <div class="product-footer">
         <span class="product-price">$20</span>
-        <button class="notify-btn">Add to Cart</button>
+        <button class="notify-btn">Pre-Order</button>
       </div>
     </div>
 
@@ -1498,17 +1240,17 @@ footer{
     <div class="footer-col">
       <h4>Shop</h4>
       <ul>
-        <li><a href="shop.html">All Products</a></li>
-        <li><a href="shop.html">Brow Pencils</a></li>
-        <li><a href="shop.html">Brow Gels</a></li>
-        <li><a href="shop.html">Brow Oils</a></li>
+        <li><a href="#shop">All Products</a></li>
+        <li><a href="#shop">Brow Pencils</a></li>
+        <li><a href="#shop">Brow Gels</a></li>
+        <li><a href="#shop">Brow Oils</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Brand</h4>
       <ul>
-        <li><a href="about.html">Our Story</a></li>
-        <li><a href="early-access.html">Early Access</a></li>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#subscribe">Early Access</a></li>
         <li><a href="https://instagram.com/Olaoluwa_0" target="_blank">Instagram</a>
     <button class="cart-icon-btn" onclick="openCart()">
     Cart <span class="cart-badge" style="display:none">0</span>
@@ -1539,31 +1281,16 @@ footer{
 </footer>
 
 <script>
-// Mobile Menu
-function openMobileMenu(){
-  document.getElementById('mobileMenu').classList.add('open');
-  document.getElementById('navHamburger').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeMobileMenu(){
-  document.getElementById('mobileMenu').classList.remove('open');
-  document.getElementById('navHamburger').classList.remove('open');
-  document.body.style.overflow='';
-}
-
-// Custom Cursor — desktop only
+// Custom Cursor
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
-if(window.matchMedia('(hover:hover)').matches){
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-  function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
-  animRing();
-  document.querySelectorAll('a,button').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{cursor.style.width='20px';cursor.style.height='20px';cursor.style.background='var(--rose)';ring.style.width='50px';ring.style.height='50px';});
-    el.addEventListener('mouseleave',()=>{cursor.style.width='12px';cursor.style.height='12px';cursor.style.background='var(--deep)';ring.style.width='36px';ring.style.height='36px';});
-  });
-}
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.width='20px';cursor.style.height='20px';cursor.style.background='var(--rose)';ring.style.width='50px';ring.style.height='50px';});
+  el.addEventListener('mouseleave',()=>{cursor.style.width='12px';cursor.style.height='12px';cursor.style.background='var(--deep)';ring.style.width='36px';ring.style.height='36px';});
+});
 
 // Scroll Reveal
 const observer = new IntersectionObserver(entries=>{
@@ -1571,46 +1298,22 @@ const observer = new IntersectionObserver(entries=>{
 },{threshold:0.12});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-// Add to Cart buttons
+// Notify buttons
 document.querySelectorAll('.notify-btn').forEach(btn => {
   btn.addEventListener('click', function(e) {
     e.stopPropagation();
-    e.preventDefault();
     const card = this.closest('[data-href]');
     const href = card ? card.dataset.href : '';
     const pid = href.replace('product-','').replace('.html','');
     if(pid && typeof addToCart === 'function') {
       addToCart(pid, '', 1);
-      // addToCart already calls openCart() — don't call startCheckout
     }
     this.textContent = '✓ Added';
     this.style.background = 'var(--deep)';
     this.style.color = 'white';
     this.style.borderColor = 'var(--deep)';
-    // Reset button text after 2 seconds
-    const self = this;
-    setTimeout(() => {
-      self.textContent = 'Add to Cart';
-      self.style.background = '';
-      self.style.color = '';
-      self.style.borderColor = '';
-    }, 2000);
   });
 });
-
-
-// Shop Category Filter
-function filterProducts(cat) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  document.querySelectorAll('.product-card').forEach(card => {
-    if (cat === 'all' || card.dataset.category === cat) {
-      card.classList.remove('hidden');
-    } else {
-      card.classList.add('hidden');
-    }
-  });
-}
 
 // Subscribe Form
 const API_URL = 'https://api.olabrows.store/api/subscribers';
@@ -1625,8 +1328,10 @@ document.getElementById('sub-btn').addEventListener('click',async function(){
   }
   btn.querySelector('span').textContent='Submitting...';btn.disabled=true;
   try{
-    const res=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,active:true})});
-    if(res.ok){
+    const res=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,active:true})});
+    const data=await res.json();
+    console.log('API response:', res.status, data);
+    if(res.ok&&data.success){
       btn.querySelector('span').textContent="✓ You're on the list!";
       btn.style.background='var(--deep)';
       msg.style.display='block';msg.style.color='var(--deep)';
@@ -1635,9 +1340,10 @@ document.getElementById('sub-btn').addEventListener('click',async function(){
       document.getElementById('sub-email').value='';
     }else throw new Error();
   }catch(err){
+    console.error('Subscribe error:', err);
     btn.querySelector('span').textContent='Get Early Access';btn.disabled=false;
     msg.style.display='block';msg.style.color='#c0392b';
-    msg.textContent='Something went wrong. Please try again.';
+    msg.textContent='Error: ' + err.message;
   }
 });
 </script>
@@ -1716,12 +1422,6 @@ function updateCartBadge() {
     b.textContent = count;
     b.style.display = count > 0 ? 'flex' : 'none';
   });
-  // Mobile bottom bar badge
-  const mobCount = document.getElementById('mobCartCount');
-  if (mobCount) {
-    mobCount.textContent = count;
-    mobCount.style.display = count > 0 ? 'flex' : 'none';
-  }
 }
 
 function renderCart() {
@@ -1762,7 +1462,7 @@ function renderCart() {
     </div>
   `).join('');
 
-  document.getElementById('cartSubtotal').textContent = '$' + cartTotal().toFixed(2);
+  document.getElementById('cartSubtotal').textContent = '$${cartTotal().toFixed(2)}';
 }
 
 function openCart() {
@@ -1830,361 +1530,35 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- ============================================
      BROWED BY OLÁ — AI Beauty Advisor Widget
      Add this before 
-<!-- CHECKOUT MODAL — 3 steps: Shipping → Payment → Done -->
-<style>
-#checkoutOverlay{display:none;position:fixed;inset:0;background:rgba(26,15,15,0.6);z-index:500;align-items:center;justify-content:center;}
-.ck-panel{background:var(--cream);width:100%;max-width:500px;max-height:calc(100vh - 2rem);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:2rem 2rem calc(2rem + env(safe-area-inset-bottom));position:relative;margin:1rem;box-sizing:border-box;}
-@media(max-width:500px){
-  #checkoutOverlay{align-items:flex-end}
-  .ck-panel{max-width:100%;margin:0;border-radius:20px 20px 0 0;max-height:92vh;padding:1.5rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom));}
-}
-.ck-steps{display:flex;gap:0;margin-bottom:2rem;border-bottom:1px solid var(--smoke);}
-.ck-step{flex:1;text-align:center;padding:0.75rem 0.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;color:rgba(26,15,15,0.3);border-bottom:2px solid transparent;margin-bottom:-1px;cursor:default;}
-.ck-step.active{color:var(--ink);border-bottom-color:var(--ink);}
-.ck-step.done{color:var(--rose);}
-.ck-section{display:none;}
-.ck-section.active{display:block;}
-.ck-label{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;display:block;margin-bottom:0.5rem;color:var(--ink);}
-.ck-input{width:100%;border:none;border-bottom:1px solid var(--smoke);padding:0.9rem 0;font-family:'DM Sans',sans-serif;font-size:16px;background:transparent;outline:none;color:var(--ink);box-sizing:border-box;transition:border-color 0.2s;}
-.ck-input:focus{border-bottom-color:var(--deep);}
-.ck-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
-.ck-stripe-field{border:none;border-bottom:1px solid var(--smoke);padding:0.9rem 0;background:transparent;transition:border-color 0.2s;}
-.ck-stripe-field.focused{border-bottom-color:var(--deep);}
-.ck-btn{width:100%;background:var(--ink);color:white;border:none;padding:1.1rem;font-family:'DM Sans',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;cursor:pointer;min-height:52px;transition:background 0.2s;margin-top:1.5rem;}
-.ck-btn:hover{background:var(--deep);}
-.ck-btn:active{opacity:0.75;}
-.ck-btn:disabled{opacity:0.6;cursor:not-allowed;}
-.ck-back{background:none;border:none;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(26,15,15,0.4);cursor:pointer;padding:0;margin-top:0.75rem;display:block;text-align:center;width:100%;}
-.ck-back:hover{color:var(--ink);}
-.ck-error{color:#c0392b;font-size:0.78rem;margin-top:0.75rem;display:none;}
-.ck-field-wrap{margin-bottom:1.25rem;}
-</style>
-
-<div id="checkoutOverlay">
-  <div class="ck-panel">
-    <button onclick="closeCheckout()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.75rem;cursor:pointer;color:var(--ink);opacity:0.4;width:44px;height:44px;display:flex;align-items:center;justify-content:center;line-height:1;">×</button>
-
-    <!-- Step indicators -->
-    <div class="ck-steps">
-      <div class="ck-step active" id="step-tab-1">Cart</div>
-      <div class="ck-step" id="step-tab-2">Shipping</div>
-      <div class="ck-step" id="step-tab-3">Payment</div>
-    </div>
-
-    <!-- STEP 1: Order Summary -->
-    <div class="ck-section active" id="ck-step-1">
-      <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;margin-bottom:1.5rem;">Your Order</h2>
-      <div id="checkoutSummary" style="margin-bottom:1.5rem;"></div>
-      <button class="ck-btn" onclick="goToShipping()">Continue to Shipping →</button>
-    </div>
-
-    <!-- STEP 2: Shipping Info -->
-    <div class="ck-section" id="ck-step-2">
-      <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;margin-bottom:1.5rem;">Shipping Details</h2>
-      <div class="ck-field-wrap">
-        <label class="ck-label">Full Name</label>
-        <input id="ck-name" type="text" class="ck-input" placeholder="Your full name" autocomplete="name"/>
-      </div>
-      <div class="ck-field-wrap">
-        <label class="ck-label">Email</label>
-        <input id="ck-email" type="email" class="ck-input" placeholder="your@email.com" autocomplete="email"/>
-      </div>
-      <div class="ck-field-wrap">
-        <label class="ck-label">Address</label>
-        <input id="ck-address" type="text" class="ck-input" placeholder="Street address" autocomplete="street-address"/>
-      </div>
-      <div class="ck-row">
-        <div class="ck-field-wrap">
-          <label class="ck-label">City</label>
-          <input id="ck-city" type="text" class="ck-input" placeholder="City" autocomplete="address-level2"/>
-        </div>
-        <div class="ck-field-wrap">
-          <label class="ck-label">Zip / Postcode</label>
-          <input id="ck-zip" type="text" class="ck-input" placeholder="Zip code" autocomplete="postal-code"/>
-        </div>
-      </div>
-      <div class="ck-field-wrap">
-        <label class="ck-label">Country</label>
-        <select id="ck-country" class="ck-input" style="cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%228%22 viewBox=%220 0 12 8%22><path d=%22M1 1l5 5 5-5%22 stroke=%22%231a0f0f%22 stroke-width=%221.5%22 fill=%22none%22/></svg>');background-repeat:no-repeat;background-position:right 0.5rem center;padding-right:2rem;">
-          <option value="">Select country...</option>
-          <option>Afghanistan</option><option>Albania</option><option>Algeria</option><option>Andorra</option><option>Angola</option><option>Argentina</option><option>Armenia</option><option>Australia</option><option>Austria</option><option>Azerbaijan</option>
-          <option>Bahamas</option><option>Bahrain</option><option>Bangladesh</option><option>Barbados</option><option>Belarus</option><option>Belgium</option><option>Belize</option><option>Benin</option><option>Bhutan</option><option>Bolivia</option><option>Bosnia and Herzegovina</option><option>Botswana</option><option>Brazil</option><option>Brunei</option><option>Bulgaria</option><option>Burkina Faso</option><option>Burundi</option>
-          <option>Cambodia</option><option>Cameroon</option><option>Canada</option><option>Cape Verde</option><option>Central African Republic</option><option>Chad</option><option>Chile</option><option>China</option><option>Colombia</option><option>Comoros</option><option>Congo</option><option>Costa Rica</option><option>Croatia</option><option>Cuba</option><option>Cyprus</option><option>Czech Republic</option>
-          <option>Denmark</option><option>Djibouti</option><option>Dominican Republic</option>
-          <option>Ecuador</option><option>Egypt</option><option>El Salvador</option><option>Equatorial Guinea</option><option>Eritrea</option><option>Estonia</option><option>Eswatini</option><option>Ethiopia</option>
-          <option>Fiji</option><option>Finland</option><option>France</option>
-          <option>Gabon</option><option>Gambia</option><option>Georgia</option><option>Germany</option><option>Ghana</option><option>Greece</option><option>Guatemala</option><option>Guinea</option><option>Guyana</option>
-          <option>Haiti</option><option>Honduras</option><option>Hungary</option>
-          <option>Iceland</option><option>India</option><option>Indonesia</option><option>Iran</option><option>Iraq</option><option>Ireland</option><option>Israel</option><option>Italy</option><option>Ivory Coast</option>
-          <option>Jamaica</option><option>Japan</option><option>Jordan</option>
-          <option>Kazakhstan</option><option>Kenya</option><option>Kuwait</option><option>Kyrgyzstan</option>
-          <option>Laos</option><option>Latvia</option><option>Lebanon</option><option>Lesotho</option><option>Liberia</option><option>Libya</option><option>Lithuania</option><option>Luxembourg</option>
-          <option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Maldives</option><option>Mali</option><option>Malta</option><option>Mauritania</option><option>Mauritius</option><option>Mexico</option><option>Moldova</option><option>Monaco</option><option>Mongolia</option><option>Montenegro</option><option>Morocco</option><option>Mozambique</option><option>Myanmar</option>
-          <option>Namibia</option><option>Nepal</option><option>Netherlands</option><option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>North Korea</option><option>North Macedonia</option><option>Norway</option>
-          <option>Oman</option>
-          <option>Pakistan</option><option>Palestine</option><option>Panama</option><option>Papua New Guinea</option><option>Paraguay</option><option>Peru</option><option>Philippines</option><option>Poland</option><option>Portugal</option>
-          <option>Qatar</option>
-          <option>Romania</option><option>Russia</option><option>Rwanda</option>
-          <option>Saudi Arabia</option><option>Senegal</option><option>Serbia</option><option>Sierra Leone</option><option>Singapore</option><option>Slovakia</option><option>Slovenia</option><option>Somalia</option><option>South Africa</option><option>South Korea</option><option>South Sudan</option><option>Spain</option><option>Sri Lanka</option><option>Sudan</option><option>Suriname</option><option>Sweden</option><option>Switzerland</option><option>Syria</option>
-          <option>Taiwan</option><option>Tajikistan</option><option>Tanzania</option><option>Thailand</option><option>Togo</option><option>Trinidad and Tobago</option><option>Tunisia</option><option>Turkey</option><option>Turkmenistan</option>
-          <option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom</option><option>United States</option><option>Uruguay</option><option>Uzbekistan</option>
-          <option>Venezuela</option><option>Vietnam</option>
-          <option>Yemen</option>
-          <option>Zambia</option><option>Zimbabwe</option>
-        </select>
-      </div>
-      <p id="shipping-error" class="ck-error"></p>
-      <button class="ck-btn" onclick="goToPayment()">Continue to Payment →</button>
-      <button class="ck-back" onclick="goToStep(1)">← Back to Cart</button>
-    </div>
-
-    <!-- STEP 3: Payment -->
-    <div class="ck-section" id="ck-step-3">
-      <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;margin-bottom:0.25rem;">Payment</h2>
-      <p style="font-size:0.7rem;color:rgba(26,15,15,0.4);letter-spacing:0.1em;margin-bottom:1.5rem;">🔒 SECURE PAYMENT</p>
-      <div id="payment-summary" style="border:1px solid var(--smoke);padding:1rem;margin-bottom:1.5rem;font-size:0.85rem;"></div>
-      <div class="ck-field-wrap">
-        <label class="ck-label">Card Number</label>
-        <div id="card-number-element" class="ck-stripe-field"></div>
-      </div>
-      <div class="ck-row" style="margin-bottom:1.25rem;">
-        <div>
-          <label class="ck-label">Expiry Date</label>
-          <div id="card-expiry-element" class="ck-stripe-field"></div>
-        </div>
-        <div>
-          <label class="ck-label">CVV</label>
-          <div id="card-cvc-element" class="ck-stripe-field"></div>
-        </div>
-      </div>
-      <p id="card-errors" class="ck-error"></p>
-      <button id="pay-btn" onclick="submitPayment()" class="ck-btn">
-        <span id="pay-btn-text">Pay Now</span>
-      </button>
-      <button class="ck-back" onclick="goToStep(2)">← Back to Shipping</button>
-      <p style="text-align:center;font-size:0.68rem;color:rgba(26,15,15,0.3);margin-top:0.75rem;">Powered by Stripe · Your card is never stored</p>
-    </div>
-  </div>
-</div>
-
-<!-- SUCCESS MODAL -->
-<div id="successOverlay" style="display:none;position:fixed;inset:0;background:rgba(26,15,15,0.6);z-index:600;align-items:center;justify-content:center;">
-  <div style="background:var(--cream);width:100%;max-width:460px;padding:2.5rem;text-align:center;margin:1rem;box-sizing:border-box;max-height:90vh;overflow-y:auto;">
-    <p style="font-size:2.5rem;margin-bottom:1rem;">🌸</p>
-    <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:400;margin-bottom:0.5rem;">Order Confirmed!</h2>
-    <p id="success-order-num" style="font-size:0.75rem;letter-spacing:0.2em;color:var(--rose);margin-bottom:1.25rem;text-transform:uppercase;"></p>
-    <p style="font-size:0.9rem;line-height:1.7;color:rgba(26,15,15,0.6);margin-bottom:1.5rem;">Thank you for your order. A confirmation has been sent to <strong id="success-email"></strong>.</p>
-    
-    <!-- Shipping Summary -->
-    <div style="border:1px solid var(--smoke);padding:1.25rem;text-align:left;margin-bottom:1.5rem;font-size:0.85rem;">
-      <p style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;color:var(--rose);margin-bottom:0.75rem;">Shipping To</p>
-      <p id="success-address" style="line-height:1.8;color:rgba(26,15,15,0.7);"></p>
-    </div>
-
-    <!-- Track Order -->
-    <div style="background:var(--blush);padding:1.25rem;margin-bottom:1.5rem;">
-      <p style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;margin-bottom:0.5rem;">Track Your Order</p>
-      <p style="font-size:0.82rem;color:rgba(26,15,15,0.6);line-height:1.7;margin-bottom:1rem;">Your tracking number will be emailed to you once your order ships (within 1-2 business days).</p>
-      <a id="track-btn" href="#" onclick="openTracking(event)" style="display:inline-block;background:var(--ink);color:white;text-decoration:none;padding:0.75rem 1.75rem;font-family:'DM Sans',sans-serif;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;">View Tracking Map →</a>
-    </div>
-
-    <button onclick="closeSuccess()" style="width:100%;background:none;border:1px solid var(--smoke);padding:0.9rem;font-family:'DM Sans',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;color:var(--ink);min-height:48px;">Continue Shopping</button>
-  </div>
-</div>
-
-
 <script>
-// ═══════════════════════════════════════
-//  STRIPE CHECKOUT
-// ═══════════════════════════════════════
-const STRIPE_PK = 'pk_test_51T9Pf5H89fmrRLoRysTJiavln953rVB55V3B6qd1d6GFYtgXK3MYadNHC2td5RSITPN1tZCLz4ZB9LHJ2TrxRchu00Y4GHL64J';
-const stripe = Stripe(STRIPE_PK);
-const elements = stripe.elements();
-let cardNumberEl = null, cardExpiryEl = null, cardCvcEl = null;
-
-const fieldStyle = {
-  style: {
-    base: {
-      fontFamily: "'DM Sans', sans-serif",
-      fontSize: '16px',
-      color: '#1a0f0f',
-      '::placeholder': { color: 'rgba(26,15,15,0.35)' }
-    },
-    invalid: { color: '#c0392b' }
-  }
-};
-
-function goToStep(n) {
-  // Update tabs
-  [1,2,3].forEach(i => {
-    const tab = document.getElementById('step-tab-'+i);
-    const sec = document.getElementById('ck-step-'+i);
-    tab.classList.remove('active','done');
-    sec.classList.remove('active');
-    if(i < n) tab.classList.add('done');
-    if(i === n) { tab.classList.add('active'); sec.classList.add('active'); }
-  });
-}
-
-function buildSummaryHtml(targetId) {
-  const items = getCart();
-  let html = '<div style="margin-bottom:0.75rem;">';
-  let total = 0;
-  items.forEach(item => {
-    const sub = item.price * item.qty;
-    total += sub;
-    html += `<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;font-size:0.88rem;">
-      <span>${item.name} × ${item.qty}</span>
-      <span style="font-family:'Playfair Display',serif;">$${sub.toFixed(2)}</span>
-    </div>`;
-  });
-  html += `</div><div style="border-top:1px solid var(--smoke);padding-top:0.75rem;display:flex;justify-content:space-between;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;">
-    <span>Total</span><span>$${total.toFixed(2)}</span>
-  </div>`;
-  document.getElementById(targetId).innerHTML = html;
-  return total;
-}
-
-function startCheckout() {
-  const items = getCart();
-  if(!items || items.length === 0) return;
-  buildSummaryHtml('checkoutSummary');
-  document.getElementById('checkoutOverlay').style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-  goToStep(1);
-}
-
-function goToShipping() {
-  goToStep(2);
-}
-
-function goToPayment() {
-  const name = document.getElementById('ck-name').value.trim();
-  const email = document.getElementById('ck-email').value.trim();
-  const address = document.getElementById('ck-address').value.trim();
-  const city = document.getElementById('ck-city').value.trim();
-  const zip = document.getElementById('ck-zip').value.trim();
-  const country = document.getElementById('ck-country').value.trim();
-  const err = document.getElementById('shipping-error');
-
-  if(!name){ err.textContent='Please enter your full name.'; err.style.display='block'; return; }
-  if(!email || !email.includes('@')){ err.textContent='Please enter a valid email.'; err.style.display='block'; return; }
-  if(!address){ err.textContent='Please enter your address.'; err.style.display='block'; return; }
-  if(!city){ err.textContent='Please enter your city.'; err.style.display='block'; return; }
-  if(!zip){ err.textContent='Please enter your zip/postcode.'; err.style.display='block'; return; }
-  if(!country){ err.textContent='Please enter your country.'; err.style.display='block'; return; }
-  err.style.display='none';
-
-  // Copy summary to payment step
-  buildSummaryHtml('payment-summary');
-  goToStep(3);
-
-  // Mount Stripe fields after step is visible
-  setTimeout(() => {
-    if(!cardNumberEl) {
-      const onErr = (e) => {
-        const errEl = document.getElementById('card-errors');
-        if(e.error){ errEl.textContent=e.error.message; errEl.style.display='block'; }
-        else { errEl.style.display='none'; }
-      };
-      const mountField = (type, id) => {
-        const el = elements.create(type, fieldStyle);
-        el.mount(id);
-        el.on('change', onErr);
-        el.on('focus', () => document.querySelector(id).classList.add('focused'));
-        el.on('blur',  () => document.querySelector(id).classList.remove('focused'));
-        return el;
-      };
-      cardNumberEl = mountField('cardNumber', '#card-number-element');
-      cardExpiryEl = mountField('cardExpiry', '#card-expiry-element');
-      cardCvcEl    = mountField('cardCvc',    '#card-cvc-element');
-    }
-  }, 50);
-}
-
-function closeCheckout() {
-  document.getElementById('checkoutOverlay').style.display = 'none';
-  document.body.style.overflow = '';
-}
-
-async function submitPayment() {
-  const name    = document.getElementById('ck-name').value.trim();
-  const email   = document.getElementById('ck-email').value.trim();
-  const address = document.getElementById('ck-address').value.trim();
-  const city    = document.getElementById('ck-city').value.trim();
-  const zip     = document.getElementById('ck-zip').value.trim();
-  const country = document.getElementById('ck-country').value.trim();
-  const errEl   = document.getElementById('card-errors');
-  const btn     = document.getElementById('pay-btn');
-  const btnText = document.getElementById('pay-btn-text');
-  btn.disabled = true;
-  btnText.textContent = 'Processing...';
-  errEl.style.display = 'none';
+async function loadProducts() {
   try {
-    const items = getCart();
-    const total = items.reduce((sum, i) => sum + (i.price * i.qty), 0);
-    const amountCents = Math.round(total * 100);
-    const intentRes = await fetch('https://api.olabrows.store/api/payment/create-intent', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ amount:amountCents, email, name, shipping:{address,city,zip,country} })
-    });
-    const { clientSecret, error: intentError } = await intentRes.json();
-    if(intentError) throw new Error(intentError);
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: cardNumberEl,
-        billing_details: { name, email, address:{ line1:address, city, postal_code:zip, country } }
-      }
-    });
-    if(error){
-      errEl.textContent = error.message; errEl.style.display = 'block';
-      btn.disabled = false; btnText.textContent = 'Pay Now';
-    } else if(paymentIntent.status === 'succeeded'){
-      closeCheckout();
-      // Generate order number
-      const orderNum = 'OLA-' + Date.now().toString().slice(-6);
-      document.getElementById('success-order-num').textContent = 'Order ' + orderNum;
-      document.getElementById('success-email').textContent = email;
-      document.getElementById('success-address').innerHTML = 
-        name + '<br>' + address + '<br>' + city + ', ' + zip + '<br>' + country;
-      // Store for tracking page
-      localStorage.setItem('ola_last_order', JSON.stringify({
-        orderNum, name, email, address, city, zip, country,
-        items: getCart(), total: (items.reduce((s,i)=>s+(i.price*i.qty),0)).toFixed(2),
-        date: new Date().toISOString()
-      }));
-      document.getElementById('successOverlay').style.display = 'flex';
-    }
-  } catch(err){
-    errEl.textContent = 'Payment failed. Please try again.'; errEl.style.display = 'block';
-    btn.disabled = false; btnText.textContent = 'Pay Now';
-  }
+    const res = await fetch('https://api.olabrows.store/api/products');
+    const products = await res.json();
+    const grid = document.getElementById('products-grid');
+    if (!products || !products.length) return;
+    grid.innerHTML = products.map(p => {
+      const isNew = p.badge === 'New';
+      const img = p.imageUrl && p.imageUrl.trim() !== '' ? p.imageUrl : 'images/dark_brown.jpeg';
+      const price = p.price ? '$' + p.price : 'Coming Soon';
+      return `<div class="product-card reveal">
+        <div class="product-img-wrap">
+          <img src="${img}" alt="${p.name} ${p.variant||''}"/>
+          <span class="product-tag ${isNew?'new':''}">${p.badge||'Pre-Order'}</span>
+          <div class="product-overlay"><button class="overlay-btn notify-btn">Pre-Order</button></div>
+        </div>
+        <p class="product-name">${p.name}</p>
+        <p class="product-shade">${p.variant||''}</p>
+        <div class="product-footer">
+          <span class="product-price">${price}</span>
+          <button class="notify-btn">Pre-Order</button>
+        </div>
+      </div>`;
+    }).join('');
+  } catch(e) { console.error('Failed to load products:', e); }
 }
-
-function openTracking(e) {
-  e.preventDefault();
-  window.open('tracking.html', '_blank');
-}
-
-function closeSuccess() {
-  document.getElementById('successOverlay').style.display = 'none';
-  document.body.style.overflow = '';
-  clearCart();
-  closeCart();
-  updateCartBadge();
-}
-
-// Helper to get cart items
-function getCart() {
-  return JSON.parse(localStorage.getItem('ola_cart') || '[]');
-}
-
-function clearCart() {
-  localStorage.removeItem('ola_cart');
-  cart = [];
-}
+loadProducts();
 </script>
-
 </body> on every page
      ============================================ -->
 
@@ -2526,7 +1900,7 @@ function clearCart() {
 
 <!-- Chat Widget Script -->
 <script>
-const OLA_API = 'https://ssjdishvml.execute-api.us-east-1.amazonaws.com/chat';
+const OLA_API = 'https://api.olabrows.store/api/ai/chat';
 let olaHistory = [];
 let olaIsOpen = false;
 let olaIsTyping = false;
@@ -2666,7 +2040,34 @@ document.getElementById('ola-input').addEventListener('input', function() {
 </script>
 
 
-
-
+<script>
+async function loadProducts() {
+  try {
+    const res = await fetch('https://api.olabrows.store/api/products');
+    const products = await res.json();
+    const grid = document.getElementById('products-grid');
+    if (!products || !products.length) return;
+    grid.innerHTML = products.map(p => {
+      const isNew = p.badge === 'New';
+      const img = p.imageUrl && p.imageUrl.trim() !== '' ? p.imageUrl : 'images/dark_brown.jpeg';
+      const price = p.price ? '$' + p.price : 'Coming Soon';
+      return `<div class="product-card reveal">
+        <div class="product-img-wrap">
+          <img src="${img}" alt="${p.name} ${p.variant||''}"/>
+          <span class="product-tag ${isNew?'new':''}">${p.badge||'Pre-Order'}</span>
+          <div class="product-overlay"><button class="overlay-btn notify-btn">Pre-Order</button></div>
+        </div>
+        <p class="product-name">${p.name}</p>
+        <p class="product-shade">${p.variant||''}</p>
+        <div class="product-footer">
+          <span class="product-price">${price}</span>
+          <button class="notify-btn">Pre-Order</button>
+        </div>
+      </div>`;
+    }).join('');
+  } catch(e) { console.error('Failed to load products:', e); }
+}
+loadProducts();
+</script>
 </body>
 </html>

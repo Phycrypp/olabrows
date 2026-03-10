@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Track Your Order — Browed by Olá</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--ink:#1a0f0f;--deep:#5c1e1e;--rose:#c49090;--cream:#faf7f4;--blush:#f5ece8;--smoke:rgba(196,144,144,0.25);}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-tap-highlight-color:transparent}
+
+nav{position:fixed;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(250,247,244,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--smoke);z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:var(--ink);}
+.nav-logo img{height:36px;width:36px;object-fit:cover;border-radius:50%;}
+.nav-logo span{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;}
+.nav-back{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;color:rgba(26,15,15,0.5);transition:color 0.2s;}
+.nav-back:hover{color:var(--ink)}
+
+.page{padding-top:64px;min-height:100vh;}
+
+/* HERO BAND */
+.track-hero{background:var(--ink);color:white;padding:3rem 2rem;text-align:center;}
+.track-hero p.label{font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--rose);margin-bottom:0.75rem;}
+.track-hero h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;}
+.track-hero h1 em{font-style:italic;color:var(--rose)}
+.order-num{display:inline-block;margin-top:0.75rem;font-size:0.75rem;letter-spacing:0.2em;background:rgba(255,255,255,0.08);padding:0.4rem 1rem;color:rgba(255,255,255,0.6);}
+
+/* CONTENT */
+.track-body{max-width:800px;margin:0 auto;padding:2.5rem 1.5rem;}
+
+/* STATUS STEPS */
+.status-track{display:flex;justify-content:space-between;position:relative;margin-bottom:3rem;}
+.status-track::before{content:'';position:absolute;top:20px;left:10%;right:10%;height:2px;background:var(--smoke);z-index:0;}
+.status-track::after{content:'';position:absolute;top:20px;left:10%;width:var(--progress, 15%);height:2px;background:var(--rose);z-index:1;transition:width 1s ease;}
+.status-step{display:flex;flex-direction:column;align-items:center;gap:0.5rem;z-index:2;flex:1;}
+.step-dot{width:40px;height:40px;border-radius:50%;background:var(--smoke);display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.3s;}
+.step-dot.done{background:var(--rose);color:white;}
+.step-dot.active{background:var(--ink);color:white;box-shadow:0 0 0 4px rgba(196,144,144,0.3);}
+.step-label{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;text-align:center;font-weight:500;color:rgba(26,15,15,0.4);}
+.step-label.active{color:var(--ink);}
+
+/* MAP */
+.map-section{margin-bottom:2rem;}
+.map-section h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;margin-bottom:1rem;}
+#map{width:100%;height:320px;background:var(--blush);border:1px solid var(--smoke);position:relative;overflow:hidden;}
+.map-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;}
+.map-placeholder-icon{font-size:2.5rem;}
+.map-placeholder-text{font-size:0.85rem;color:rgba(26,15,15,0.5);text-align:center;max-width:260px;line-height:1.7;}
+
+/* ORDER DETAILS */
+.order-card{border:1px solid var(--smoke);padding:1.5rem;margin-bottom:1.5rem;}
+.order-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid var(--smoke);}
+.order-row{display:flex;justify-content:space-between;align-items:flex-start;padding:0.6rem 0;border-bottom:1px solid var(--smoke);font-size:0.88rem;}
+.order-row:last-child{border-bottom:none;}
+.order-row-label{color:rgba(26,15,15,0.5);}
+.order-row-val{font-weight:500;text-align:right;max-width:60%;}
+
+/* EST DELIVERY */
+.delivery-badge{background:var(--blush);padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
+.delivery-badge-icon{font-size:1.75rem;flex-shrink:0;}
+.delivery-badge-label{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;color:var(--rose);margin-bottom:0.25rem;}
+.delivery-badge-date{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:400;}
+
+/* HELP */
+.help-strip{text-align:center;padding:2rem;background:white;border:1px solid var(--smoke);}
+.help-strip p{font-size:0.85rem;color:rgba(26,15,15,0.5);margin-bottom:0.75rem;}
+.help-strip a{color:var(--deep);text-decoration:none;font-weight:500;font-size:0.85rem;border-bottom:1px solid var(--rose);}
+
+@media(max-width:600px){
+  .track-hero{padding:2.5rem 1.25rem;}
+  .track-body{padding:2rem 1.25rem;}
+  .status-track{gap:0;}
+  .step-label{font-size:0.58rem;}
+  #map{height:240px;}
+  .ck-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo.jpeg" alt="Browed by Olá"/>
+    <span>Browed by Olá</span>
+  </a>
+  <a href="index.html" class="nav-back">← Continue Shopping</a>
+</nav>
+
+<div class="page">
+  <!-- HERO -->
+  <div class="track-hero">
+    <p class="label">Order Tracking</p>
+    <h1>Your order is on its <em>way</em> 🌸</h1>
+    <div class="order-num" id="hero-order-num">Loading...</div>
+  </div>
+
+  <div class="track-body">
+
+    <!-- STATUS STEPS -->
+    <div class="status-track" style="--progress:15%;">
+      <div class="status-step">
+        <div class="step-dot done">✓</div>
+        <span class="step-label">Order<br>Placed</span>
+      </div>
+      <div class="status-step">
+        <div class="step-dot active" id="dot-processing">⚙</div>
+        <span class="step-label active">Being<br>Prepared</span>
+      </div>
+      <div class="status-step">
+        <div class="step-dot" id="dot-shipped">📦</div>
+        <span class="step-label">Shipped</span>
+      </div>
+      <div class="status-step">
+        <div class="step-dot" id="dot-transit">🚚</div>
+        <span class="step-label">In<br>Transit</span>
+      </div>
+      <div class="status-step">
+        <div class="step-dot" id="dot-delivered">🌸</div>
+        <span class="step-label">Delivered</span>
+      </div>
+    </div>
+
+    <!-- ESTIMATED DELIVERY -->
+    <div class="delivery-badge">
+      <div class="delivery-badge-icon">📅</div>
+      <div>
+        <p class="delivery-badge-label">Estimated Delivery</p>
+        <p class="delivery-badge-date" id="est-delivery">Calculating...</p>
+      </div>
+    </div>
+
+    <!-- MAP -->
+    <div class="map-section">
+      <h3>Shipment Location</h3>
+      <div id="map">
+        <div class="map-placeholder">
+          <span class="map-placeholder-icon">📍</span>
+          <p class="map-placeholder-text">Your order is currently being prepared at our fulfilment centre. Live map tracking will be available once your order ships.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDER DETAILS -->
+    <div class="order-card">
+      <h3>Order Details</h3>
+      <div id="order-items"></div>
+      <div class="order-row">
+        <span class="order-row-label">Shipping to</span>
+        <span class="order-row-val" id="order-address">—</span>
+      </div>
+      <div class="order-row">
+        <span class="order-row-label">Order date</span>
+        <span class="order-row-val" id="order-date">—</span>
+      </div>
+      <div class="order-row" style="font-family:'Playfair Display',serif;font-size:1rem;">
+        <span>Total</span>
+        <span id="order-total">—</span>
+      </div>
+    </div>
+
+    <!-- TRACKING NUMBER NOTE -->
+    <div class="order-card" style="background:var(--blush);border:none;">
+      <h3>Tracking Number</h3>
+      <p style="font-size:0.88rem;line-height:1.8;color:rgba(26,15,15,0.6);">Your tracking number will be emailed to <strong id="order-email">you</strong> within 1–2 business days once your order has shipped. You can use it to track your package directly on the carrier's website.</p>
+    </div>
+
+    <!-- HELP -->
+    <div class="help-strip">
+      <p>Need help with your order?</p>
+      <a href="mailto:hello@olabrows.store">Contact us at hello@olabrows.store</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Load order from localStorage
+const order = JSON.parse(localStorage.getItem('ola_last_order') || '{}');
+
+if(order.orderNum) {
+  document.getElementById('hero-order-num').textContent = order.orderNum;
+  document.getElementById('order-address').textContent = 
+    order.name + ' · ' + order.city + ', ' + order.country;
+  document.getElementById('order-email').textContent = order.email;
+  document.getElementById('order-total').textContent = '$' + order.total;
+
+  // Format date
+  const d = new Date(order.date);
+  document.getElementById('order-date').textContent = d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+
+  // Estimated delivery (7-10 business days)
+  const est = new Date(order.date);
+  est.setDate(est.getDate() + 9);
+  document.getElementById('est-delivery').textContent = est.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+
+  // Order items
+  if(order.items && order.items.length) {
+    let html = '';
+    order.items.forEach(item => {
+      html += `<div class="order-row">
+        <span class="order-row-label">${item.name}</span>
+        <span class="order-row-val">${item.shade} × ${item.qty} — $${(item.price*item.qty).toFixed(2)}</span>
+      </div>`;
+    });
+    document.getElementById('order-items').innerHTML = html;
+  }
+} else {
+  document.getElementById('hero-order-num').textContent = 'No order found';
+}
+
+// Load Google Maps (shows destination pin)
+function initMap() {
+  if(!order.city) return;
+  const geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ address: order.city + ', ' + order.country }, (results, status) => {
+    if(status === 'OK' && results[0]) {
+      const mapEl = document.getElementById('map');
+      mapEl.innerHTML = '';
+      const map = new google.maps.Map(mapEl, {
+        center: results[0].geometry.location,
+        zoom: 10,
+        styles: [
+          {featureType:'all',elementType:'geometry',stylers:[{color:'#f5ece8'}]},
+          {featureType:'water',elementType:'geometry',stylers:[{color:'#c49090'}]},
+          {featureType:'road',elementType:'geometry',stylers:[{color:'#faf7f4'}]},
+          {featureType:'road',elementType:'geometry.stroke',stylers:[{color:'#e8d4d0'}]},
+          {featureType:'poi',elementType:'all',stylers:[{visibility:'off'}]},
+          {featureType:'transit',elementType:'all',stylers:[{visibility:'off'}]}
+        ]
+      });
+      new google.maps.Marker({
+        position: results[0].geometry.location,
+        map,
+        title: 'Delivery Address',
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 10,
+          fillColor: '#5c1e1e',
+          fillOpacity: 1,
+          strokeColor: '#faf7f4',
+          strokeWeight: 3
+        }
+      });
+    }
+  });
+}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6oIM1zKAf1ZQKMhvf7TvCTqs9ugCHc58&callback=initMap"></script>
+</body>
+</html>

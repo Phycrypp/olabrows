@@ -1065,6 +1065,7 @@ footer{
 .cart-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
 </style>
+<script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
 
@@ -1102,7 +1103,7 @@ footer{
       <span id="cartSubtotal">$0.00</span>
     </div>
     <p class="cart-shipping-note">Shipping calculated at checkout</p>
-    <a href="checkout.html" class="cart-checkout-btn">Proceed to Checkout →</a>
+    <button onclick="startCheckout()" class="cart-checkout-btn" id="checkoutBtn">Proceed to Checkout →</button>
     <button class="cart-continue" onclick="closeCart()">Continue Shopping</button>
   </div>
 </div>
@@ -1128,11 +1129,11 @@ footer{
   <div class="announcement-track">
     <span>✦ <b>Early Access</b> — Join the list for 15% off your first order</span>
     <span>✦ Free shipping on orders over $50</span>
-    <span>✦ <b>Pre-Order</b> — The Precision Brow Collection</span>
+    <span>✦ <b>Now Available</b> — The Precision Brow Collection</span>
     <span>✦ Vegan &amp; Cruelty Free</span>
     <span>✦ <b>Early Access</b> — Join the list for 15% off your first order</span>
     <span>✦ Free shipping on orders over $50</span>
-    <span>✦ <b>Pre-Order</b> — The Precision Brow Collection</span>
+    <span>✦ <b>Now Available</b> — The Precision Brow Collection</span>
     <span>✦ Vegan &amp; Cruelty Free</span>
   </div>
 </div>
@@ -1278,7 +1279,7 @@ footer{
       <p class="product-shade">Dark Brown</p>
       <div class="product-footer">
         <span class="product-price">$18</span>
-        <button class="notify-btn">Pre-Order</button>
+        <button class="notify-btn">Add to Cart</button>
       </div>
     </div>
 
@@ -1294,14 +1295,14 @@ footer{
       <p class="product-shade">Soft Black</p>
       <div class="product-footer">
         <span class="product-price">$18</span>
-        <button class="notify-btn">Pre-Order</button>
+        <button class="notify-btn">Add to Cart</button>
       </div>
     </div>
 
     <div class="product-card reveal" data-href="product-definer-duo.html">
       <div class="product-img-wrap">
         <img src="images/dark_brown.jpeg" alt="Brow Definer Duo"/>
-        <span class="product-tag">Pre-Order</span>
+        <span class="product-tag">New</span>
         <div class="product-overlay">
           <button class="overlay-btn notify-btn">Add to Cart</button>
         </div>
@@ -1310,14 +1311,14 @@ footer{
       <p class="product-shade">Pencil + Gel Set</p>
       <div class="product-footer">
         <span class="product-price">$28</span>
-        <button class="notify-btn">Pre-Order</button>
+        <button class="notify-btn">Add to Cart</button>
       </div>
     </div>
 
     <div class="product-card reveal" data-href="product-brow-gel.html">
       <div class="product-img-wrap">
         <img src="images/dark_brown.jpeg" alt="Precision Brow Gel Clear"/>
-        <span class="product-tag">Pre-Order</span>
+        <span class="product-tag">New</span>
         <div class="product-overlay">
           <button class="overlay-btn notify-btn">Add to Cart</button>
         </div>
@@ -1326,14 +1327,14 @@ footer{
       <p class="product-shade">Clear</p>
       <div class="product-footer">
         <span class="product-price">$16</span>
-        <button class="notify-btn">Pre-Order</button>
+        <button class="notify-btn">Add to Cart</button>
       </div>
     </div>
 
     <div class="product-card reveal" data-href="product-microblade.html">
       <div class="product-img-wrap">
         <img src="images/dark_brown.jpeg" alt="Microblade Effect Pen"/>
-        <span class="product-tag">Pre-Order</span>
+        <span class="product-tag">New</span>
         <div class="product-overlay">
           <button class="overlay-btn notify-btn">Add to Cart</button>
         </div>
@@ -1342,14 +1343,14 @@ footer{
       <p class="product-shade">Dark Brown / Soft Black</p>
       <div class="product-footer">
         <span class="product-price">$22</span>
-        <button class="notify-btn">Pre-Order</button>
+        <button class="notify-btn">Add to Cart</button>
       </div>
     </div>
 
     <div class="product-card reveal" data-href="product-brow-oil.html">
       <div class="product-img-wrap">
         <img src="images/dark_brown.jpeg" alt="Brow Care Oil"/>
-        <span class="product-tag">Pre-Order</span>
+        <span class="product-tag">New</span>
         <div class="product-overlay">
           <button class="overlay-btn notify-btn">Add to Cart</button>
         </div>
@@ -1358,7 +1359,7 @@ footer{
       <p class="product-shade">Nourishing Treatment</p>
       <div class="product-footer">
         <span class="product-price">$20</span>
-        <button class="notify-btn">Pre-Order</button>
+        <button class="notify-btn">Add to Cart</button>
       </div>
     </div>
 
@@ -1708,7 +1709,7 @@ function renderCart() {
     </div>
   `).join('');
 
-  document.getElementById('cartSubtotal').textContent = '$${cartTotal().toFixed(2)}';
+  document.getElementById('cartSubtotal').textContent = '$' + cartTotal().toFixed(2);
 }
 
 function openCart() {
@@ -1775,7 +1776,245 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <!-- ============================================
      BROWED BY OLÁ — AI Beauty Advisor Widget
-     Add this before </body> on every page
+     Add this before 
+<!-- STRIPE CHECKOUT MODAL -->
+<style>
+#checkoutOverlay { display:none;position:fixed;inset:0;background:rgba(26,15,15,0.6);z-index:500;align-items:center;justify-content:center; }
+.ck-panel {
+  background:var(--cream);width:100%;max-width:480px;
+  max-height:calc(100vh - 2rem);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:2rem 2rem calc(2rem + env(safe-area-inset-bottom));
+  position:relative;margin:1rem;box-sizing:border-box;
+}
+@media(max-width:500px){
+  #checkoutOverlay{align-items:flex-end}
+  .ck-panel{
+    max-width:100%;margin:0;
+    border-radius:20px 20px 0 0;
+    max-height:92vh;
+    padding:1.5rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom));
+  }
+}
+.ck-label{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;display:block;margin-bottom:0.5rem;color:var(--ink);}
+.ck-input{width:100%;border:none;border-bottom:1px solid var(--smoke);padding:0.9rem 0;font-family:'DM Sans',sans-serif;font-size:16px;background:transparent;outline:none;color:var(--ink);box-sizing:border-box;}
+.ck-input:focus{border-bottom-color:var(--deep);}
+.ck-stripe-field{border:none;border-bottom:1px solid var(--smoke);padding:0.9rem 0;background:transparent;transition:border-color 0.2s;}
+.ck-stripe-field.focused{border-bottom-color:var(--deep);}
+.ck-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.ck-pay-btn{width:100%;background:var(--ink);color:white;border:none;padding:1.1rem;font-family:'DM Sans',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;cursor:pointer;min-height:52px;transition:background 0.2s;}
+.ck-pay-btn:active{background:var(--deep);}
+.ck-pay-btn:disabled{opacity:0.6;}
+</style>
+<div id="checkoutOverlay">
+  <div class="ck-panel">
+    <button onclick="closeCheckout()" style="position:absolute;top:1.25rem;right:1.25rem;background:none;border:none;font-size:1.75rem;cursor:pointer;color:var(--ink);opacity:0.4;line-height:1;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">×</button>
+
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:400;margin-bottom:0.2rem;">Checkout</h2>
+    <p style="font-size:0.7rem;color:rgba(26,15,15,0.4);letter-spacing:0.12em;margin-bottom:1.5rem;">🔒 SECURE PAYMENT</p>
+
+    <!-- Order Summary -->
+    <div id="checkoutSummary" style="border:1px solid var(--smoke);padding:1rem;margin-bottom:1.5rem;font-size:0.88rem;"></div>
+
+    <!-- Customer Info -->
+    <div style="margin-bottom:1rem;">
+      <label class="ck-label">Full Name</label>
+      <input id="ck-name" type="text" placeholder="Your full name" class="ck-input" autocomplete="name">
+    </div>
+    <div style="margin-bottom:1.5rem;">
+      <label class="ck-label">Email</label>
+      <input id="ck-email" type="email" placeholder="your@email.com" class="ck-input" autocomplete="email">
+    </div>
+
+    <!-- Stripe Card Fields -->
+    <div style="margin-bottom:1.25rem;">
+      <label class="ck-label">Card Number</label>
+      <div id="card-number-element" class="ck-stripe-field"></div>
+    </div>
+    <div class="ck-row" style="margin-bottom:1.5rem;">
+      <div>
+        <label class="ck-label">Expiry Date</label>
+        <div id="card-expiry-element" class="ck-stripe-field"></div>
+      </div>
+      <div>
+        <label class="ck-label">CVV</label>
+        <div id="card-cvc-element" class="ck-stripe-field"></div>
+      </div>
+    </div>
+    <p id="card-errors" style="color:#c0392b;font-size:0.78rem;margin-bottom:1rem;display:none;"></p>
+
+    <button id="pay-btn" onclick="submitPayment()" class="ck-pay-btn" style="margin-bottom:0.75rem;">
+      <span id="pay-btn-text">Pay Now</span>
+    </button>
+    <p style="text-align:center;font-size:0.68rem;color:rgba(26,15,15,0.3);letter-spacing:0.08em;">Powered by Stripe · Your card is never stored</p>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div id="successOverlay" style="display:none;position:fixed;inset:0;background:rgba(26,15,15,0.6);z-index:600;align-items:center;justify-content:center;">
+  <div style="background:var(--cream);width:100%;max-width:420px;padding:3rem 2.5rem;text-align:center;margin:1rem;box-sizing:border-box;">
+    <p style="font-size:2.5rem;margin-bottom:1rem;">🌸</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:400;margin-bottom:0.75rem;">Order Confirmed!</h2>
+    <p style="font-size:0.9rem;line-height:1.7;color:rgba(26,15,15,0.6);margin-bottom:2rem;">Thank you for your order. A confirmation has been sent to your email.</p>
+    <button onclick="closeSuccess()" style="background:var(--ink);color:white;border:none;padding:1rem 2.5rem;font-family:'DM Sans',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;min-height:52px;">Continue Shopping</button>
+  </div>
+</div>
+
+
+<script>
+// ═══════════════════════════════════════
+//  STRIPE CHECKOUT
+// ═══════════════════════════════════════
+const STRIPE_PK = 'pk_test_51T9Pf5H89fmrRLoRysTJiavln953rVB55V3B6qd1d6GFYtgXK3MYadNHC2td5RSITPN1tZCLz4ZB9LHJ2TrxRchu00Y4GHL64J';
+const stripe = Stripe(STRIPE_PK);
+const elements = stripe.elements();
+let cardNumberEl = null, cardExpiryEl = null, cardCvcEl = null;
+
+const fieldStyle = {
+  style: {
+    base: {
+      fontFamily: "'DM Sans', sans-serif",
+      fontSize: '16px',
+      color: '#1a0f0f',
+      '::placeholder': { color: 'rgba(26,15,15,0.35)' }
+    },
+    invalid: { color: '#c0392b' }
+  }
+};
+
+function startCheckout() {
+  // Build order summary
+  const items = getCart();
+  if (!items || items.length === 0) return;
+
+  let summaryHtml = '<div style="margin-bottom:0.75rem;">';
+  let total = 0;
+  items.forEach(item => {
+    const subtotal = item.price * item.qty;
+    total += subtotal;
+    summaryHtml += `<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;font-size:0.88rem;">
+      <span>${item.name} × ${item.qty}</span>
+      <span style="font-family:'Playfair Display',serif;">$${subtotal.toFixed(2)}</span>
+    </div>`;
+  });
+  summaryHtml += `</div><div style="border-top:1px solid var(--smoke);padding-top:0.75rem;display:flex;justify-content:space-between;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;">
+    <span>Total</span><span>$${total.toFixed(2)}</span>
+  </div>`;
+  document.getElementById('checkoutSummary').innerHTML = summaryHtml;
+
+  // Show modal FIRST, then mount Stripe (can't mount into hidden elements)
+  const overlay = document.getElementById('checkoutOverlay');
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+
+  // Mount Stripe separate elements after modal is visible
+  setTimeout(() => {
+  if (!cardNumberEl) {
+    const onErr = (e) => {
+      const errEl = document.getElementById('card-errors');
+      if (e.error) { errEl.textContent = e.error.message; errEl.style.display = 'block'; }
+      else { errEl.style.display = 'none'; }
+    };
+    const mountField = (type, id) => {
+      const el = elements.create(type, fieldStyle);
+      el.mount(id);
+      el.on('change', onErr);
+      el.on('focus', () => document.querySelector(id).classList.add('focused'));
+      el.on('blur',  () => document.querySelector(id).classList.remove('focused'));
+      return el;
+    };
+    cardNumberEl = mountField('cardNumber', '#card-number-element');
+    cardExpiryEl = mountField('cardExpiry', '#card-expiry-element');
+    cardCvcEl    = mountField('cardCvc',    '#card-cvc-element');
+  }
+  }, 50);
+
+  // Pre-fill name/email if subscribed
+  const savedName = document.getElementById('sub-name')?.value;
+  const savedEmail = document.getElementById('sub-email')?.value;
+  if (savedName) document.getElementById('ck-name').value = savedName;
+  if (savedEmail) document.getElementById('ck-email').value = savedEmail;
+}
+
+function closeCheckout() {
+  document.getElementById('checkoutOverlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function closeSuccess() {
+  document.getElementById('successOverlay').style.display = 'none';
+  document.body.style.overflow = '';
+  clearCart();
+  closeCart();
+  updateCartBadge();
+}
+
+async function submitPayment() {
+  const name = document.getElementById('ck-name').value.trim();
+  const email = document.getElementById('ck-email').value.trim();
+  const errEl = document.getElementById('card-errors');
+
+  if (!name) { errEl.textContent = 'Please enter your name.'; errEl.style.display = 'block'; return; }
+  if (!email || !email.includes('@')) { errEl.textContent = 'Please enter a valid email.'; errEl.style.display = 'block'; return; }
+
+  const btn = document.getElementById('pay-btn');
+  const btnText = document.getElementById('pay-btn-text');
+  btn.disabled = true;
+  btnText.textContent = 'Processing...';
+  errEl.style.display = 'none';
+
+  try {
+    // Calculate total in cents
+    const items = getCart();
+    const total = items.reduce((sum, i) => sum + (i.price * i.qty), 0);
+    const amountCents = Math.round(total * 100);
+
+    // Create payment intent
+    const intentRes = await fetch('https://api.olabrows.store/api/payment/create-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: amountCents, email, name })
+    });
+    const { clientSecret, error: intentError } = await intentRes.json();
+    if (intentError) throw new Error(intentError);
+
+    // Confirm payment
+    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: cardNumberEl,
+        billing_details: { name, email }
+      }
+    });
+
+    if (error) {
+      errEl.textContent = error.message;
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btnText.textContent = 'Pay Now';
+    } else if (paymentIntent.status === 'succeeded') {
+      closeCheckout();
+      document.getElementById('successOverlay').style.display = 'flex';
+    }
+  } catch(err) {
+    errEl.textContent = 'Payment failed. Please try again.';
+    errEl.style.display = 'block';
+    btn.disabled = false;
+    btnText.textContent = 'Pay Now';
+  }
+}
+
+// Helper to get cart items
+function getCart() {
+  return JSON.parse(localStorage.getItem('ola_cart') || '[]');
+}
+
+function clearCart() {
+  localStorage.removeItem('ola_cart');
+  cart = [];
+}
+</script>
+
+</body> on every page
      ============================================ -->
 
 <!-- Chat Widget Styles -->
@@ -2116,7 +2355,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- Chat Widget Script -->
 <script>
-const OLA_API = 'https://api.olabrows.store/api/ai/chat';
+const OLA_API = 'https://ssjdishvml.execute-api.us-east-1.amazonaws.com/chat';
 let olaHistory = [];
 let olaIsOpen = false;
 let olaIsTyping = false;
@@ -2254,6 +2493,9 @@ document.getElementById('ola-input').addEventListener('input', function() {
   this.style.height = Math.min(this.scrollHeight, 80) + 'px';
 });
 </script>
+
+
+
 
 </body>
 </html>

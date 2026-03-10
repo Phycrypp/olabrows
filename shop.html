@@ -351,115 +351,7 @@ input,textarea,select{font-size:16px!important}
 
 <!-- PRODUCTS GRID -->
 <div class="shop-grid" id="shopGrid">
-
-  <div class="product-card" data-category="pencil" data-id="dark-brown" data-price="18" data-name="Olá Brow Pencil" data-shade="Dark Brown">
-    <div class="product-img-wrap">
-      <img src="images/dark_brown.jpeg" alt="Olá Brow Pencil Dark Brown"/>
-      <span class="product-tag">New</span>
-      <div class="product-overlay">
-        <button class="overlay-btn" onclick="quickAdd('dark-brown','Dark Brown',18,'Olá Brow Pencil')">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product-info">
-      <p class="product-name">Olá Brow Pencil</p>
-      <p class="product-shade">Dark Brown</p>
-      <div class="product-footer">
-        <span class="product-price">$18</span>
-        <button class="add-btn" onclick="quickAdd('dark-brown','Dark Brown',18,'Olá Brow Pencil')">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="product-card" data-category="pencil" data-id="soft-black" data-price="18" data-name="Olá Brow Pencil" data-shade="Soft Black">
-    <div class="product-img-wrap">
-      <img src="images/dark_brown.jpeg" alt="Olá Brow Pencil Soft Black"/>
-      <span class="product-tag">New</span>
-      <div class="product-overlay">
-        <button class="overlay-btn" onclick="quickAdd('soft-black','Soft Black',18,'Olá Brow Pencil')">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product-info">
-      <p class="product-name">Olá Brow Pencil</p>
-      <p class="product-shade">Soft Black</p>
-      <div class="product-footer">
-        <span class="product-price">$18</span>
-        <button class="add-btn" onclick="quickAdd('soft-black','Soft Black',18,'Olá Brow Pencil')">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="product-card" data-category="duo" data-id="definer-duo" data-price="28" data-name="Brow Definer Duo" data-shade="Pencil + Gel Set">
-    <div class="product-img-wrap">
-      <img src="images/dark_brown.jpeg" alt="Brow Definer Duo"/>
-      <span class="product-tag">Best Value</span>
-      <div class="product-overlay">
-        <button class="overlay-btn" onclick="quickAdd('definer-duo','Pencil + Gel Set',28,'Brow Definer Duo')">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product-info">
-      <p class="product-name">Brow Definer Duo</p>
-      <p class="product-shade">Pencil + Gel Set</p>
-      <div class="product-footer">
-        <span class="product-price">$28</span>
-        <button class="add-btn" onclick="quickAdd('definer-duo','Pencil + Gel Set',28,'Brow Definer Duo')">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="product-card" data-category="gel" data-id="brow-gel" data-price="16" data-name="Precision Brow Gel" data-shade="Clear">
-    <div class="product-img-wrap">
-      <img src="images/dark_brown.jpeg" alt="Precision Brow Gel"/>
-      <span class="product-tag">New</span>
-      <div class="product-overlay">
-        <button class="overlay-btn" onclick="quickAdd('brow-gel','Clear',16,'Precision Brow Gel')">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product-info">
-      <p class="product-name">Precision Brow Gel</p>
-      <p class="product-shade">Clear</p>
-      <div class="product-footer">
-        <span class="product-price">$16</span>
-        <button class="add-btn" onclick="quickAdd('brow-gel','Clear',16,'Precision Brow Gel')">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="product-card" data-category="pencil" data-id="microblade" data-price="22" data-name="Microblade Effect Pen" data-shade="Soft Black">
-    <div class="product-img-wrap">
-      <img src="images/dark_brown.jpeg" alt="Microblade Effect Pen"/>
-      <span class="product-tag">New</span>
-      <div class="product-overlay">
-        <button class="overlay-btn" onclick="quickAdd('microblade','Soft Black',22,'Microblade Effect Pen')">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product-info">
-      <p class="product-name">Microblade Effect Pen</p>
-      <p class="product-shade">Soft Black</p>
-      <div class="product-footer">
-        <span class="product-price">$22</span>
-        <button class="add-btn" onclick="quickAdd('microblade','Soft Black',22,'Microblade Effect Pen')">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="product-card" data-category="oil" data-id="brow-oil" data-price="20" data-name="Brow Care Oil" data-shade="Nourishing">
-    <div class="product-img-wrap">
-      <img src="images/dark_brown.jpeg" alt="Brow Care Oil"/>
-      <span class="product-tag">New</span>
-      <div class="product-overlay">
-        <button class="overlay-btn" onclick="quickAdd('brow-oil','Nourishing',20,'Brow Care Oil')">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product-info">
-      <p class="product-name">Brow Care Oil</p>
-      <p class="product-shade">Nourishing Treatment</p>
-      <div class="product-footer">
-        <span class="product-price">$20</span>
-        <button class="add-btn" onclick="quickAdd('brow-oil','Nourishing',20,'Brow Care Oil')">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-
+  <div style="grid-column:1/-1;text-align:center;padding:3rem;color:rgba(26,15,15,0.4);font-size:0.88rem;">Loading products...</div>
 </div>
 
 <!-- FOOTER -->
@@ -699,6 +591,56 @@ async function submitPayment(){
     else if(paymentIntent.status==='succeeded'){closeCheckout();document.getElementById('successOverlay').style.display='flex';}
   }catch(err){errEl.textContent='Payment failed. Please try again.';errEl.style.display='block';btn.disabled=false;btnText.textContent='Pay Now';}
 }
+
+// Load products from API
+const PRODUCT_CATEGORIES = {
+  'Olá Brow Pencil': 'pencil',
+  'Brow Definer Duo': 'duo',
+  'Precision Brow Gel': 'gel',
+  'Brow Care Oil': 'oil',
+  'Microblade Effect Pen': 'pencil',
+  'Brow Care': 'oil'
+};
+
+async function loadProducts() {
+  try {
+    const res = await fetch('https://api.olabrows.store/api/products');
+    const products = await res.json();
+    const grid = document.getElementById('shopGrid');
+    document.getElementById('productCount').textContent = products.length + ' products';
+
+    grid.innerHTML = products.map(p => {
+      const pid = p.name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+      const cat = Object.entries(PRODUCT_CATEGORIES).find(([k]) => p.name.includes(k))?.[1] || 'other';
+      const img = p.imageUrl || 'images/dark_brown.jpeg';
+      return `
+      <div class="product-card" data-category="${cat}" data-id="${pid}" data-price="${p.price}" data-name="${p.name}" data-shade="${p.shade || ''}">
+        <div class="product-img-wrap">
+          <img src="${img}" alt="${p.name}"/>
+          <span class="product-tag">New</span>
+          <div class="product-overlay">
+            <button class="overlay-btn" onclick="quickAdd('${pid}','${p.shade||''}',${p.price},'${p.name}')">Add to Cart</button>
+          </div>
+        </div>
+        <p class="product-name">${p.name}</p>
+        <p class="product-shade">${p.shade || ''}</p>
+        <div class="product-footer">
+          <span class="product-price">$${p.price}</span>
+          <button class="add-btn" onclick="quickAdd('${pid}','${p.shade||''}',${p.price},'${p.name}')">Add to Cart</button>
+        </div>
+      </div>`;
+    }).join('');
+
+    // Re-apply active filter
+    const activeFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+    filterProducts(activeFilter);
+  } catch(e) {
+    document.getElementById('shopGrid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:rgba(26,15,15,0.4);">Unable to load products. Please refresh.</div>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadProducts);
+
 </script>
 </body>
 </html>

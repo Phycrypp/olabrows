@@ -1091,7 +1091,7 @@ footer{
 
 <!-- MOBILE BOTTOM BAR -->
 <div class="mobile-bottom-bar">
-  <a href="/shop" class="mob-bar-shop">Shop the Collection</a>
+  <a href="shop.html" class="mob-bar-shop">Shop the Collection</a>
   <button class="mob-bar-cart" onclick="openCart()">
     <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
     <span class="mob-bar-cart-count" id="mobCartCount">0</span>
@@ -1114,7 +1114,7 @@ footer{
     <div class="cart-empty">
       <p class="cart-empty-icon">✦</p>
       <p class="cart-empty-text">Your cart is empty</p>
-      <a href="/shop" class="cart-shop-link" onclick="closeCart()">Browse the collection →</a>
+      <a href="shop.html" class="cart-shop-link" onclick="closeCart()">Browse the collection →</a>
     </div>
   </div>
   <div class="cart-footer" id="cartFooter" style="display:none">
@@ -1137,10 +1137,10 @@ footer{
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" onclick="closeMobileMenu()">×</button>
-  <a href="/shop" onclick="closeMobileMenu()">Shop</a>
-  <a href="#story" onclick="closeMobileMenu()">About</a>
-  <a href="https://instagram.com/Olaoluwa_0" target="_blank" onclick="closeMobileMenu()">Instagram</a>
-  <a href="/early-access" onclick="closeMobileMenu()">Early Access</a>
+  <a href="shop.html" onclick="closeMobileMenu()">Shop</a>
+  <a href="about.html" onclick="closeMobileMenu()">About</a>
+  <a href="https://instagram.com/browedbyola" target="_blank" onclick="closeMobileMenu()">Instagram</a>
+  <a href="early-access.html" onclick="closeMobileMenu()">Early Access</a>
   <span class="mobile-menu-sub">Precision Brow Collection</span>
 </div>
 
@@ -1161,25 +1161,25 @@ footer{
 <!-- NAV -->
 <nav>
   <div class="nav-left">
-    <a href="/shop">Shop</a>
-    <a href="/about">About</a>
-    <a href="/gallery">Gallery</a>
-    <a href="/early-access">Early Access</a>
+    <a href="shop.html">Shop</a>
+    <a href="about.html">About</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="early-access.html">Early Access</a>
   </div>
   <button class="nav-hamburger" id="navHamburger" onclick="openMobileMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
   <div class="nav-center">
-    <a href="#">
+    <a href="index.html">
       <img src="images/logo.jpeg" alt="Browed by Olá"/>
     </a>
   </div>
   <div class="nav-right">
-    <a href="https://instagram.com/Olaoluwa_0" target="_blank">Instagram</a>
+    <a href="https://instagram.com/browedbyola" target="_blank">Instagram</a>
     <button class="cart-icon-btn" onclick="openCart()">
     Cart <span class="cart-badge" style="display:none">0</span>
   </button>
-    <a href="/early-access" class="nav-cart"><span>Get Early Access</span></a>
+    <a href="early-access.html" class="nav-cart"><span>Get Early Access</span></a>
   </div>
 </nav>
 
@@ -1194,8 +1194,8 @@ footer{
     </h1>
     <p class="hero-sub">Hair-like strokes. All-day wear. Effortless precision — made for every shade, every face, every moment.</p>
     <div class="hero-actions">
-      <a href="/shop" class="btn-dark"><span>Shop the Collection</span></a>
-      <a href="https://instagram.com/Olaoluwa_0" target="_blank" class="btn-outline">Follow Us</a>
+      <a href="shop.html" class="btn-dark"><span>Shop the Collection</span></a>
+      <a href="https://instagram.com/browedbyola" target="_blank" class="btn-outline">Follow Us</a>
     </div>
     <div class="hero-stats">
       <div>
@@ -1242,156 +1242,12 @@ footer{
 </div>
 
 <!-- STORY -->
-<section class="story" id="story">
-  <div class="story-image">
-    <img src="images/dark_brown.jpeg" alt="Ola Brow Pencil"/>
-  </div>
-  <div class="story-content reveal">
-    <p class="s-label">The Olá Story</p>
-    <h2>A son, a brother, and a <em>believer in beauty</em></h2>
-    <p>Browed by Olá was founded by a man who grew up surrounded by the women he loved most — his mother and three sisters. He watched beauty become a daily act of confidence, and decided the world needed better tools for it.</p>
-    <p>Every product is crafted with that same care — precision for every face, shades for every skin tone, and formulas built to last.</p>
-    <div class="story-pillars">
-      <div class="pillar reveal">
-        <div class="pillar-icon">✦</div>
-        <h4>Vegan Formula</h4>
-        <p>100% cruelty-free. Always.</p>
-      </div>
-      <div class="pillar reveal">
-        <div class="pillar-icon">◆</div>
-        <h4>All Skin Tones</h4>
-        <p>Every shade, every face.</p>
-      </div>
-      <div class="pillar reveal">
-        <div class="pillar-icon">✿</div>
-        <h4>12-Hour Wear</h4>
-        <p>From morning to midnight.</p>
-      </div>
-      <div class="pillar reveal">
-        <div class="pillar-icon">◈</div>
-        <h4>Precision Tip</h4>
-        <p>Hair-stroke perfection.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRODUCTS -->
-<section class="products-section" id="shop">
-  <div class="section-header reveal">
-    <div>
-      <p class="s-label">The Collection</p>
-      <h2>Shop <em>All</em></h2>
-    </div>
-    <p>Six precision-crafted brow products launching soon. Join the list for early access and 15% off.</p>
-  </div>
-  <!-- Category Filters -->
-  <div class="shop-filters">
-    <button class="filter-btn active" onclick="filterProducts('all')">All</button>
-    <button class="filter-btn" onclick="filterProducts('pencil')">Brow Pencils</button>
-    <button class="filter-btn" onclick="filterProducts('gel')">Brow Gels</button>
-    <button class="filter-btn" onclick="filterProducts('oil')">Brow Oils</button>
-    <button class="filter-btn" onclick="filterProducts('duo')">Sets & Duos</button>
-  </div>
-
-  <div class="products-grid">
-
-    <div class="product-card reveal" data-href="product-dark-brown.html" data-category="pencil">
-      <div class="product-img-wrap">
-        <img src="images/dark_brown.jpeg" alt="Ola Brow Pencil Dark Brown"/>
-        <span class="product-tag new">New</span>
-        <div class="product-overlay">
-          <button class="overlay-btn notify-btn">Add to Cart</button>
-        </div>
-      </div>
-      <p class="product-name">Olá Brow Pencil</p>
-      <p class="product-shade">Dark Brown</p>
-      <div class="product-footer">
-        <span class="product-price">$18</span>
-        <button class="notify-btn">Add to Cart</button>
-      </div>
-    </div>
-
-    <div class="product-card reveal" data-href="product-soft-black.html" data-category="pencil">
-      <div class="product-img-wrap">
-        <img src="images/dark_brown.jpeg" alt="Ola Brow Pencil Soft Black"/>
-        <span class="product-tag new">New</span>
-        <div class="product-overlay">
-          <button class="overlay-btn notify-btn">Add to Cart</button>
-        </div>
-      </div>
-      <p class="product-name">Olá Brow Pencil</p>
-      <p class="product-shade">Soft Black</p>
-      <div class="product-footer">
-        <span class="product-price">$18</span>
-        <button class="notify-btn">Add to Cart</button>
-      </div>
-    </div>
-
-    <div class="product-card reveal" data-href="product-definer-duo.html" data-category="duo">
-      <div class="product-img-wrap">
-        <img src="images/dark_brown.jpeg" alt="Brow Definer Duo"/>
-        <span class="product-tag">New</span>
-        <div class="product-overlay">
-          <button class="overlay-btn notify-btn">Add to Cart</button>
-        </div>
-      </div>
-      <p class="product-name">Brow Definer Duo</p>
-      <p class="product-shade">Pencil + Gel Set</p>
-      <div class="product-footer">
-        <span class="product-price">$28</span>
-        <button class="notify-btn">Add to Cart</button>
-      </div>
-    </div>
-
-    <div class="product-card reveal" data-href="product-brow-gel.html" data-category="gel">
-      <div class="product-img-wrap">
-        <img src="images/dark_brown.jpeg" alt="Precision Brow Gel Clear"/>
-        <span class="product-tag">New</span>
-        <div class="product-overlay">
-          <button class="overlay-btn notify-btn">Add to Cart</button>
-        </div>
-      </div>
-      <p class="product-name">Precision Brow Gel</p>
-      <p class="product-shade">Clear</p>
-      <div class="product-footer">
-        <span class="product-price">$16</span>
-        <button class="notify-btn">Add to Cart</button>
-      </div>
-    </div>
-
-    <div class="product-card reveal" data-href="product-microblade.html" data-category="pencil">
-      <div class="product-img-wrap">
-        <img src="images/dark_brown.jpeg" alt="Microblade Effect Pen"/>
-        <span class="product-tag">New</span>
-        <div class="product-overlay">
-          <button class="overlay-btn notify-btn">Add to Cart</button>
-        </div>
-      </div>
-      <p class="product-name">Microblade Effect Pen</p>
-      <p class="product-shade">Dark Brown / Soft Black</p>
-      <div class="product-footer">
-        <span class="product-price">$22</span>
-        <button class="notify-btn">Add to Cart</button>
-      </div>
-    </div>
-
-    <div class="product-card reveal" data-href="product-brow-oil.html" data-category="oil">
-      <div class="product-img-wrap">
-        <img src="images/dark_brown.jpeg" alt="Brow Care Oil"/>
-        <span class="product-tag">New</span>
-        <div class="product-overlay">
-          <button class="overlay-btn notify-btn">Add to Cart</button>
-        </div>
-      </div>
-      <p class="product-name">Brow Care Oil</p>
-      <p class="product-shade">Nourishing Treatment</p>
-      <div class="product-footer">
-        <span class="product-price">$20</span>
-        <button class="notify-btn">Add to Cart</button>
-      </div>
-    </div>
-
+<section class="home-cta" style="padding:5rem 1.5rem;text-align:center;">
+  <p style="font-family:'DM Sans',sans-serif;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;margin:0 0 1rem;">The Precision Brow Collection</p>
+  <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(2rem,5vw,3rem);margin:0 0 2rem;">Six products. One perfect arch.</h2>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="shop.html" style="display:inline-block;background:var(--ink);color:white;text-decoration:none;padding:0.9rem 2rem;font-family:'DM Sans',sans-serif;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;">Shop the collection</a>
+    <a href="about.html" style="display:inline-block;border:1px solid var(--ink);color:var(--ink);text-decoration:none;padding:0.9rem 2rem;font-family:'DM Sans',sans-serif;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;">Our story</a>
   </div>
 </section>
 
@@ -1431,19 +1287,19 @@ footer{
     <span class="insta-handle">@Olaoluwa_0</span>
   </div>
   <div class="insta-grid">
-    <a class="insta-item reveal" href="https://instagram.com/Olaoluwa_0" target="_blank">
+    <a class="insta-item reveal" href="https://instagram.com/browedbyola" target="_blank">
       <img src="images/dark_brown.jpeg" alt="Instagram"/>
     </a>
-    <a class="insta-item reveal" href="https://instagram.com/Olaoluwa_0" target="_blank">
+    <a class="insta-item reveal" href="https://instagram.com/browedbyola" target="_blank">
       <img src="images/dark_brown.jpeg" alt="Instagram"/>
     </a>
-    <a class="insta-item reveal" href="https://instagram.com/Olaoluwa_0" target="_blank">
+    <a class="insta-item reveal" href="https://instagram.com/browedbyola" target="_blank">
       <img src="images/logo.jpeg" alt="Instagram"/>
     </a>
-    <a class="insta-item reveal" href="https://instagram.com/Olaoluwa_0" target="_blank">
+    <a class="insta-item reveal" href="https://instagram.com/browedbyola" target="_blank">
       <img src="images/dark_brown.jpeg" alt="Instagram"/>
     </a>
-    <a class="insta-item reveal" href="https://instagram.com/Olaoluwa_0" target="_blank">
+    <a class="insta-item reveal" href="https://instagram.com/browedbyola" target="_blank">
       <img src="images/dark_brown.jpeg" alt="Instagram"/>
     </a>
   </div>
@@ -1460,18 +1316,18 @@ footer{
     <div class="footer-col">
       <h4>Shop</h4>
       <ul>
-        <li><a href="/shop">All Products</a></li>
-        <li><a href="/shop">Brow Pencils</a></li>
-        <li><a href="/shop">Brow Gels</a></li>
-        <li><a href="/shop">Brow Oils</a></li>
+        <li><a href="shop.html">All Products</a></li>
+        <li><a href="shop.html">Brow Pencils</a></li>
+        <li><a href="shop.html">Brow Gels</a></li>
+        <li><a href="shop.html">Brow Oils</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Brand</h4>
       <ul>
-        <li><a href="/about">Our Story</a></li>
-        <li><a href="/early-access">Early Access</a></li>
-        <li><a href="https://instagram.com/Olaoluwa_0" target="_blank">Instagram</a>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="early-access.html">Early Access</a></li>
+        <li><a href="https://instagram.com/browedbyola" target="_blank">Instagram</a>
     <button class="cart-icon-btn" onclick="openCart()">
     Cart <span class="cart-badge" style="display:none">0</span>
   </button></li>
@@ -1490,7 +1346,7 @@ footer{
   <div class="footer-bottom">
     <p>© 2025 Browed by Olá. All rights reserved.</p>
     <div class="social-links">
-      <a href="https://instagram.com/Olaoluwa_0" target="_blank">Instagram</a>
+      <a href="https://instagram.com/browedbyola" target="_blank">Instagram</a>
     <button class="cart-icon-btn" onclick="openCart()">
     Cart <span class="cart-badge" style="display:none">0</span>
   </button>
@@ -1576,7 +1432,7 @@ function filterProducts(cat) {
 
 // Subscribe Form
 const API_URL = 'https://api.olabrows.store/api/subscribers';
-document.getElementById('sub-btn').addEventListener('click',async function(){
+document.getElementById('sub-btn')?.addEventListener('click',async function(){
   const name=document.getElementById('sub-name').value.trim();
   const email=document.getElementById('sub-email').value.trim();
   const msg=document.getElementById('sub-msg');
@@ -1696,7 +1552,7 @@ function renderCart() {
       <div class="cart-empty">
         <p class="cart-empty-icon">✦</p>
         <p class="cart-empty-text">Your cart is empty</p>
-        <a href="/shop" class="cart-shop-link" onclick="closeCart()">Browse the collection →</a>
+        <a href="shop.html" class="cart-shop-link" onclick="closeCart()">Browse the collection →</a>
       </div>`;
     footer.style.display = 'none';
     return;
@@ -2125,7 +1981,7 @@ async function submitPayment() {
 
 function openTracking(e) {
   e.preventDefault();
-  window.open('/tracking', '_blank');
+  window.open('tracking.html', '_blank');
 }
 
 function closeSuccess() {

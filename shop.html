@@ -6,7 +6,6 @@
 <title>Shop — Browed by Olá</title>
 <link rel="icon" href="images/logo.jpeg"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-<script src="https://js.stripe.com/v3/"></script>
 <style>
 :root{
   --ink:#1a0f0f;
@@ -539,9 +538,9 @@ function openMobileMenu(){ document.getElementById('mobileMenu').classList.add('
 function closeMobileMenu(){ document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('navHamburger').classList.remove('open'); document.body.style.overflow=''; }
 
 // ── STRIPE ──
-const STRIPE_PK = 'pk_test_51T9Pf5H89fmrRLoRysTJiavln953rVB55V3B6qd1d6GFYtgXK3MYadNHC2td5RSITPN1tZCLz4ZB9LHJ2TrxRchu00Y4GHL64J';
-const stripe = Stripe(STRIPE_PK);
-const elements = stripe.elements();
+// Stripe removed: payments now go through Paystack (checkout.html)
+const stripe = null;
+const elements = null;
 let cardNumberEl = null, cardExpiryEl = null, cardCvcEl = null;
 const fieldStyle = { style:{ base:{ fontFamily:"'DM Sans',sans-serif", fontSize:'16px', color:'#1a0f0f', '::placeholder':{color:'rgba(26,15,15,0.35)'} }, invalid:{color:'#c0392b'} } };
 

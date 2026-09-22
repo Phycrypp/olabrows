@@ -1085,7 +1085,6 @@ footer{
 .cart-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
 </style>
-<script src="https://js.stripe.com/v3/"></script>
   <script src="js/config.js"></script>
 </head>
 <body>
@@ -1816,9 +1815,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // ═══════════════════════════════════════
 //  STRIPE CHECKOUT
 // ═══════════════════════════════════════
-const STRIPE_PK = 'pk_test_51T9Pf5H89fmrRLoRysTJiavln953rVB55V3B6qd1d6GFYtgXK3MYadNHC2td5RSITPN1tZCLz4ZB9LHJ2TrxRchu00Y4GHL64J';
-const stripe = Stripe(STRIPE_PK);
-const elements = stripe.elements();
+// Stripe removed: payments now go through Paystack (checkout.html)
+const stripe = null;
+const elements = null;
 let cardNumberEl = null, cardExpiryEl = null, cardCvcEl = null;
 
 const fieldStyle = {

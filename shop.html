@@ -594,49 +594,51 @@ async function submitPayment(){
 }
 
 // Load products from API
-const PRODUCT_CATEGORIES = {
-  'Olá Brow Pencil': 'pencil',
-  'Brow Definer Duo': 'duo',
-  'Precision Brow Gel': 'gel',
-  'Brow Care Oil': 'oil',
-  'Microblade Effect Pen': 'pencil',
-  'Brow Care': 'oil'
-};
+const SLUG_CATEGORIES = { 'dark-brown':'pencil', 'soft-black':'pencil', 'microblade':'pencil', 'brow-gel':'gel', 'brow-oil':'oil', 'definer-duo':'duo' };
+const naira = new Intl.NumberFormat('en-NG', { style:'currency', currency:'NGN', maximumFractionDigits:0 });
+function makeEl(tag, cls, text) { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
 
 async function loadProducts() {
+  const grid = document.getElementById('shopGrid');
   try {
     const res = await fetch(window.OLA_API_BASE + '/api/products');
-    const products = await res.json();
-    const grid = document.getElementById('shopGrid');
-    document.getElementById('productCount').textContent = products.length + ' products';
-
-    grid.innerHTML = products.map(p => {
-      const pid = p.name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
-      const cat = Object.entries(PRODUCT_CATEGORIES).find(([k]) => p.name.includes(k))?.[1] || 'other';
-      const img = p.imageUrl || 'images/dark_brown.jpeg';
-      return `
-      <div class="product-card" data-category="${cat}" data-id="${pid}" data-price="${p.price}" data-name="${p.name}" data-shade="${p.shade || ''}">
-        <div class="product-img-wrap">
-          <img src="${img}" alt="${p.name}"/>
-          <span class="product-tag">New</span>
-          <div class="product-overlay">
-            <button class="overlay-btn" onclick="quickAdd('${pid}','${p.shade||''}',${p.price},'${p.name}')">Add to Cart</button>
-          </div>
-        </div>
-        <p class="product-name">${p.name}</p>
-        <p class="product-shade">${p.shade || ''}</p>
-        <div class="product-footer">
-          <span class="product-price">$${p.price}</span>
-          <button class="add-btn" onclick="quickAdd('${pid}','${p.shade||''}',${p.price},'${p.name}')">Add to Cart</button>
-        </div>
-      </div>`;
-    }).join('');
-
-    // Re-apply active filter
-    const activeFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
-    filterProducts(activeFilter);
-  } catch(e) {
-    document.getElementById('shopGrid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:rgba(26,15,15,0.4);">Unable to load products. Please refresh.</div>';
+    if (!res.ok) throw new Error('API returned ' + res.status);
+    const products = (await res.json()).filter(p => p.active !== false && p.slug);
+    document.getElementById('productCount').textContent = products.length + (products.length === 1 ? ' product' : ' products');
+    grid.replaceChildren(...products.map(p => {
+      const card = makeEl('div', 'product-card');
+      card.dataset.category = SLUG_CATEGORIES[p.slug] || 'other';
+      card.dataset.id = p.slug; card.dataset.price = p.price; card.dataset.name = p.name || ''; card.dataset.shade = p.variant || '';
+      const soldOut = Number(p.stock) <= 0;
+      const add = () => quickAdd(p.slug, p.variant || '', Number(p.price), p.name || '');
+      const wrap = makeEl('div', 'product-img-wrap');
+      const img = document.createElement('img');
+      img.src = p.imageUrl || ('images/' + p.slug.replace(/-/g, '_') + '.jpeg'); img.alt = p.name || '';
+      wrap.append(img);
+      if (p.badge || soldOut) wrap.append(makeEl('span', 'product-tag', soldOut ? 'Sold out' : p.badge));
+      const overlay = makeEl('div', 'product-overlay');
+      const overlayBtn = makeEl('button', 'overlay-btn', soldOut ? 'Sold out' : 'Add to Cart');
+      overlayBtn.disabled = soldOut; overlayBtn.addEventListener('click', add); overlay.append(overlayBtn); wrap.append(overlay);
+      const footer = makeEl('div', 'product-footer');
+      footer.append(makeEl('span', 'product-price', naira.format(Number(p.price) || 0)));
+      const addBtn = makeEl('button', 'add-btn', soldOut ? 'Sold out' : 'Add to Cart');
+      addBtn.disabled = soldOut; addBtn.addEventListener('click', add); footer.append(addBtn);
+      card.append(wrap, makeEl('p', 'product-name', p.name || ''), makeEl('p', 'product-shade', p.variant || ''), footer);
+      return card;
+    }));
+    if (!products.length) {
+      const empty = makeEl('div', null, 'New products are on the way. Check back soon.');
+      empty.style.cssText = 'grid-column:1/-1;text-align:center;padding:3rem;color:rgba(26,15,15,0.4);';
+      grid.replaceChildren(empty);
+    }
+    const activeBtn = document.querySelector('.filter-btn.active') || document.querySelector('.filter-btn');
+    const activeFilter = activeBtn?.dataset.filter || 'all';
+    if (activeBtn) activeBtn.click();
+  } catch (e) {
+    console.error('Shop failed to load products:', e);
+    const msg = makeEl('div', null, 'Unable to load products. Please refresh.');
+    msg.style.cssText = 'grid-column:1/-1;text-align:center;padding:3rem;color:rgba(26,15,15,0.4);';
+    grid.replaceChildren(msg);
   }
 }
 

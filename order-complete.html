@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src http://127.0.0.1:8080 https://api.olabrows.store; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Your order — Browed by Olá</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#1a0f0f; --deep:#5c1e1e; --cream:#faf7f4; --blush:#f5ece8; --line:rgba(26,15,15,0.12); --muted:rgba(26,15,15,0.55); }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--cream); color:var(--ink); font:300 16px/1.6 'DM Sans', system-ui, sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+  header { padding:1.25rem clamp(1rem,4vw,3rem); border-bottom:1px solid var(--line); }
+  .brand { font-family:'Playfair Display', Georgia, serif; font-size:1.25rem; color:inherit; text-decoration:none; }
+  main { flex:1; display:flex; align-items:center; justify-content:center; padding:3rem 1.25rem; }
+  .card { max-width:34rem; width:100%; text-align:center; }
+  h1 { font-family:'Playfair Display', Georgia, serif; font-weight:400; font-size:clamp(2rem,5vw,2.8rem); line-height:1.15; margin-bottom:.75rem; }
+  p { color:var(--muted); }
+  .summary { text-align:left; background:var(--blush); border-radius:6px; padding:1.25rem 1.5rem; margin:2rem 0; }
+  .summary div { display:flex; justify-content:space-between; gap:1rem; padding:.4rem 0; }
+  .summary dt { color:var(--muted); }
+  .summary dd { text-align:right; font-variant-numeric:tabular-nums; }
+  .actions a { display:inline-block; padding:.85rem 1.75rem; background:var(--ink); color:var(--cream); text-decoration:none; border-radius:4px; }
+  .actions a:hover { background:var(--deep); }
+</style>
+<script src="js/config.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Browed by Olá</a></header>
+<main>
+  <div class="card" aria-live="polite">
+    <h1 id="title">Checking your payment…</h1>
+    <p id="message">This only takes a moment.</p>
+    <dl class="summary" id="summary" hidden></dl>
+    <div class="actions"><a href="shop.html" id="action">Back to the shop</a></div>
+  </div>
+</main>
+<script src="js/order-complete.js"></script>
+</body>
+</html>

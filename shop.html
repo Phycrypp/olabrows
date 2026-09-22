@@ -607,7 +607,7 @@ async function loadProducts() {
     document.getElementById('productCount').textContent = products.length + (products.length === 1 ? ' product' : ' products');
     grid.replaceChildren(...products.map(p => {
       const card = makeEl('div', 'product-card');
-      card.dataset.category = SLUG_CATEGORIES[p.slug] || 'other';
+      card.dataset.category = p.category || SLUG_CATEGORIES[p.slug] || 'other';
       card.dataset.id = p.slug; card.dataset.price = p.price; card.dataset.name = p.name || ''; card.dataset.shade = p.variant || '';
       const soldOut = Number(p.stock) <= 0;
       const add = () => quickAdd(p.slug, p.variant || '', Number(p.price), p.name || '');

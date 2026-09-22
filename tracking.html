@@ -185,7 +185,7 @@ if(order.orderNum) {
   document.getElementById('order-address').textContent = 
     order.name + ' · ' + order.city + ', ' + order.country;
   document.getElementById('order-email').textContent = order.email;
-  document.getElementById('order-total').textContent = '$' + order.total;
+  document.getElementById('order-total').textContent = olaNaira(order.total);
 
   // Format date
   const d = new Date(order.date);
@@ -202,7 +202,7 @@ if(order.orderNum) {
     order.items.forEach(item => {
       html += `<div class="order-row">
         <span class="order-row-label">${item.name}</span>
-        <span class="order-row-val">${item.shade} × ${item.qty} — $${(item.price*item.qty).toFixed(2)}</span>
+        <span class="order-row-val">${item.shade} × ${item.qty} — ${olaNaira(item.price*item.qty)}</span>
       </div>`;
     });
     document.getElementById('order-items').innerHTML = html;

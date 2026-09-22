@@ -474,13 +474,13 @@ function renderCart(){
             <span>${item.qty}</span>
             <button class="cart-qty-btn" onclick="updateQty('${item.id}','${item.shade}',1)">+</button>
           </div>
-          <p class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</p>
+          <p class="cart-item-price">${olaNaira(item.price * item.qty)}</p>
         </div>
       </div>
       <button class="cart-item-remove" onclick="removeFromCart('${item.id}','${item.shade}')">×</button>
     </div>
   `).join('');
-  document.getElementById('cartSubtotal').textContent = '$' + cartTotal().toFixed(2);
+  document.getElementById('cartSubtotal').textContent = olaNaira(cartTotal());
 }
 
 function updateQty(id, shade, delta){
@@ -551,9 +551,9 @@ function startCheckout(){
   let html = '<div style="margin-bottom:0.75rem;">'; let total = 0;
   items.forEach(item => {
     const sub = item.price * item.qty; total += sub;
-    html += `<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span>${item.name} × ${item.qty}</span><span>$${sub.toFixed(2)}</span></div>`;
+    html += `<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span>${item.name} × ${item.qty}</span><span>${olaNaira(sub)}</span></div>`;
   });
-  html += `</div><div style="border-top:1px solid var(--smoke);padding-top:0.75rem;display:flex;justify-content:space-between;font-weight:500;"><span>Total</span><span>$${total.toFixed(2)}</span></div>`;
+  html += `</div><div style="border-top:1px solid var(--smoke);padding-top:0.75rem;display:flex;justify-content:space-between;font-weight:500;"><span>Total</span><span>${olaNaira(total)}</span></div>`;
   document.getElementById('checkoutSummary').innerHTML = html;
   document.getElementById('checkoutOverlay').style.display = 'flex';
   document.body.style.overflow = 'hidden';
@@ -645,6 +645,7 @@ async function loadProducts() {
 document.addEventListener('DOMContentLoaded', loadProducts);
 
 </script>
+<script src="js/cart-prices.js"></script>
 <script src="js/checkout-link.js"></script>
 </body>
 </html>

@@ -763,14 +763,14 @@ function renderCart() {
             <span>${item.qty}</span>
             <button class="cart-qty-btn" onclick="updateQty('${item.id}','${item.shade}',1)">+</button>
           </div>
-          <p class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</p>
+          <p class="cart-item-price">${olaNaira(item.price * item.qty)}</p>
         </div>
       </div>
       <button class="cart-item-remove" onclick="removeFromCart('${item.id}','${item.shade}')">×</button>
     </div>
   `).join('');
 
-  document.getElementById('cartSubtotal').textContent = '$${cartTotal().toFixed(2)}';
+  document.getElementById('cartSubtotal').textContent = olaNaira(cartTotal());
 }
 
 function openCart() {
@@ -837,7 +837,8 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <!-- ============================================
      BROWED BY OLÁ — AI Beauty Advisor Widget
-     Add this before <script src="js/checkout-link.js"></script>
+     Add this before <script src="js/cart-prices.js"></script>
+<script src="js/checkout-link.js"></script>
 </body> on every page
      ============================================ -->
 

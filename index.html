@@ -1086,6 +1086,7 @@ footer{
 
 </style>
 <script src="https://js.stripe.com/v3/"></script>
+  <script src="js/config.js"></script>
 </head>
 <body>
 
@@ -1431,7 +1432,7 @@ function filterProducts(cat) {
 }
 
 // Subscribe Form
-const API_URL = 'https://api.olabrows.store/api/subscribers';
+const API_URL = window.OLA_API_BASE + '/api/subscribers';
 document.getElementById('sub-btn')?.addEventListener('click',async function(){
   const name=document.getElementById('sub-name').value.trim();
   const email=document.getElementById('sub-email').value.trim();
@@ -1942,7 +1943,7 @@ async function submitPayment() {
     const items = getCart();
     const total = items.reduce((sum, i) => sum + (i.price * i.qty), 0);
     const amountCents = Math.round(total * 100);
-    const intentRes = await fetch('https://api.olabrows.store/api/payment/create-intent', {
+    const intentRes = await fetch(window.OLA_API_BASE + '/api/payment/create-intent', {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ amount:amountCents, email, name, shipping:{address,city,zip,country} })
     });

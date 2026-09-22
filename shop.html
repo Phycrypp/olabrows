@@ -265,13 +265,14 @@ footer{padding:4rem 3rem 2rem;border-top:1px solid var(--smoke)}
 *{-webkit-tap-highlight-color:transparent}
 input,textarea,select{font-size:16px!important}
 </style>
+  <script src="js/config.js"></script>
 </head>
 <body>
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" onclick="closeMobileMenu()">×</button>
-  <a href="/ onclick="closeMobileMenu()">Home</a>
+  <a href="index.html" onclick="closeMobileMenu()">Home</a>
   <a href="shop.html" onclick="closeMobileMenu()" style="color:var(--deep);opacity:1">Shop</a>
   <a href="/#story" onclick="closeMobileMenu()">About</a>
   <a href="https://instagram.com/browedbyola" target="_blank" onclick="closeMobileMenu()">Instagram</a>
@@ -308,7 +309,7 @@ input,textarea,select{font-size:16px!important}
 <!-- NAV -->
 <nav>
   <div class="nav-left">
-    <a href="/>Home</a>
+    <a href="index.html">Home</a>
     <a href="shop.html" class="active">Shop</a>
     <a href="/#story">About</a>
     <a href="/#subscribe">Early Access</a>
@@ -317,7 +318,7 @@ input,textarea,select{font-size:16px!important}
     <span></span><span></span><span></span>
   </button>
   <div class="nav-center">
-    <a href="/>
+    <a href="index.html">
       <img src="images/logo.jpeg" alt="Browed by Olá"/>
     </a>
   </div>
@@ -368,7 +369,7 @@ input,textarea,select{font-size:16px!important}
 
 <!-- MOBILE BOTTOM BAR -->
 <div class="mobile-bottom-bar">
-  <a href="/ class="mob-bar-home">← Back to Home</a>
+  <a href="index.html" class="mob-bar-home">← Back to Home</a>
   <button class="mob-bar-cart" onclick="openCart()">
     <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
     <span class="mob-bar-cart-count" id="mobCartCount">0</span>
@@ -583,7 +584,7 @@ async function submitPayment(){
     const items = JSON.parse(localStorage.getItem('ola_cart')||'[]');
     const total = items.reduce((s,i)=>s+(i.price*i.qty),0);
     const amountCents = Math.round(total*100);
-    const res = await fetch('https://api.olabrows.store/api/payment/create-intent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount:amountCents,email,name})});
+    const res = await fetch(window.OLA_API_BASE + '/api/payment/create-intent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount:amountCents,email,name})});
     const {clientSecret, error:intentErr} = await res.json();
     if(intentErr) throw new Error(intentErr);
     const {error, paymentIntent} = await stripe.confirmCardPayment(clientSecret,{payment_method:{card:cardNumberEl,billing_details:{name,email}}});
@@ -604,7 +605,7 @@ const PRODUCT_CATEGORIES = {
 
 async function loadProducts() {
   try {
-    const res = await fetch('https://api.olabrows.store/api/products');
+    const res = await fetch(window.OLA_API_BASE + '/api/products');
     const products = await res.json();
     const grid = document.getElementById('shopGrid');
     document.getElementById('productCount').textContent = products.length + ' products';
